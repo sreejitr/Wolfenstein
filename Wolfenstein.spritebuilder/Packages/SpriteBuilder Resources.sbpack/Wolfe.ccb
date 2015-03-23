@@ -16,7 +16,7 @@
 	<key>currentResolution</key>
 	<integer>0</integer>
 	<key>currentSequenceId</key>
-	<integer>9</integer>
+	<integer>3</integer>
 	<key>docDimensionsType</key>
 	<integer>1</integer>
 	<key>fileType</key>
@@ -6275,7 +6275,7 @@
 		<key>children</key>
 		<array/>
 		<key>customClass</key>
-		<string></string>
+		<string>Wolfe</string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
@@ -6576,6 +6576,10 @@
 				<array/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
+		<key>seqExpanded</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -6627,7 +6631,7 @@
 			<key>length</key>
 			<real>0.86666667461395264</real>
 			<key>name</key>
-			<string>Default Timeline</string>
+			<string>Idle</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
@@ -6659,7 +6663,7 @@
 				<integer>12</integer>
 			</dict>
 			<key>chainedSequenceId</key>
-			<integer>1</integer>
+			<integer>-1</integer>
 			<key>length</key>
 			<real>1.7000000476837158</real>
 			<key>name</key>

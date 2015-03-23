@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		170604721ABB779500B3EB52 /* Gameplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 170604711ABB779500B3EB52 /* Gameplay.m */; };
 		1706047B1ABB807900B3EB52 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706047A1ABB807900B3EB52 /* Level.m */; };
+		17179E761ABD0D7800144940 /* Wolfe.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E751ABD0D7800144940 /* Wolfe.m */; };
+		17179E811ABF862400144940 /* Fister.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E801ABF862400144940 /* Fister.m */; };
+		17179E9B1ABFB39500144940 /* WinPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E9A1ABFB39500144940 /* WinPopUp.m */; };
 		5B121030197484FA004C1E1D /* WolfensteinActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B12102F197484FA004C1E1D /* WolfensteinActivity.m */; };
 		5B121038197487F2004C1E1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B737893E1807617C0076A88C /* AppDelegate.m */; };
 		7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
@@ -155,6 +158,12 @@
 		170604711ABB779500B3EB52 /* Gameplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gameplay.m; path = Source/Gameplay.m; sourceTree = "<group>"; };
 		170604791ABB807900B3EB52 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Level.h; path = Source/Level.h; sourceTree = "<group>"; };
 		1706047A1ABB807900B3EB52 /* Level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Level.m; path = Source/Level.m; sourceTree = "<group>"; };
+		17179E741ABD0D7800144940 /* Wolfe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wolfe.h; path = Source/Wolfe.h; sourceTree = "<group>"; };
+		17179E751ABD0D7800144940 /* Wolfe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Wolfe.m; path = Source/Wolfe.m; sourceTree = "<group>"; };
+		17179E7F1ABF862400144940 /* Fister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fister.h; path = Source/Fister.h; sourceTree = "<group>"; };
+		17179E801ABF862400144940 /* Fister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fister.m; path = Source/Fister.m; sourceTree = "<group>"; };
+		17179E991ABFB39500144940 /* WinPopUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WinPopUp.h; path = Source/WinPopUp.h; sourceTree = "<group>"; };
+		17179E9A1ABFB39500144940 /* WinPopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WinPopUp.m; path = Source/WinPopUp.m; sourceTree = "<group>"; };
 		5B12100919748273004C1E1D /* libEGL.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libEGL.so; path = /usr/lib/armv7a/libEGL.so; sourceTree = SDKROOT; };
 		5B12100F197483EE004C1E1D /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_launcher.png; sourceTree = "<group>"; };
 		5B121011197483EE004C1E1D /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_launcher.png; sourceTree = "<group>"; };
@@ -445,7 +454,13 @@
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				B7378992180767190076A88C /* MainScene.h */,
 				170604701ABB779500B3EB52 /* Gameplay.h */,
+				17179E991ABFB39500144940 /* WinPopUp.h */,
+				17179E9A1ABFB39500144940 /* WinPopUp.m */,
 				170604711ABB779500B3EB52 /* Gameplay.m */,
+				17179E7F1ABF862400144940 /* Fister.h */,
+				17179E801ABF862400144940 /* Fister.m */,
+				17179E741ABD0D7800144940 /* Wolfe.h */,
+				17179E751ABD0D7800144940 /* Wolfe.m */,
 				170604791ABB807900B3EB52 /* Level.h */,
 				1706047A1ABB807900B3EB52 /* Level.m */,
 				B7378993180767190076A88C /* MainScene.m */,
@@ -827,10 +842,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1706047B1ABB807900B3EB52 /* Level.m in Sources */,
+				17179E811ABF862400144940 /* Fister.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				170604721ABB779500B3EB52 /* Gameplay.m in Sources */,
+				17179E761ABD0D7800144940 /* Wolfe.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
+				17179E9B1ABFB39500144940 /* WinPopUp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
