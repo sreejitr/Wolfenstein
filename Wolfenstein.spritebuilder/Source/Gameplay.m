@@ -44,7 +44,6 @@ static NSString *selectedLevel = @"Level1";
     _loadedLevel = (Level *) [CCBReader load:selectedLevel owner:self];
     [_levelNode addChild:_loadedLevel];
     self.userInteractionEnabled = TRUE;
-//    *_healthLabel = "Health: 100%";
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
     [_physicsNode addChild:_wolfe];
     _wolfe.position = ccp(205, 110);
@@ -76,7 +75,13 @@ static NSString *selectedLevel = @"Level1";
                 points -= 5;
                 [self showScore];
                 [_fister punch];
-                [_wolfe hit];
+                if (points == 0) {
+                    [_wolfe hit];
+                    [_wolfe groundhit];
+                }
+                else {
+                    [_wolfe hit];
+                }
                 [self performSelector:@selector(turnoff_fister_attack) withObject:nil afterDelay:2.f];
 //                [_wolfe performSelector:@selector(idle) withObject:nil afterDelay:6.f];
 //                [_fister performSelector:@selector(idle) withObject:nil afterDelay:6.f];
@@ -124,18 +129,13 @@ static NSString *selectedLevel = @"Level1";
 //     _wolfe.physicsBody.velocity = ccp(5.f, _wolfe.physicsBody.velocity.y);
 //    _wolfe.position = touchLocation;
 
-    
-//    CCAnimationManager* animationManager = Wolfe.animationManager;
-//    [_wolfe];
     if (!_gameOver) {
         self.userInteractionEnabled = FALSE;
         if (!fister_attack) {
             wolfe_attack = TRUE;
             [_wolfe attack];
-//            [audio playEffect:@"lompat.mp3"];
             [_fister hit];
             fister_hit += 1;
-    //        wolfe_attack = FALSE;
             [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:3.f];
 //            [_wolfe performSelector:@selector(idle) withObject:nil afterDelay:6.f];
 //            [_fister performSelector:@selector(idle) withObject:nil afterDelay:6.f];

@@ -71,6 +71,10 @@
     [animationManager runAnimationsForSequenceNamed:@"Hit"];
 }
 
+- (void) groundhit {
+    [animationManager runAnimationsForSequenceNamed:@"Groundhit"];
+}
+
 - (void) block {
     [animationManager runAnimationsForSequenceNamed:@"Block"];
 }
