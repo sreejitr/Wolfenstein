@@ -12,4 +12,5 @@
 - (void) hit;
 - (void) idle;
 - (void) punch;
+- (void) groundhit;
 @end

@@ -134,9 +134,16 @@ static NSString *selectedLevel = @"Level1";
         if (!fister_attack) {
             wolfe_attack = TRUE;
             [_wolfe attack];
-            [_fister hit];
             fister_hit += 1;
-            [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:3.f];
+            if (fister_hit > 20) {
+                [_fister hit];
+                [_fister groundhit];
+            }
+            else {
+                [_fister hit];
+            }
+            
+            [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:2.f];
 //            [_wolfe performSelector:@selector(idle) withObject:nil afterDelay:6.f];
 //            [_fister performSelector:@selector(idle) withObject:nil afterDelay:6.f];
             _wolfe.position = ccp(205, 110);
