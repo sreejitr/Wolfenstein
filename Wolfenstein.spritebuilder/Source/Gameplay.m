@@ -24,6 +24,7 @@ static NSString *selectedLevel = @"Level1";
     CCNode *_levelNode;
     Level *_loadedLevel;
     CCLabelTTF *_healthLabel;
+    CCLabelTTF *_fisterHealth;
     CCLabelTTF *_winPopUpLabel;
     BOOL _jumped;
     double_t timeelapsed;
@@ -33,6 +34,7 @@ static NSString *selectedLevel = @"Level1";
     BOOL fister_attack;
     WinPopUp *popup;
     int points;
+    int points_fister;
     BOOL _gameOver;
 }
 
@@ -56,7 +58,9 @@ static NSString *selectedLevel = @"Level1";
     fister_hit = 0;
     timeelapsed = 0.0f;
     _healthLabel.visible = TRUE;
+    _fisterHealth.visible = TRUE;
     points = 100;
+    points_fister = 100;
     [self showScore];
     _gameOver = FALSE;
 }
@@ -91,14 +95,14 @@ static NSString *selectedLevel = @"Level1";
             timeelapsed = 0.0f;
             
         }
-        if (fister_hit > 20) {
+        if (points_fister == 0) {
             
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp" owner:self];
             popup.positionType = CCPositionTypeNormalized;
             popup.position = ccp(0.5, 0.5);
-            [self addChild:popup];
             [_wolfe stopAllActions];
             [_fister stopAllActions];
+            [self addChild:popup];
             _gameOver = TRUE;
 
         }
@@ -107,18 +111,22 @@ static NSString *selectedLevel = @"Level1";
             popup.positionType = CCPositionTypeNormalized;
             popup._winPopUpLabel.string = [NSString stringWithFormat:@"You Lose!!"];
             popup.position = ccp(0.5, 0.5);
-            [self addChild:popup];
             [_wolfe stopAllActions];
             [_fister stopAllActions];
+            [self addChild:popup];
             _gameOver = TRUE;
         }
     }
 }
 
+//- (void)
+
 - (void)showScore
 {
-    _healthLabel.string = [NSString stringWithFormat:@"Health: %d", points];
+    _healthLabel.string = [NSString stringWithFormat:@"Wolfe: %d", points];
     _healthLabel.visible = true;
+    _fisterHealth.string = [NSString stringWithFormat:@"Fister: %d", points_fister];
+    _fisterHealth.visible = true;
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -135,7 +143,9 @@ static NSString *selectedLevel = @"Level1";
             wolfe_attack = TRUE;
             [_wolfe attack];
             fister_hit += 1;
-            if (fister_hit > 20) {
+            points_fister -= 5;
+            [self showScore];
+            if (points_fister == 0) {
                 [_fister hit];
                 [_fister groundhit];
             }
