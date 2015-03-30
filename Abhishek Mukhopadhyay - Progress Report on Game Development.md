@@ -3,7 +3,7 @@
 
 Date: March 24th 2015
 
-What was the goal for last week..
+<b>What was the goal for last week..
 
 Build first version of a playable game
 
