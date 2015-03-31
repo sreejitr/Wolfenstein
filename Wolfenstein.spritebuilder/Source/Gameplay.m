@@ -11,6 +11,7 @@
 #import "Wolfe.h"
 #import "Fister.h"
 #import "WinPopUp.h"
+#import "CCActionFollow+CurrentOffset.h"
 
 static NSString * const kFirstLevel = @"Level1";
 static NSString *selectedLevel = @"Level1";
@@ -20,7 +21,7 @@ static NSString *selectedLevel = @"Level1";
     Wolfe *_wolfe;
     Fister *_fister;
     CCPhysicsNode *_physicsNode;
-    CCNode *_contentNode;
+//    CCNode *_contentNode;
     CCNode *_levelNode;
     Level *_loadedLevel;
     CCLabelTTF *_healthLabel;
@@ -36,6 +37,11 @@ static NSString *selectedLevel = @"Level1";
     int points;
     int points_fister;
     BOOL _gameOver;
+    CCButton *_leftButton;
+    CCButton *_rightButton;
+    CCButton *_punch;
+    CCButton *_jump;
+    BOOL rightface;
 }
 
 
@@ -49,6 +55,7 @@ static NSString *selectedLevel = @"Level1";
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
     [_physicsNode addChild:_wolfe];
     _wolfe.position = ccp(205, 110);
+    rightface = TRUE;
     _fister = (Fister*)[CCBReader load:@"Fister"];
     [_physicsNode addChild:_fister];
     _fister.position = ccp(370, 130);
@@ -65,18 +72,28 @@ static NSString *selectedLevel = @"Level1";
     _gameOver = FALSE;
 }
 
+- (void)onEnter {
+    [super onEnter];
+    
+    CCActionFollow *follow = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
+    _physicsNode.position = [follow currentOffset];
+    [_physicsNode runAction:follow];
+}
 
 -(void)update:(CCTime)delta
 {
+    if (_wolfe.position.x > _fister.position.x) {
+        rightface = FALSE;
+    }
     if (!_gameOver) {
         timeelapsed += delta;
-        if (timeelapsed > 1.f) {
+        if (timeelapsed > 2.f) {
         
             if (!wolfe_attack) {
-                self.userInteractionEnabled = FALSE;
+//                self.userInteractionEnabled = FALSE;
                 fister_attack = TRUE;
                 wolfe_hit += 1;
-                points -= 5;
+//                points -= 5;
                 [self showScore];
                 [_fister punch];
                 if (points == 0) {
@@ -89,7 +106,7 @@ static NSString *selectedLevel = @"Level1";
                 [self performSelector:@selector(turnoff_fister_attack) withObject:nil afterDelay:2.f];
 //                [_wolfe performSelector:@selector(idle) withObject:nil afterDelay:6.f];
 //                [_fister performSelector:@selector(idle) withObject:nil afterDelay:6.f];
-                _wolfe.position = ccp(225, 110);
+//                _wolfe.position = ccp(225, 110);
                 _fister.position = ccp(420, 130);
             }
             timeelapsed = 0.0f;
@@ -131,13 +148,10 @@ static NSString *selectedLevel = @"Level1";
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-//    CGPoint touchLocation = [touch locationInNode:_contentNode];
     NSLog(@"touch received");
-//    CCActionMoveBy *move = [CCActionMoveBy actionWithDuration:0.5 position:ccp(0, 50)];
-//     _wolfe.physicsBody.velocity = ccp(5.f, _wolfe.physicsBody.velocity.y);
-//    _wolfe.position = touchLocation;
 
     if (!_gameOver) {
+        
         self.userInteractionEnabled = FALSE;
         if (!fister_attack) {
             wolfe_attack = TRUE;
@@ -156,7 +170,7 @@ static NSString *selectedLevel = @"Level1";
             [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:2.f];
 //            [_wolfe performSelector:@selector(idle) withObject:nil afterDelay:6.f];
 //            [_fister performSelector:@selector(idle) withObject:nil afterDelay:6.f];
-            _wolfe.position = ccp(205, 110);
+//            _wolfe.position = ccp(205, 110);
             _fister.position = ccp(370, 130);
         }
         else {
@@ -167,6 +181,7 @@ static NSString *selectedLevel = @"Level1";
     
 }
 
+
 -(void) turnoff_wolfe_attack {
     wolfe_attack = FALSE;
     self.userInteractionEnabled = TRUE;
@@ -175,6 +190,26 @@ static NSString *selectedLevel = @"Level1";
 -(void) turnoff_fister_attack {
     fister_attack = FALSE;
     self.userInteractionEnabled = TRUE;
+}
+
+- (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
+{
+    // we want to know the location of our touch in this scene
+    CGPoint touchLocation = [touch locationInNode:self.parent];
+    if (touchLocation.x < _wolfe.position.x) {
+        [_wolfe walk];
+        CGSize size = [[CCDirector sharedDirector] viewSize];
+        id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-20, 0)];
+        [_wolfe runAction:moveLeft];
+    }
+    if (touchLocation.x > _wolfe.position.x) {
+        [_wolfe walk];
+        id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(10, 0)];
+        [_wolfe runAction:moveLeft];
+    }
+    NSLog(@"touch move received");
+    
+    
 }
 
 

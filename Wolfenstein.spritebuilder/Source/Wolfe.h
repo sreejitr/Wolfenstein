@@ -13,4 +13,5 @@
 - (void) attack;
 - (void) hit;
 - (void) groundhit;
+- (void) walk;
 @end

@@ -71,8 +71,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>400</real>
-							<real>114</real>
+							<real>400.39437866210938</real>
+							<real>183.98040771484375</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -96,8 +96,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>1.0009859800338745</real>
+							<real>0.57880675792694092</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -180,7 +180,7 @@
 						<key>value</key>
 						<array>
 							<real>400</real>
-							<real>99.818984985351562</real>
+							<real>166.17486572265625</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -204,8 +204,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>1.0008698701858521</real>
+							<real>0.67635804414749146</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -1047,11 +1047,11 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string></string>
+		<string>Level</string>
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
-		<string>_contentNode</string>
+		<string></string>
 		<key>memberVarAssignmentType</key>
 		<integer>2</integer>
 		<key>properties</key>
@@ -1085,9 +1085,9 @@
 				<string>Size</string>
 				<key>value</key>
 				<array>
-					<real>800</real>
 					<real>1</real>
-					<integer>0</integer>
+					<real>1</real>
+					<integer>2</integer>
 					<integer>2</integer>
 				</array>
 			</dict>
