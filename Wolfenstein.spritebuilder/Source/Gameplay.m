@@ -42,6 +42,7 @@ static NSString *selectedLevel = @"Level1";
     CCButton *_punch;
     CCButton *_jump;
     BOOL rightface;
+    CCAction *_followWolfe;
 }
 
 
@@ -58,7 +59,7 @@ static NSString *selectedLevel = @"Level1";
     rightface = TRUE;
     _fister = (Fister*)[CCBReader load:@"Fister"];
     [_physicsNode addChild:_fister];
-    _fister.position = ccp(370, 130);
+    _fister.position = ccp(370, 110);
     wolfe_attack = FALSE;
     fister_attack = FALSE;
     wolfe_hit = 0;
@@ -89,8 +90,8 @@ static NSString *selectedLevel = @"Level1";
         timeelapsed += delta;
         if (timeelapsed > 2.f) {
         
-            if (!wolfe_attack) {
-//                self.userInteractionEnabled = FALSE;
+            if (!wolfe_attack && fabsf(_wolfe.position.x - _fister.position.x) < 200) {
+                self.userInteractionEnabled = FALSE;
                 fister_attack = TRUE;
                 wolfe_hit += 1;
 //                points -= 5;
@@ -110,6 +111,7 @@ static NSString *selectedLevel = @"Level1";
                 _fister.position = ccp(420, 130);
             }
             timeelapsed = 0.0f;
+            
             
         }
         if (points_fister == 0) {
@@ -153,7 +155,10 @@ static NSString *selectedLevel = @"Level1";
     if (!_gameOver) {
         
         self.userInteractionEnabled = FALSE;
-        if (!fister_attack) {
+        NSLog([NSString stringWithFormat:@"Wolfe: %f", _wolfe.position.x]);
+        NSLog([NSString stringWithFormat:@"Fister: %f", _fister.position.x]);
+        NSLog([NSString stringWithFormat:@"diff: %f", fabsf(_wolfe.position.x - _fister.position.x)]);
+        if (!fister_attack && fabsf(_wolfe.position.x - _fister.position.x) < 200) {
             wolfe_attack = TRUE;
             [_wolfe attack];
             fister_hit += 1;
@@ -174,6 +179,8 @@ static NSString *selectedLevel = @"Level1";
             _fister.position = ccp(370, 130);
         }
         else {
+            [self wolfe_idle];
+            self.userInteractionEnabled = TRUE;
             
         }
     
@@ -195,23 +202,40 @@ static NSString *selectedLevel = @"Level1";
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
     // we want to know the location of our touch in this scene
+//    [_wolfe stopAllActions];
+    self.userInteractionEnabled = TRUE;
+    [_fister idle];
     CGPoint touchLocation = [touch locationInNode:self.parent];
-    if (touchLocation.x < _wolfe.position.x) {
+//    if(!CGRectIntersectsRect(_wolfe.boundingBox, _fister.boundingBox)){
+//    wolfeCollision =
+    if (touchLocation.x < _wolfe.position.x && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90)){
         [_wolfe walk];
-        CGSize size = [[CCDirector sharedDirector] viewSize];
+//        CGSize size = [[CCDirector sharedDirector] viewSize];
         id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-20, 0)];
         [_wolfe runAction:moveLeft];
+        [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
+        
     }
-    if (touchLocation.x > _wolfe.position.x) {
+    if (touchLocation.x > _wolfe.position.x && (_wolfe.position.x + 20 > (_loadedLevel.boundingBox.origin.x + _loadedLevel.boundingBox.size.width - 90))) {
         [_wolfe walk];
         id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(10, 0)];
         [_wolfe runAction:moveLeft];
+        [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
     }
+    _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
+    [_levelNode runAction:_followWolfe];
+    
     NSLog(@"touch move received");
     
     
 }
 
+- (void)wolfe_idle {
+    [_wolfe idle];
+}
 
+- (void)fister_idle {
+    [_fister idle];
+}
 
 @end
