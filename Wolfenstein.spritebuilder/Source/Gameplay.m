@@ -155,9 +155,9 @@ static NSString *selectedLevel = @"Level1";
     if (!_gameOver) {
         
         self.userInteractionEnabled = FALSE;
-        NSLog([NSString stringWithFormat:@"Wolfe: %f", _wolfe.position.x]);
-        NSLog([NSString stringWithFormat:@"Fister: %f", _fister.position.x]);
-        NSLog([NSString stringWithFormat:@"diff: %f", fabsf(_wolfe.position.x - _fister.position.x)]);
+//        NSLog([NSString stringWithFormat:@"Wolfe: %f", _wolfe.position.x]);
+//        NSLog([NSString stringWithFormat:@"Fister: %f", _fister.position.x]);
+//        NSLog([NSString stringWithFormat:@"diff: %f", fabsf(_wolfe.position.x - _fister.position.x)]);
         if (!fister_attack && fabsf(_wolfe.position.x - _fister.position.x) < 200) {
             wolfe_attack = TRUE;
             [_wolfe attack];
@@ -207,7 +207,10 @@ static NSString *selectedLevel = @"Level1";
     [_fister idle];
     CGPoint touchLocation = [touch locationInNode:self.parent];
 //    if(!CGRectIntersectsRect(_wolfe.boundingBox, _fister.boundingBox)){
-//    wolfeCollision =
+    float wolfeXcoordRight = _wolfe.boundingBox.origin.x + _wolfe.boundingBox.size.width;
+    float wolfeXcoordLeft = _wolfe.boundingBox.origin.x;
+    float fisterXcoordRight = _fister.boundingBox.origin.x + _fister.boundingBox.size.width;
+    float fisterXcoordLeft = _fister.boundingBox.origin.x;
     if (touchLocation.x < _wolfe.position.x && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90)){
         [_wolfe walk];
 //        CGSize size = [[CCDirector sharedDirector] viewSize];
@@ -221,6 +224,12 @@ static NSString *selectedLevel = @"Level1";
         id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(10, 0)];
         [_wolfe runAction:moveLeft];
         [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
+    }
+    if (wolfeXcoordRight < fisterXcoordLeft) {
+        rightface = TRUE;
+    }
+    else if (wolfeXcoordLeft > fisterXcoordRight) {
+        rightface = FALSE;
     }
     _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
     [_levelNode runAction:_followWolfe];
