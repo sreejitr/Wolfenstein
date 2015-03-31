@@ -207,11 +207,10 @@ static NSString *selectedLevel = @"Level1";
     [_fister idle];
     CGPoint touchLocation = [touch locationInNode:self.parent];
 //    if(!CGRectIntersectsRect(_wolfe.boundingBox, _fister.boundingBox)){
-    float wolfeXcoordRight = _wolfe.boundingBox.origin.x + _wolfe.boundingBox.size.width;
-    float wolfeXcoordLeft = _wolfe.boundingBox.origin.x;
-    float fisterXcoordRight = _fister.boundingBox.origin.x + _fister.boundingBox.size.width;
-    float fisterXcoordLeft = _fister.boundingBox.origin.x;
+    
     if (touchLocation.x < _wolfe.position.x && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90)){
+        _wolfe.flipX=YES;
+        _fister.flipX=YES;
         [_wolfe walk];
 //        CGSize size = [[CCDirector sharedDirector] viewSize];
         id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-20, 0)];
@@ -220,18 +219,14 @@ static NSString *selectedLevel = @"Level1";
         
     }
     if (touchLocation.x > _wolfe.position.x && (_wolfe.position.x + 20 > (_loadedLevel.boundingBox.origin.x + _loadedLevel.boundingBox.size.width - 90))) {
+        _wolfe.flipX=NO;
+        _fister.flipX=NO;
         [_wolfe walk];
         id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(10, 0)];
         [_wolfe runAction:moveLeft];
         [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
     }
-    if (wolfeXcoordRight < fisterXcoordLeft) {
-        rightface = TRUE;
-    }
-    else if (wolfeXcoordLeft > fisterXcoordRight) {
-        rightface = FALSE;
-    }
-    _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
+        _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
     [_levelNode runAction:_followWolfe];
     
     NSLog(@"touch move received");
@@ -240,6 +235,21 @@ static NSString *selectedLevel = @"Level1";
 }
 
 - (void)wolfe_idle {
+    float wolfeXcoordRight = _wolfe.boundingBox.origin.x + _wolfe.boundingBox.size.width;
+    float wolfeXcoordLeft = _wolfe.boundingBox.origin.x;
+    float fisterXcoordRight = _fister.boundingBox.origin.x + _fister.boundingBox.size.width;
+    float fisterXcoordLeft = _fister.boundingBox.origin.x;
+    if (wolfeXcoordRight < fisterXcoordLeft) {
+        rightface = TRUE;
+        _wolfe.flipX=NO;
+        _fister.flipX=NO;
+    }
+    else if (wolfeXcoordLeft > fisterXcoordRight) {
+        rightface = FALSE;
+        _wolfe.flipX=YES;
+        _fister.flipX=YES;
+    }
+
     [_wolfe idle];
 }
 
