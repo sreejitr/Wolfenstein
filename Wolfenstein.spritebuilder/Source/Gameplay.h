@@ -8,6 +8,10 @@
 
 #import "CCNode.h"
 
-@interface Gameplay : CCNode
+@interface Gameplay : CCNode <CCPhysicsCollisionDelegate>
+{
+//    CCPhysicsNode* _physicsNode;
+}
 //@property (nonatomic, assign) CCLabelTTF *_healthLabel;
+
 @end

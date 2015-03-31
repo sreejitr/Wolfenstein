@@ -49,7 +49,7 @@ static NSString *selectedLevel = @"Level1";
 #pragma mark - Node Lifecycle
 
 - (void)didLoadFromCCB {
-//    _physicsNode.collisionDelegate = self;
+    _physicsNode.collisionDelegate = self;
     _loadedLevel = (Level *) [CCBReader load:selectedLevel owner:self];
     [_levelNode addChild:_loadedLevel];
     self.userInteractionEnabled = TRUE;
@@ -203,6 +203,7 @@ static NSString *selectedLevel = @"Level1";
 {
     // we want to know the location of our touch in this scene
 //    [_wolfe stopAllActions];
+//    if ccpDistance(lastTouchPoint, location)
     self.userInteractionEnabled = TRUE;
     [_fister idle];
     CGPoint touchLocation = [touch locationInNode:self.parent];

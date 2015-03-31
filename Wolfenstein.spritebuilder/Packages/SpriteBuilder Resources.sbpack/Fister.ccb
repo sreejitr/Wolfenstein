@@ -3975,17 +3975,17 @@
 			<key>collisionMask</key>
 			<array/>
 			<key>collisionType</key>
-			<string></string>
+			<string>hero</string>
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
 			<real>7</real>
 			<key>dynamic</key>
-			<false/>
+			<true/>
 			<key>elasticity</key>
-			<real>0.30000001192092896</real>
+			<real>0.029999999329447746</real>
 			<key>friction</key>
-			<real>0.30000001192092896</real>
+			<real>0.029999999329447746</real>
 			<key>points</key>
 			<array>
 				<array>
@@ -4276,6 +4276,8 @@
 				<array/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -4331,7 +4333,7 @@
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.93333333730697632</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
