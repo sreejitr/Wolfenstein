@@ -13,7 +13,6 @@
 - (CGPoint)currentOffset {
     if(_boundarySet)
     {
-//         whole map fits inside a single screen, no need to modify the position - unless map boundaries are increased
         if(_boundaryFullyCovered)
         return [(CCNode *)_target position];
         

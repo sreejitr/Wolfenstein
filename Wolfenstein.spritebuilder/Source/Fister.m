@@ -40,5 +40,9 @@
     [animationManager runAnimationsForSequenceNamed:@"Groundhit"];
 }
 
+- (void) run {
+    [animationManager runAnimationsForSequenceNamed:@"Run"];
+}
+
 
 @end

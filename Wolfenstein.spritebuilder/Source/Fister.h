@@ -13,4 +13,5 @@
 - (void) idle;
 - (void) punch;
 - (void) groundhit;
+- (void) run;
 @end
