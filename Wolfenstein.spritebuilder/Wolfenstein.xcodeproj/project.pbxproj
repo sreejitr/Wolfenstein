@@ -12,6 +12,7 @@
 		170574571AD9247200FD7A33 /* Lightening.m in Sources */ = {isa = PBXBuildFile; fileRef = 170574561AD9247200FD7A33 /* Lightening.m */; };
 		1705745A1AD92AA700FD7A33 /* Freeze.m in Sources */ = {isa = PBXBuildFile; fileRef = 170574591AD92AA700FD7A33 /* Freeze.m */; };
 		1705745D1AD92C0300FD7A33 /* Shield.m in Sources */ = {isa = PBXBuildFile; fileRef = 1705745C1AD92C0300FD7A33 /* Shield.m */; };
+		170574601AD92D3600FD7A33 /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = 1705745F1AD92D3600FD7A33 /* Star.m */; };
 		170604721ABB779500B3EB52 /* Gameplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 170604711ABB779500B3EB52 /* Gameplay.m */; };
 		1706047B1ABB807900B3EB52 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706047A1ABB807900B3EB52 /* Level.m */; };
 		17179E761ABD0D7800144940 /* Wolfe.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E751ABD0D7800144940 /* Wolfe.m */; };
@@ -171,6 +172,8 @@
 		170574591AD92AA700FD7A33 /* Freeze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Freeze.m; path = Source/Freeze.m; sourceTree = "<group>"; };
 		1705745B1AD92C0300FD7A33 /* Shield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shield.h; path = Source/Shield.h; sourceTree = "<group>"; };
 		1705745C1AD92C0300FD7A33 /* Shield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Shield.m; path = Source/Shield.m; sourceTree = "<group>"; };
+		1705745E1AD92D3600FD7A33 /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Star.h; path = Source/Star.h; sourceTree = "<group>"; };
+		1705745F1AD92D3600FD7A33 /* Star.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Star.m; path = Source/Star.m; sourceTree = "<group>"; };
 		170604701ABB779500B3EB52 /* Gameplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gameplay.h; path = Source/Gameplay.h; sourceTree = "<group>"; };
 		170604711ABB779500B3EB52 /* Gameplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gameplay.m; path = Source/Gameplay.m; sourceTree = "<group>"; };
 		170604791ABB807900B3EB52 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Level.h; path = Source/Level.h; sourceTree = "<group>"; };
@@ -476,6 +479,8 @@
 				B7378992180767190076A88C /* MainScene.h */,
 				170604701ABB779500B3EB52 /* Gameplay.h */,
 				170604711ABB779500B3EB52 /* Gameplay.m */,
+				1705745E1AD92D3600FD7A33 /* Star.h */,
+				1705745F1AD92D3600FD7A33 /* Star.m */,
 				170574581AD92AA700FD7A33 /* Freeze.h */,
 				170574591AD92AA700FD7A33 /* Freeze.m */,
 				1705745B1AD92C0300FD7A33 /* Shield.h */,
@@ -887,6 +892,7 @@
 				170574571AD9247200FD7A33 /* Lightening.m in Sources */,
 				17179E761ABD0D7800144940 /* Wolfe.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
+				170574601AD92D3600FD7A33 /* Star.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 				17179E9B1ABFB39500144940 /* WinPopUp.m in Sources */,
 				17289D8A1AD8A54100BF4485 /* Health.m in Sources */,
