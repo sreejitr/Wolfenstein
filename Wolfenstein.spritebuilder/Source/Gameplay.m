@@ -15,7 +15,6 @@
 
 static NSString * const kFirstLevel = @"Level1";
 static NSString *selectedLevel = @"Level1";
-static NSString *powerupArray[1];
 
 
 @implementation Gameplay{
@@ -29,7 +28,6 @@ static NSString *powerupArray[1];
     CCLabelTTF *_healthLabel;
     CCLabelTTF *_fisterHealth;
     CCLabelTTF *_winPopUpLabel;
-    BOOL _jumped;
     double_t timeelapsed;
     double_t totaltimeelapsed;
     int wolfe_hit;
@@ -50,7 +48,9 @@ static NSString *powerupArray[1];
     CGPoint touchMovedLocation;
     BOOL powerupavailable;
     BOOL powerupsactivated;
+    BOOL wolfe_jumped;
     CCParticleSystem *effect;
+    NSArray *powerupArray;
     
 }
 
@@ -64,7 +64,6 @@ static NSString *powerupArray[1];
     self.userInteractionEnabled = TRUE;
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
     [_physicsNode addChild:_wolfe];
-//    [_physicsNode addChild:_powerup];
     _wolfe.position = ccp(205, 110);
     rightface = TRUE;
     _fister = (Fister*)[CCBReader load:@"Fister"];
@@ -83,6 +82,8 @@ static NSString *powerupArray[1];
     _gameOver = FALSE;
     powerupavailable = false;
     powerupsactivated = false;
+    powerupArray = @[@"Health", @"TwoX", @"Star", @"Fire", @"Shield", @"Lightening", @"Freeze"];
+    wolfe_jumped = false;
     
 }
 
@@ -279,7 +280,7 @@ static NSString *powerupArray[1];
             [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
         }
             
-        if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (_wolfe.position.y + 20 < (_loadedLevel.boundingBox.size.height - 50))) {
+        if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (_wolfe.position.y + 20 < (_loadedLevel.boundingBox.size.height - 50)) && !wolfe_jumped) {
             //            NSLog(@"Right");
 //            _wolfe.flipX=NO;
 //            _fister.flipX=NO;
@@ -288,12 +289,18 @@ static NSString *powerupArray[1];
             [_wolfe runAction:moveUp];
 //            [_wolfe.physicsBody applyImpulse:ccp(0, 1000)];
             [_wolfe.physicsBody applyImpulse:ccp(0, -1 * _wolfe.physicsBody.velocity.y)];
-            [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
+            _jumped = TRUE;
+            [self performSelector:@selector(resetJump) withObject:nil afterDelay:0.3f];
         }
         _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
         [_levelNode runAction:_followWolfe];
 //    }
     
+}
+
+- (void)resetJump {
+    _jumped = FALSE;
+    [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
 }
 
 
@@ -321,7 +328,9 @@ static NSString *powerupArray[1];
 }
 
 - (void)loadpowerups {
-    NSString *str = @"Star";
+    NSUInteger size = [powerupArray count];
+    NSInteger index = arc4random_uniform((u_int32_t )size);
+    NSString *str = [powerupArray objectAtIndex:index];
     _powerUp = (CCSprite*)[CCBReader load:str];
     _powerUp.name = @"PowerUp";
     [_physicsNode addChild:_powerUp];
