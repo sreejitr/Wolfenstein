@@ -15,4 +15,5 @@
 - (void) groundhit;
 - (void) walk;
 - (void) block;
+- (void) jumpflip;
 @end

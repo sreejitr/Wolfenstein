@@ -12,6 +12,7 @@
 		17179E761ABD0D7800144940 /* Wolfe.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E751ABD0D7800144940 /* Wolfe.m */; };
 		17179E811ABF862400144940 /* Fister.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E801ABF862400144940 /* Fister.m */; };
 		17179E9B1ABFB39500144940 /* WinPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E9A1ABFB39500144940 /* WinPopUp.m */; };
+		17289D8A1AD8A54100BF4485 /* Health.m in Sources */ = {isa = PBXBuildFile; fileRef = 17289D891AD8A54100BF4485 /* Health.m */; };
 		173DCE111AC9F988003161AE /* CCActionFollow+CurrentOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = 173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */; };
 		5B121030197484FA004C1E1D /* WolfensteinActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B12102F197484FA004C1E1D /* WolfensteinActivity.m */; };
 		5B121038197487F2004C1E1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B737893E1807617C0076A88C /* AppDelegate.m */; };
@@ -165,6 +166,8 @@
 		17179E801ABF862400144940 /* Fister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fister.m; path = Source/Fister.m; sourceTree = "<group>"; };
 		17179E991ABFB39500144940 /* WinPopUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WinPopUp.h; path = Source/WinPopUp.h; sourceTree = "<group>"; };
 		17179E9A1ABFB39500144940 /* WinPopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WinPopUp.m; path = Source/WinPopUp.m; sourceTree = "<group>"; };
+		17289D881AD8A54100BF4485 /* Health.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Health.h; path = Source/Health.h; sourceTree = "<group>"; };
+		17289D891AD8A54100BF4485 /* Health.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Health.m; path = Source/Health.m; sourceTree = "<group>"; };
 		173DCE0F1AC9F988003161AE /* CCActionFollow+CurrentOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCActionFollow+CurrentOffset.h"; path = "Source/CCActionFollow+CurrentOffset.h"; sourceTree = "<group>"; };
 		173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCActionFollow+CurrentOffset.m"; path = "Source/CCActionFollow+CurrentOffset.m"; sourceTree = "<group>"; };
 		5B12100919748273004C1E1D /* libEGL.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libEGL.so; path = /usr/lib/armv7a/libEGL.so; sourceTree = SDKROOT; };
@@ -457,9 +460,11 @@
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				B7378992180767190076A88C /* MainScene.h */,
 				170604701ABB779500B3EB52 /* Gameplay.h */,
+				170604711ABB779500B3EB52 /* Gameplay.m */,
 				17179E991ABFB39500144940 /* WinPopUp.h */,
 				17179E9A1ABFB39500144940 /* WinPopUp.m */,
-				170604711ABB779500B3EB52 /* Gameplay.m */,
+				17289D881AD8A54100BF4485 /* Health.h */,
+				17289D891AD8A54100BF4485 /* Health.m */,
 				173DCE0F1AC9F988003161AE /* CCActionFollow+CurrentOffset.h */,
 				173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */,
 				17179E7F1ABF862400144940 /* Fister.h */,
@@ -855,6 +860,7 @@
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 				17179E9B1ABFB39500144940 /* WinPopUp.m in Sources */,
+				17289D8A1AD8A54100BF4485 /* Health.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

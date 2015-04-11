@@ -14,6 +14,7 @@
 
 - (void) didLoadFromCCB {
     animationManager = self.animationManager;
+    self.physicsBody.collisionType = @"enemy";
 }
 
 - (void) idle {

@@ -10,8 +10,7 @@
 
 @interface Gameplay : CCNode <CCPhysicsCollisionDelegate>
 {
-//    CCPhysicsNode* _physicsNode;
+    CCPhysicsNode* _physicsNode;
 }
-//@property (nonatomic, assign) CCLabelTTF *_healthLabel;
 
 @end

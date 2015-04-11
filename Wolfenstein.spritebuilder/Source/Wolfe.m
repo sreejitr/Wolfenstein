@@ -16,6 +16,7 @@
 
 - (void) didLoadFromCCB {
     animationManager = self.animationManager;
+    self.physicsBody.collisionType = @"hero";
 }
 
 //- (void)onEnter {

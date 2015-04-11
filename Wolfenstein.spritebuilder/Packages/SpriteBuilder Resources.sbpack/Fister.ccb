@@ -5251,7 +5251,7 @@
 			<key>collisionMask</key>
 			<array/>
 			<key>collisionType</key>
-			<string>hero</string>
+			<string>enemy</string>
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
