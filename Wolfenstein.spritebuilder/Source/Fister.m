@@ -41,6 +41,10 @@
     [animationManager runAnimationsForSequenceNamed:@"Groundhit"];
 }
 
+- (void) getup {
+    [animationManager runAnimationsForSequenceNamed:@"GetUp"];
+}
+
 - (void) run {
     [animationManager runAnimationsForSequenceNamed:@"Run"];
 }

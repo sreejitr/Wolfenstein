@@ -14,4 +14,5 @@
 - (void) punch;
 - (void) groundhit;
 - (void) run;
+- (void) getup;
 @end

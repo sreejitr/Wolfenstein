@@ -167,40 +167,14 @@ static NSString *selectedLevel = @"Level1";
     if (!_gameOver) {
         
         if (!fister_attack && fabsf(_wolfe.position.x - _fister.position.x) <= 200 && !wolfe_jumped) {
-            self.userInteractionEnabled = FALSE;
-            wolfe_attack = TRUE;
-            [_wolfe attack];
-            fister_hit += 1;
-            points_fister -= 5;
-            [self showScore];
-            if (points_fister == 0) {
-                [_fister hit];
-                [_fister groundhit];
-            }
-            else {
-                [_fister hit];
-            }
-            
-            [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:2.f];
+            [self wolfeAttackBegan];
         }
         else if (fister_attack) {
-            [_wolfe block];
+//            [_wolfe block];
         }
         
     }
     
-}
-
--(void) turnoff_wolfe_attack {
-    wolfe_attack = FALSE;
-    self.userInteractionEnabled = TRUE;
-    self.multipleTouchEnabled = TRUE;
-}
-
--(void) turnoff_fister_attack {
-    fister_attack = FALSE;
-    self.userInteractionEnabled = TRUE;
-    self.multipleTouchEnabled = TRUE;
 }
 
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -218,15 +192,49 @@ static NSString *selectedLevel = @"Level1";
     if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (_wolfe.position.y + 20 < (_loadedLevel.boundingBox.size.height - 50)) && !wolfe_jumped) {
         [self jumpUp];
     }
+    if ((touchBeganLocation.y - touchMovedLocation.y > 50) && !wolfe_jumped) {
+        [self crouchComboAttack];
+    }
     _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
     [_levelNode runAction:_followWolfe];
 }
 
+-(void) wolfeAttackBegan {
+    self.userInteractionEnabled = FALSE;
+    wolfe_attack = TRUE;
+    [_wolfe attack];
+    fister_hit += 1;
+    points_fister -= 2;
+    [self showScore];
+    if (points_fister == 0) {
+        [_fister hit];
+        [_fister groundhit];
+    }
+    else {
+        [_fister hit];
+    }
+    
+    [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:2.f];
+}
+
+-(void) turnoff_wolfe_attack {
+    wolfe_attack = FALSE;
+    self.userInteractionEnabled = TRUE;
+    self.multipleTouchEnabled = TRUE;
+}
+
+-(void) turnoff_fister_attack {
+    fister_attack = FALSE;
+    self.userInteractionEnabled = TRUE;
+    self.multipleTouchEnabled = TRUE;
+}
+
+
 - (void)walkRightEnemy {
     NSLog(@"Right");
-    //                    NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
-    //                    NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
-    //                    NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
+    //NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
+    //NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
+    //NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
     [_fister run];
     id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 100, _fister.position.y)];
     [_fister runAction:moveRight];
@@ -235,7 +243,7 @@ static NSString *selectedLevel = @"Level1";
 
 - (void)walkRight {
     _wolfe.flipX=NO;
-    _fister.flipX=NO;
+//    _fister.flipX=NO;
     [_wolfe walk];
     id moveRight = [CCActionMoveBy actionWithDuration:0.10 position:ccp(20, 0)];
     [_wolfe runAction:moveRight];
@@ -243,10 +251,10 @@ static NSString *selectedLevel = @"Level1";
 }
 
 - (void)walkLeftEnemy {
-    //                    NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
-    //                    NSLog([NSString stringWithFormat:@"box origin x: %f", _loadedLevel.boundingBox.origin.x]);
-    //                    NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
-    //                    NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
+    //NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
+    //NSLog([NSString stringWithFormat:@"box origin x: %f", _loadedLevel.boundingBox.origin.x]);
+    //NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
+    //NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
     [_fister run];
     id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + 200, _fister.position.y)];
     [_fister runAction:moveLeft];
@@ -255,7 +263,7 @@ static NSString *selectedLevel = @"Level1";
 
 - (void)walkLeft {
     _wolfe.flipX=YES;
-    _fister.flipX=YES;
+//    _fister.flipX=YES;
     [_wolfe walk];
     id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-20, 0)];
     [_wolfe runAction:moveLeft];
@@ -264,7 +272,7 @@ static NSString *selectedLevel = @"Level1";
 
 -(void)jumpUp {
     [_wolfe jumpflip];
-    CGPoint wolfe_position = _wolfe.position;
+//    CGPoint wolfe_position = _wolfe.position;
     id jumpUp = [CCActionJumpBy actionWithDuration:0.7f position:ccp(0, 200)
                                             height:50 jumps:1];
     id jumpDown = [CCActionJumpBy actionWithDuration:0.7f position:ccp(0,-80)
@@ -276,6 +284,18 @@ static NSString *selectedLevel = @"Level1";
     [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
     wolfe_jumped = TRUE;
     [self performSelector:@selector(resetJump) withObject:nil afterDelay:2.f];
+}
+
+- (void) crouchComboAttack {
+    if (wolfe_attack) {
+        [_wolfe crouchcombo];
+        [_fister hit];
+        [_fister performSelector:@selector(groundhit) withObject:nil afterDelay:1.f];
+        if (!_gameOver) {
+            [_fister performSelector:@selector(getup) withObject:nil afterDelay:2.f];
+        }
+    }
+    
 }
 
 - (void)resetJump {

@@ -16,4 +16,6 @@
 - (void) walk;
 - (void) block;
 - (void) jumpflip;
+- (void) crouchcombo;
+- (void) getup;
 @end

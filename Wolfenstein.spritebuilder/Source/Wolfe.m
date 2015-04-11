@@ -19,27 +19,6 @@
     self.physicsBody.collisionType = @"hero";
 }
 
-//- (void)onEnter {
-//    [super onEnter];
-//    self.userInteractionEnabled = TRUE;
-//}
-
-
-//- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
-//{
-//    [self walk];
-//}
-//- (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
-//{
-//    // we want to know the location of our touch in this scene
-//    CGPoint touchLocation = [touch locationInNode:self.parent];
-//    CCActionMoveBy *move = [CCActionMoveBy actionWithDuration:0.5 position:ccp(0, 50)];
-//    [self runAction:move];
-//    [self.physicsBody applyImpulse:ccp(0, -1 * self.physicsBody.velocity.y)];
-//    [self walk];
-//    self.position = touchLocation;
-//}
-
 - (void) idle {
     [animationManager runAnimationsForSequenceNamed:@"Idle"];
 }
@@ -79,7 +58,6 @@
 - (void) block {
     [animationManager runAnimationsForSequenceNamed:@"Block"];
 }
-
 
 
 @end
