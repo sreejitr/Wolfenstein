@@ -321,7 +321,7 @@ static NSString *powerupArray[1];
 }
 
 - (void)loadpowerups {
-    NSString *str = @"Lightening";
+    NSString *str = @"Freeze";
     _powerUp = (CCSprite*)[CCBReader load:str];
     _powerUp.name = @"PowerUp";
     [_physicsNode addChild:_powerUp];

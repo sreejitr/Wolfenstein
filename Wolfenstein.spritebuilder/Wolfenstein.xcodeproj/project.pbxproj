@@ -10,6 +10,7 @@
 		1705744F1AD914A900FD7A33 /* TwoX.m in Sources */ = {isa = PBXBuildFile; fileRef = 1705744E1AD914A900FD7A33 /* TwoX.m */; };
 		170574541AD922CB00FD7A33 /* Fire.m in Sources */ = {isa = PBXBuildFile; fileRef = 170574531AD922CB00FD7A33 /* Fire.m */; };
 		170574571AD9247200FD7A33 /* Lightening.m in Sources */ = {isa = PBXBuildFile; fileRef = 170574561AD9247200FD7A33 /* Lightening.m */; };
+		1705745A1AD92AA700FD7A33 /* Freeze.m in Sources */ = {isa = PBXBuildFile; fileRef = 170574591AD92AA700FD7A33 /* Freeze.m */; };
 		170604721ABB779500B3EB52 /* Gameplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 170604711ABB779500B3EB52 /* Gameplay.m */; };
 		1706047B1ABB807900B3EB52 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706047A1ABB807900B3EB52 /* Level.m */; };
 		17179E761ABD0D7800144940 /* Wolfe.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E751ABD0D7800144940 /* Wolfe.m */; };
@@ -165,6 +166,8 @@
 		170574531AD922CB00FD7A33 /* Fire.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fire.m; path = Source/Fire.m; sourceTree = "<group>"; };
 		170574551AD9247200FD7A33 /* Lightening.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lightening.h; path = Source/Lightening.h; sourceTree = "<group>"; };
 		170574561AD9247200FD7A33 /* Lightening.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lightening.m; path = Source/Lightening.m; sourceTree = "<group>"; };
+		170574581AD92AA700FD7A33 /* Freeze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Freeze.h; path = Source/Freeze.h; sourceTree = "<group>"; };
+		170574591AD92AA700FD7A33 /* Freeze.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Freeze.m; path = Source/Freeze.m; sourceTree = "<group>"; };
 		170604701ABB779500B3EB52 /* Gameplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gameplay.h; path = Source/Gameplay.h; sourceTree = "<group>"; };
 		170604711ABB779500B3EB52 /* Gameplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gameplay.m; path = Source/Gameplay.m; sourceTree = "<group>"; };
 		170604791ABB807900B3EB52 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Level.h; path = Source/Level.h; sourceTree = "<group>"; };
@@ -470,6 +473,8 @@
 				B7378992180767190076A88C /* MainScene.h */,
 				170604701ABB779500B3EB52 /* Gameplay.h */,
 				170604711ABB779500B3EB52 /* Gameplay.m */,
+				170574581AD92AA700FD7A33 /* Freeze.h */,
+				170574591AD92AA700FD7A33 /* Freeze.m */,
 				170574551AD9247200FD7A33 /* Lightening.h */,
 				170574561AD9247200FD7A33 /* Lightening.m */,
 				170574521AD922CB00FD7A33 /* Fire.h */,
@@ -866,6 +871,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1705745A1AD92AA700FD7A33 /* Freeze.m in Sources */,
 				173DCE111AC9F988003161AE /* CCActionFollow+CurrentOffset.m in Sources */,
 				1706047B1ABB807900B3EB52 /* Level.m in Sources */,
 				1705744F1AD914A900FD7A33 /* TwoX.m in Sources */,
