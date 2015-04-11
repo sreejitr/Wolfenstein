@@ -21,8 +21,6 @@ static NSString *selectedLevel = @"Level1";
     Wolfe *_wolfe;
     Fister *_fister;
     CCSprite *_powerUp;
-//    CCPhysicsNode *_physicsNode;
-//    CCNode *_contentNode;
     CCNode *_levelNode;
     Level *_loadedLevel;
     CCLabelTTF *_healthLabel;
@@ -38,10 +36,6 @@ static NSString *selectedLevel = @"Level1";
     int points;
     int points_fister;
     BOOL _gameOver;
-//    CCButton *_leftButton;
-//    CCButton *_rightButton;
-//    CCButton *_punch;
-//    CCButton *_jump;
     BOOL rightface;
     CCAction *_followWolfe;
     CGPoint touchBeganLocation;
@@ -107,7 +101,7 @@ static NSString *selectedLevel = @"Level1";
             [self loadpowerups];
             powerupsactivated = TRUE;
         }
-        else if (totaltimeelapsed > 10.f && !powerupavailable && powerupsactivated) {
+        else if (totaltimeelapsed > 10.f && !powerupavailable && powerupsactivated && !wolfe_jumped) {
             [self loadpowerups];
             totaltimeelapsed = 0.0f;
         }
@@ -134,61 +128,24 @@ static NSString *selectedLevel = @"Level1";
                     [_wolfe hit];
                 }
                 [self performSelector:@selector(turnoff_fister_attack) withObject:nil afterDelay:2.f];
-//                [_wolfe performSelector:@selector(idle) withObject:nil afterDelay:6.f];
-//                [_fister performSelector:@selector(idle) withObject:nil afterDelay:6.f];
-//                _wolfe.position = ccp(225, 110);
                 
             }
             else if (!wolfe_attack) {
                 if (_fister.position.x - _wolfe.position.x > 200){
-                    NSLog(@"Left");
-//                    NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
-//                    NSLog([NSString stringWithFormat:@"box origin x: %f", _loadedLevel.boundingBox.origin.x]);
-//                    NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
-//                    NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
-                    [_fister run];
-                    id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + 200, _fister.position.y)];
-                    [_fister runAction:moveLeft];
-                    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
-                    
+                    [self walkLeftEnemy];
                 }
                 if ((_wolfe.position.x - _fister.position.x > 200) && (_wolfe.position.x - 200 <= (_loadedLevel.boundingBox.size.width - 190))) {
-                    NSLog(@"Right");
-//                    NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
-//                    NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
-//                    NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
-                    [_fister run];
-                    id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 100, _fister.position.y)];
-                    [_fister runAction:moveRight];
-                    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
+                    [self walkRightEnemy];
                 }
                 
             }
-            
             timeelapsed = 0.0f;
-            
-            
         }
         if (points_fister == 0) {
-            
-            popup = (WinPopUp *)[CCBReader load:@"WinPopUp" owner:self];
-            popup.positionType = CCPositionTypeNormalized;
-            popup.position = ccp(0.5, 0.5);
-            [_wolfe stopAllActions];
-            [_fister stopAllActions];
-            [self addChild:popup];
-            _gameOver = TRUE;
-
+            [self winScreen];
         }
         if (points == 0) {
-            popup = (WinPopUp *)[CCBReader load:@"WinPopUp" owner:self];
-            popup.positionType = CCPositionTypeNormalized;
-            popup._winPopUpLabel.string = [NSString stringWithFormat:@"You Lose!!"];
-            popup.position = ccp(0.5, 0.5);
-            [_wolfe stopAllActions];
-            [_fister stopAllActions];
-            [self addChild:popup];
-            _gameOver = TRUE;
+            [self loseScreen];
         }
     }
 }
@@ -205,10 +162,7 @@ static NSString *selectedLevel = @"Level1";
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-//    NSLog(@"touch received");
     touchBeganLocation = [touch locationInNode:self.parent];
-//    NSLog([NSString stringWithFormat:@"touchbegan x: %f", touchBeganLocation.x]);
-//    NSLog([NSString stringWithFormat:@"touchbegan y: %f", touchBeganLocation.y]);
 
     if (!_gameOver) {
         
@@ -228,7 +182,6 @@ static NSString *selectedLevel = @"Level1";
             }
             
             [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:2.f];
-//            self.userInteractionEnabled = TRUE;
         }
         else if (fister_attack) {
             [_wolfe block];
@@ -237,7 +190,6 @@ static NSString *selectedLevel = @"Level1";
     }
     
 }
-
 
 -(void) turnoff_wolfe_attack {
     wolfe_attack = FALSE;
@@ -253,65 +205,81 @@ static NSString *selectedLevel = @"Level1";
 
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-
     self.userInteractionEnabled = TRUE;
     [_fister idle];
     
     touchMovedLocation = [touch locationInNode:self.parent];
-//    if(!CGRectIntersectsRect(_wolfe.boundingBox, _fister.boundingBox)){
+    if ((touchBeganLocation.x - touchMovedLocation.x > 50) && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90)) {
+        [self walkLeft];
+    }
+    if ((touchMovedLocation.x - touchBeganLocation.x > 50) && (_wolfe.position.x + 20 < (_loadedLevel.boundingBox.size.width - 90))) {
+        [self walkRight];
+    }
+    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (_wolfe.position.y + 20 < (_loadedLevel.boundingBox.size.height - 50)) && !wolfe_jumped) {
+        [self jumpUp];
+    }
+    _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
+    [_levelNode runAction:_followWolfe];
+}
+
+- (void)walkRightEnemy {
+    NSLog(@"Right");
+    //                    NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
+    //                    NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
+    //                    NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
+    [_fister run];
+    id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 100, _fister.position.y)];
+    [_fister runAction:moveRight];
+    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
+}
+
+- (void)walkRight {
+    _wolfe.flipX=NO;
+    _fister.flipX=NO;
+    [_wolfe walk];
+    id moveRight = [CCActionMoveBy actionWithDuration:0.10 position:ccp(20, 0)];
+    [_wolfe runAction:moveRight];
+    [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
+}
+
+- (void)walkLeftEnemy {
+    //                    NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
+    //                    NSLog([NSString stringWithFormat:@"box origin x: %f", _loadedLevel.boundingBox.origin.x]);
+    //                    NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
+    //                    NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
+    [_fister run];
+    id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + 200, _fister.position.y)];
+    [_fister runAction:moveLeft];
+    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
+}
+
+- (void)walkLeft {
+    _wolfe.flipX=YES;
+    _fister.flipX=YES;
+    [_wolfe walk];
+    id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-20, 0)];
+    [_wolfe runAction:moveLeft];
+    [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
+}
+
+-(void)jumpUp {
+    [_wolfe jumpflip];
+    CGPoint wolfe_position = _wolfe.position;
+    id jumpUp = [CCActionJumpBy actionWithDuration:0.7f position:ccp(0, 200)
+                                            height:50 jumps:1];
+    id jumpDown = [CCActionJumpBy actionWithDuration:0.7f position:ccp(0,-80)
+                                              height:50 jumps:1];
     
-        if ((touchBeganLocation.x - touchMovedLocation.x > 50) && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90)) {
-//            NSLog(@"Left");
-            _wolfe.flipX=YES;
-            _fister.flipX=YES;
-            [_wolfe walk];
-            id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-20, 0)];
-            [_wolfe runAction:moveLeft];
-            [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
-            
-        }
-        if ((touchMovedLocation.x - touchBeganLocation.x > 50) && (_wolfe.position.x + 20 < (_loadedLevel.boundingBox.size.width - 90))) {
-//            NSLog(@"Right");
-            _wolfe.flipX=NO;
-            _fister.flipX=NO;
-            [_wolfe walk];
-            id moveRight = [CCActionMoveBy actionWithDuration:0.10 position:ccp(20, 0)];
-            [_wolfe runAction:moveRight];
-            [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
-        }
-            
-        if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (_wolfe.position.y + 20 < (_loadedLevel.boundingBox.size.height - 50)) && !wolfe_jumped) {
-            [_wolfe jumpflip];
-//            id moveUp = [CCActionMoveBy actionWithDuration:0.01 position:ccp(0, 90)];
-//            [_wolfe runAction:moveUp];
-//            [_wolfe.physicsBody applyImpulse:ccp(0, 1000)];
-//            [_wolfe.physicsBody applyImpulse:ccp(0, _wolfe.physicsBody.mass * 40)];
-            CGPoint wolfe_position = _wolfe.position;
-            id jumpUp = [CCActionJumpBy actionWithDuration:0.7f position:ccp(0, 200)
-                                               height:50 jumps:1];
-            id jumpDown = [CCActionJumpBy actionWithDuration:0.7f position:ccp(0,-80)
-                                                 height:50 jumps:1];
-            
-            id seq = [CCActionSequence actions:jumpUp, jumpDown, nil];
-            
-            [_wolfe runAction:seq];
-            [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
-//            id moveBy = [CCActionMoveBy actionWithDuration:0.0 position:ccp(50, 0)];
-//            [_wolfe runAction:moveBy];
-//            id moveByF = [CCActionMoveBy actionWithDuration:0.0 position:ccp(50, 0)];
-//            [_fister runAction:moveByF];
-            wolfe_jumped = TRUE;
-            [self performSelector:@selector(resetJump) withObject:nil afterDelay:2.f];
-        }
-        _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
-        [_levelNode runAction:_followWolfe];
-//    }
+    id seq = [CCActionSequence actions:jumpUp, jumpDown, nil];
     
+    [_wolfe runAction:seq];
+    [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
+    wolfe_jumped = TRUE;
+    [self performSelector:@selector(resetJump) withObject:nil afterDelay:2.f];
 }
 
 - (void)resetJump {
     wolfe_jumped = FALSE;
-//    [self wolfe_idle];
 }
 
 
@@ -346,9 +314,7 @@ static NSString *selectedLevel = @"Level1";
     _powerUp.name = @"PowerUp";
     [_physicsNode addChild:_powerUp];
     _powerUp.position = ccp(283, 264);
-    // load particle effect
     effect = (CCParticleSystem *)[CCBReader load:@"PowerupEffect"];
-//    effect.autoRemoveOnFinish = TRUE;
     effect.position = _powerUp.position;
     [_powerUp.parent addChild:effect];
     powerupavailable = TRUE;
@@ -370,6 +336,27 @@ static NSString *selectedLevel = @"Level1";
     powerupavailable = false;
     
     return TRUE;
+}
+
+- (void)winScreen {
+    popup = (WinPopUp *)[CCBReader load:@"WinPopUp" owner:self];
+    popup.positionType = CCPositionTypeNormalized;
+    popup.position = ccp(0.5, 0.5);
+    [_wolfe stopAllActions];
+    [_fister stopAllActions];
+    [self addChild:popup];
+    _gameOver = TRUE;
+}
+
+- (void)loseScreen {
+    popup = (WinPopUp *)[CCBReader load:@"WinPopUp" owner:self];
+    popup.positionType = CCPositionTypeNormalized;
+    popup._winPopUpLabel.string = [NSString stringWithFormat:@"You Lose!!"];
+    popup.position = ccp(0.5, 0.5);
+    [_wolfe stopAllActions];
+    [_fister stopAllActions];
+    [self addChild:popup];
+    _gameOver = TRUE;
 }
 
 @end
