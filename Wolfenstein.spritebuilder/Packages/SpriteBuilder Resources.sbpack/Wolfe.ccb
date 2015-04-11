@@ -6293,7 +6293,9 @@
 			<key>collisionCategories</key>
 			<array/>
 			<key>collisionMask</key>
-			<array/>
+			<array>
+				<string>powerUpcol</string>
+			</array>
 			<key>collisionType</key>
 			<string>hero</string>
 			<key>cornerRadius</key>

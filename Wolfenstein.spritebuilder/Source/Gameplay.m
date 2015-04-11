@@ -15,6 +15,7 @@
 
 static NSString * const kFirstLevel = @"Level1";
 static NSString *selectedLevel = @"Level1";
+static NSString *powerupArray[1];
 
 
 @implementation Gameplay{
@@ -49,6 +50,7 @@ static NSString *selectedLevel = @"Level1";
     CGPoint touchMovedLocation;
     BOOL powerupavailable;
     BOOL powerupsactivated;
+    CCParticleSystem *effect;
     
 }
 
@@ -100,12 +102,13 @@ static NSString *selectedLevel = @"Level1";
     if (!_gameOver) {
         timeelapsed += delta;
         totaltimeelapsed += delta;
-        if (totaltimeelapsed >= 30.f && !powerupsactivated) {
+        if (totaltimeelapsed >= 2.f && !powerupsactivated) {
             [self loadpowerups];
             powerupsactivated = TRUE;
         }
-        else if (totaltimeelapsed > 10 && !powerupavailable && powerupsactivated) {
+        else if (totaltimeelapsed > 10.f && !powerupavailable && powerupsactivated) {
             [self loadpowerups];
+            totaltimeelapsed = 0.0f;
         }
         if (timeelapsed > 2.f) {
         
@@ -318,22 +321,23 @@ static NSString *selectedLevel = @"Level1";
 }
 
 - (void)loadpowerups {
-    NSString *str = @"Health";
+    NSString *str = @"TwoX";
     _powerUp = (CCSprite*)[CCBReader load:str];
-//    _powerUp.name = @"PowerUp";
-    [self addChild:_powerUp];
+    _powerUp.name = @"PowerUp";
+    [_physicsNode addChild:_powerUp];
     _powerUp.position = ccp(283, 264);
     // load particle effect
-    CCParticleSystem *effect = (CCParticleSystem *)[CCBReader load:@"PowerupEffect"];
-    effect.autoRemoveOnFinish = TRUE;
+    effect = (CCParticleSystem *)[CCBReader load:@"PowerupEffect"];
+//    effect.autoRemoveOnFinish = TRUE;
     effect.position = _powerUp.position;
     [_powerUp.parent addChild:effect];
     powerupavailable = TRUE;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero powerUpcol:(CCNode *)powerUpcol {
-//    CCSprite *powerup = [self getChildByName:@"PowerUp" recursively:NO];
-    [self removeChild:_powerUp];
+    CCSprite *powerup = [_physicsNode getChildByName:@"PowerUp" recursively:NO];
+    [_physicsNode removeChild:powerup];
+    [effect removeFromParent];
     points += 5;
     powerupavailable = false;
     

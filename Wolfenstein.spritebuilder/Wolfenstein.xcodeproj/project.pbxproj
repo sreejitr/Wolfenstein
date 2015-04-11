@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1705744F1AD914A900FD7A33 /* TwoX.m in Sources */ = {isa = PBXBuildFile; fileRef = 1705744E1AD914A900FD7A33 /* TwoX.m */; };
 		170604721ABB779500B3EB52 /* Gameplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 170604711ABB779500B3EB52 /* Gameplay.m */; };
 		1706047B1ABB807900B3EB52 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706047A1ABB807900B3EB52 /* Level.m */; };
 		17179E761ABD0D7800144940 /* Wolfe.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E751ABD0D7800144940 /* Wolfe.m */; };
@@ -156,6 +157,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1705744D1AD914A900FD7A33 /* TwoX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwoX.h; path = Source/TwoX.h; sourceTree = "<group>"; };
+		1705744E1AD914A900FD7A33 /* TwoX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwoX.m; path = Source/TwoX.m; sourceTree = "<group>"; };
 		170604701ABB779500B3EB52 /* Gameplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gameplay.h; path = Source/Gameplay.h; sourceTree = "<group>"; };
 		170604711ABB779500B3EB52 /* Gameplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gameplay.m; path = Source/Gameplay.m; sourceTree = "<group>"; };
 		170604791ABB807900B3EB52 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Level.h; path = Source/Level.h; sourceTree = "<group>"; };
@@ -461,6 +464,8 @@
 				B7378992180767190076A88C /* MainScene.h */,
 				170604701ABB779500B3EB52 /* Gameplay.h */,
 				170604711ABB779500B3EB52 /* Gameplay.m */,
+				1705744D1AD914A900FD7A33 /* TwoX.h */,
+				1705744E1AD914A900FD7A33 /* TwoX.m */,
 				17179E991ABFB39500144940 /* WinPopUp.h */,
 				17179E9A1ABFB39500144940 /* WinPopUp.m */,
 				17289D881AD8A54100BF4485 /* Health.h */,
@@ -853,6 +858,7 @@
 			files = (
 				173DCE111AC9F988003161AE /* CCActionFollow+CurrentOffset.m in Sources */,
 				1706047B1ABB807900B3EB52 /* Level.m in Sources */,
+				1705744F1AD914A900FD7A33 /* TwoX.m in Sources */,
 				17179E811ABF862400144940 /* Fister.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				170604721ABB779500B3EB52 /* Gameplay.m in Sources */,

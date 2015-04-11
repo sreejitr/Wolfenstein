@@ -40,7 +40,7 @@
 		<key>children</key>
 		<array/>
 		<key>customClass</key>
-		<string>Health</string>
+		<string></string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
@@ -77,40 +77,40 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>-0.8046875</real>
-					<real>-0.2421722412109375</real>
+					<real>0.0</real>
+					<real>0.0</real>
 				</array>
 				<array>
-					<real>-1.1953125</real>
-					<real>49.804702758789062</real>
+					<real>0.0</real>
+					<real>50</real>
 				</array>
 				<array>
-					<real>50.59375</real>
-					<real>50.109390258789062</real>
+					<real>50</real>
+					<real>50</real>
 				</array>
 				<array>
-					<real>50.59375</real>
-					<real>1.2304840087890625</real>
+					<real>50</real>
+					<real>0.0</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>50.59375</real>
-						<real>1.2304840087890625</real>
+						<real>50</real>
+						<real>0.0</real>
 					</array>
 					<array>
-						<real>50.59375</real>
-						<real>50.109390258789062</real>
+						<real>50</real>
+						<real>50</real>
 					</array>
 					<array>
-						<real>-1.1953125</real>
-						<real>49.804702758789062</real>
+						<real>0.0</real>
+						<real>50</real>
 					</array>
 					<array>
-						<real>-0.8046875</real>
-						<real>-0.2421722412109375</real>
+						<real>0.0</real>
+						<real>0.0</real>
 					</array>
 				</array>
 			</array>
@@ -171,7 +171,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>interface_game-power-ups-1/Health.png</string>
+					<string>interface_game-power-ups-1/2x.png</string>
 				</array>
 			</dict>
 			<dict>
