@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1705744F1AD914A900FD7A33 /* TwoX.m in Sources */ = {isa = PBXBuildFile; fileRef = 1705744E1AD914A900FD7A33 /* TwoX.m */; };
+		170574541AD922CB00FD7A33 /* Fire.m in Sources */ = {isa = PBXBuildFile; fileRef = 170574531AD922CB00FD7A33 /* Fire.m */; };
 		170604721ABB779500B3EB52 /* Gameplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 170604711ABB779500B3EB52 /* Gameplay.m */; };
 		1706047B1ABB807900B3EB52 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706047A1ABB807900B3EB52 /* Level.m */; };
 		17179E761ABD0D7800144940 /* Wolfe.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E751ABD0D7800144940 /* Wolfe.m */; };
@@ -159,6 +160,8 @@
 /* Begin PBXFileReference section */
 		1705744D1AD914A900FD7A33 /* TwoX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwoX.h; path = Source/TwoX.h; sourceTree = "<group>"; };
 		1705744E1AD914A900FD7A33 /* TwoX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwoX.m; path = Source/TwoX.m; sourceTree = "<group>"; };
+		170574521AD922CB00FD7A33 /* Fire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fire.h; path = Source/Fire.h; sourceTree = "<group>"; };
+		170574531AD922CB00FD7A33 /* Fire.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fire.m; path = Source/Fire.m; sourceTree = "<group>"; };
 		170604701ABB779500B3EB52 /* Gameplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gameplay.h; path = Source/Gameplay.h; sourceTree = "<group>"; };
 		170604711ABB779500B3EB52 /* Gameplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gameplay.m; path = Source/Gameplay.m; sourceTree = "<group>"; };
 		170604791ABB807900B3EB52 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Level.h; path = Source/Level.h; sourceTree = "<group>"; };
@@ -464,6 +467,8 @@
 				B7378992180767190076A88C /* MainScene.h */,
 				170604701ABB779500B3EB52 /* Gameplay.h */,
 				170604711ABB779500B3EB52 /* Gameplay.m */,
+				170574521AD922CB00FD7A33 /* Fire.h */,
+				170574531AD922CB00FD7A33 /* Fire.m */,
 				1705744D1AD914A900FD7A33 /* TwoX.h */,
 				1705744E1AD914A900FD7A33 /* TwoX.m */,
 				17179E991ABFB39500144940 /* WinPopUp.h */,
@@ -867,6 +872,7 @@
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 				17179E9B1ABFB39500144940 /* WinPopUp.m in Sources */,
 				17289D8A1AD8A54100BF4485 /* Health.m in Sources */,
+				170574541AD922CB00FD7A33 /* Fire.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
