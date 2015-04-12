@@ -6088,10 +6088,13 @@
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>
-			<array/>
+			<array>
+				<string>enemy</string>
+			</array>
 			<key>collisionMask</key>
 			<array>
 				<string>powerUpcol</string>
+				<string>border</string>
 			</array>
 			<key>collisionType</key>
 			<string>enemy</string>
@@ -6309,6 +6312,8 @@
 				<array/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

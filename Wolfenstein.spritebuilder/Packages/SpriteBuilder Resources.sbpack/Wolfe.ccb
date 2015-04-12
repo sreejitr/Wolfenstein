@@ -6291,17 +6291,20 @@
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>
-			<array/>
+			<array>
+				<string>hero</string>
+			</array>
 			<key>collisionMask</key>
 			<array>
 				<string>powerUpcol</string>
+				<string>border</string>
 			</array>
 			<key>collisionType</key>
 			<string>hero</string>
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
-			<real>7</real>
+			<real>37</real>
 			<key>dynamic</key>
 			<true/>
 			<key>elasticity</key>
