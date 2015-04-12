@@ -477,6 +477,7 @@
 			children = (
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				B7378992180767190076A88C /* MainScene.h */,
+				B7378993180767190076A88C /* MainScene.m */,
 				170604701ABB779500B3EB52 /* Gameplay.h */,
 				170604711ABB779500B3EB52 /* Gameplay.m */,
 				1705745E1AD92D3600FD7A33 /* Star.h */,
@@ -503,7 +504,6 @@
 				17179E751ABD0D7800144940 /* Wolfe.m */,
 				170604791ABB807900B3EB52 /* Level.h */,
 				1706047A1ABB807900B3EB52 /* Level.m */,
-				B7378993180767190076A88C /* MainScene.m */,
 				D352B48019EC608A00829775 /* MetalShaders */,
 			);
 			name = Source;

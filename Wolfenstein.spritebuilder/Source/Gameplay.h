@@ -11,6 +11,7 @@
 @interface Gameplay : CCNode <CCPhysicsCollisionDelegate>
 {
     CCPhysicsNode* _physicsNode;
+    CCNode* _powerUpPosition;
 }
 
 @end

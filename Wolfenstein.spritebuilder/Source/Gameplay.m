@@ -13,6 +13,7 @@
 #import "WinPopUp.h"
 #import "CCActionFollow+CurrentOffset.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
+#import "CCDirector.h"
 
 static NSString * const kFirstLevel = @"Level1";
 static NSString *selectedLevel = @"Level1";
@@ -84,7 +85,7 @@ static NSInteger maxSpecialComboUse = 5;
     wolfe_jumped = false;
     playerGroundHit = FALSE;
     countSpecialComboUse = 0;
-    _physicsNode.debugDraw = TRUE;
+    //_physicsNode.debugDraw = TRUE;
     
 }
 
@@ -98,7 +99,7 @@ static NSInteger maxSpecialComboUse = 5;
 
 -(void)update:(CCTime)delta
 {
-    if (_wolfe.position.x < 60) {
+    if (_wolfe.position.x < 70) {
         _wolfe.position = ccp(60, _wolfe.position.y);
     }
     if (_wolfe.position.x > 740) {
@@ -131,7 +132,7 @@ static NSInteger maxSpecialComboUse = 5;
                 [self showScore];
                 [_fister punch];
                 if (_wolfe.position.x < _fister.position.x) {
-                    _fister.position = ccp(_wolfe.position.x + 200, _fister.position.y);
+                    _fister.position = ccp(_wolfe.position.x + 190, _fister.position.y);
                 } else if (_wolfe.position.x > _fister.position.x) {
                     _fister.position = ccp(_wolfe.position.x - 200, _fister.position.y);
                 }
@@ -268,11 +269,8 @@ static NSInteger maxSpecialComboUse = 5;
 - (void)walkRightEnemy {
     _fister.flipX=YES;
     NSLog(@"Right");
-    //NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
-    //NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
-    //NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
     [_fister run];
-    id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 100, _fister.position.y)];
+    id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 200, _fister.position.y)];
     [_fister runAction:moveRight];
     [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
     
@@ -301,7 +299,6 @@ static NSInteger maxSpecialComboUse = 5;
 
 - (void)walkLeft {
     _wolfe.flipX=YES;
-//    _fister.flipX=YES;
     [_wolfe walk];
     id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-20, 0)];
     [_wolfe runAction:moveLeft];
@@ -311,7 +308,6 @@ static NSInteger maxSpecialComboUse = 5;
 
 -(void)jumpUp {
     [_wolfe jumpflip];
-//    CGPoint wolfe_position = _wolfe.position;
     id jumpUp = [CCActionJumpBy actionWithDuration:0.7f position:ccp(0, 200)
                                             height:50 jumps:1];
     id jumpDown = [CCActionJumpBy actionWithDuration:0.7f position:ccp(0,-80)
@@ -323,13 +319,12 @@ static NSInteger maxSpecialComboUse = 5;
     [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
     wolfe_jumped = TRUE;
     [self performSelector:@selector(resetJump) withObject:nil afterDelay:2.f];
-    
+    _wolfe.physicsBody.velocity = CGPointMake(0, 0);
 }
 
 -(void)jumpLeft {
     _wolfe.flipX=YES;
     [_wolfe jumpflip];
-    //    CGPoint wolfe_position = _wolfe.position;
     id jumpUp = [CCActionJumpBy actionWithDuration:0.7f position:ccp(-1*_wolfe.position.x, 200)
                                             height:50 jumps:1];
     id jumpDown = [CCActionJumpBy actionWithDuration:0.7f position:ccp(-1*_wolfe.position.x,-80)
@@ -341,12 +336,11 @@ static NSInteger maxSpecialComboUse = 5;
     [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:2.f];
     wolfe_jumped = TRUE;
     [self performSelector:@selector(resetJump) withObject:nil afterDelay:2.f];
-    
+    _wolfe.physicsBody.velocity = CGPointMake(0, 0);
 }
 
 -(void)jumpRight {
     [_wolfe jumpflip];
-    //    CGPoint wolfe_position = _wolfe.position;
     id jumpUp = [CCActionJumpBy actionWithDuration:0.7f position:ccp(200, 200)
                                             height:50 jumps:1];
     id jumpDown = [CCActionJumpBy actionWithDuration:0.7f position:ccp(200,-80)
@@ -358,7 +352,7 @@ static NSInteger maxSpecialComboUse = 5;
     [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:2.f];
     wolfe_jumped = TRUE;
     [self performSelector:@selector(resetJump) withObject:nil afterDelay:2.f];
-    
+    _wolfe.physicsBody.velocity = CGPointMake(0, 0);
     
 }
 
@@ -403,39 +397,11 @@ static NSInteger maxSpecialComboUse = 5;
 }
 
 - (void)wolfe_idle {
-//    float wolfeXcoordRight = _wolfe.boundingBox.origin.x + _wolfe.boundingBox.size.width;
-//    float wolfeXcoordLeft = _wolfe.boundingBox.origin.x;
-//    float fisterXcoordRight = _fister.boundingBox.origin.x + _fister.boundingBox.size.width;
-//    float fisterXcoordLeft = _fister.boundingBox.origin.x;
-//    if (wolfeXcoordRight < fisterXcoordLeft) {
-//        rightface = TRUE;
-//        _wolfe.flipX=NO;
-//        _fister.flipX=NO;
-//    }
-//    else if (wolfeXcoordLeft > fisterXcoordRight) {
-//        rightface = FALSE;
-//        _wolfe.flipX=YES;
-//        _fister.flipX=YES;
-//    }
     [_wolfe idle];
     [self flip_handle];
 }
 
 - (void)fister_idle {
-//    float wolfeXcoordRight = _wolfe.boundingBox.origin.x + _wolfe.boundingBox.size.width;
-//    float wolfeXcoordLeft = _wolfe.boundingBox.origin.x;
-//    float fisterXcoordRight = _fister.boundingBox.origin.x + _fister.boundingBox.size.width;
-//    float fisterXcoordLeft = _fister.boundingBox.origin.x;
-//    if (wolfeXcoordRight < fisterXcoordLeft) {
-//        rightface = TRUE;
-//        _wolfe.flipX=NO;
-//        _fister.flipX=NO;
-//    }
-//    else if (wolfeXcoordLeft > fisterXcoordRight) {
-//        rightface = FALSE;
-//        _wolfe.flipX=YES;
-//        _fister.flipX=YES;
-//    }
     [_fister idle];
     [self flip_handle];
 }
@@ -446,8 +412,14 @@ static NSInteger maxSpecialComboUse = 5;
     NSString *str = [powerupArray objectAtIndex:index];
     _powerUp = (CCSprite*)[CCBReader load:str];
     _powerUp.name = @"PowerUp";
-    [_physicsNode addChild:_powerUp];
-    _powerUp.position = ccp(283, 264);
+//    CGSize winSize = [[CCDirector sharedDirector] ];
+//    CGPoint centerPoint = ccpSub(ccp(winSize.width/2, winSize.height - 50), [self position]);
+//    [_powerUp setPosition:centerPoint];
+    [_powerUpPosition setPosition:[_physicsNode convertToNodeSpace:[self convertToWorldSpace:ccp(self.contentSizeInPoints.width/2, self.contentSizeInPoints.height* 0.8f)]]];
+    [_powerUpPosition addChild:_powerUp];
+    NSLog([NSString stringWithFormat:@"_powerUpPosition x: %f", _powerUpPosition.position.x]);
+    NSLog([NSString stringWithFormat:@"_powerUpPosition y: %f", _powerUpPosition.position.y]);
+//    _powerUp.position = _powerUpPosition.position; //convertToWorldSpace:ccp(0, 0)]; //ccp(283, 264);
     effect = (CCParticleSystem *)[CCBReader load:@"PowerupEffect"];
     effect.position = _powerUp.position;
     [_powerUp.parent addChild:effect];
@@ -455,8 +427,8 @@ static NSInteger maxSpecialComboUse = 5;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero powerUpcol:(CCNode *)powerUpcol {
-    CCSprite *powerup = [_physicsNode getChildByName:@"PowerUp" recursively:NO];
-    [_physicsNode removeChild:powerup];
+    CCSprite *powerup = [_powerUpPosition getChildByName:@"PowerUp" recursively:NO];
+    [_powerUpPosition removeChild:powerup];
     [effect removeFromParent];
     points += 5;
     powerupavailable = false;
@@ -465,8 +437,8 @@ static NSInteger maxSpecialComboUse = 5;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair enemy:(CCNode *)enemy powerUpcol:(CCNode *)powerUpcol {
-    CCSprite *powerup = [_physicsNode getChildByName:@"PowerUp" recursively:NO];
-    [_physicsNode removeChild:powerup];
+    CCSprite *powerup = [_powerUpPosition getChildByName:@"PowerUp" recursively:NO];
+    [_powerUpPosition removeChild:powerup];
     points_fister += 5;
     powerupavailable = false;
     
