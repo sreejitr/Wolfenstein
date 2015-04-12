@@ -6287,7 +6287,7 @@
 			<key>affectedByGravity</key>
 			<true/>
 			<key>allowsRotation</key>
-			<true/>
+			<false/>
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>
@@ -6304,7 +6304,7 @@
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
-			<real>37</real>
+			<real>7</real>
 			<key>dynamic</key>
 			<true/>
 			<key>elasticity</key>
