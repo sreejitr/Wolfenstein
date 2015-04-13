@@ -1,7 +1,7 @@
 #Progress Report on Game Development
 
 
-Date: March 24th 2015
+#Date: March 24th 2015
 
 <b>What was the goal for last week..
 
@@ -29,7 +29,7 @@ Add power-ups/shields/more levels
 
 
 
-Date: March 31st 2015
+#Date: March 31st 2015
 
 <b>What was the goal for last week..
 
@@ -63,7 +63,7 @@ Add high score screen, and if possible, more levels
 
 
 
-Date: April 7th 2015
+#Date: April 7th 2015
 
 <b>What was the goal for last week..
 
@@ -99,7 +99,7 @@ Work on adding more levels if possible
 
 
 
-Date: April 12th 2015
+#Date: April 12th 2015
 
 <b>What was the goal for last week..
 

@@ -277,14 +277,11 @@ static NSInteger maxSpecialComboUse = 5;
             [_fister performSelector:@selector(getup) withObject:nil afterDelay:2.f];
             [self performSelector:@selector(resetenemyGroundHit) withObject:nil afterDelay:1.f];
         }
-        [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:2.9f];
+        [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:3.5f];
     } else {
         [_wolfe attack];
-    
         [_fister hit];
-        fister_hit += 1;
-        playerScore += 500;
-        points_fister -= healthPointsToDeducthero;
+        [self performSelector:@selector(updateEnemyScore) withObject:nil afterDelay:1.2f];
         [self showScore];
         if (points_fister == 0) {
             [_fister groundhit];
@@ -292,6 +289,15 @@ static NSInteger maxSpecialComboUse = 5;
         [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:1.9f];
     }
     
+}
+
+- (void) updateEnemyScore {
+    if (fabsf(_fister.position.x - _wolfe.position.x) < 200) {
+        fister_hit += 1;
+        playerScore += 500;
+        points_fister -= healthPointsToDeducthero;
+    }
+
 }
 
 -(void) turnoff_wolfe_attack {
@@ -302,8 +308,8 @@ static NSInteger maxSpecialComboUse = 5;
 //    [_wolfe idle];
     wolfeAttackEnable = false;
     if (_fister.flipX == YES) {
-        id moveTo = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_fister.position.x + 40, _fister.position.y)];
-        [_fister runAction:moveTo];
+//        id moveTo = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_fister.position.x + 40, _fister.position.y)];
+//        [_fister runAction:moveTo];
     }
     
 }
@@ -421,13 +427,12 @@ static NSInteger maxSpecialComboUse = 5;
 //        countSpecialComboUse += 1;
         [_wolfe crouchcombo];
         [_fister hit];
+        [_fister performSelector:@selector(groundhit) withObject:nil afterDelay:0.7f];
         enemyGroundHit = TRUE;
         fister_hit += 1;
         playerScore += 500;
         points_fister -= healthPointsToDeducthero;
         [self showScore];
-
-        [_fister performSelector:@selector(groundhit) withObject:nil afterDelay:0.7f];
     }
     
 }
@@ -527,7 +532,7 @@ static NSInteger maxSpecialComboUse = 5;
         effect.position = _fister.position;
         [_fister.parent addChild:effect];
         healthPointsToDeducthero = 10;
-        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:2.f];
+        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:5.f];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Freeze"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"FreezeEffect"];
         effect.autoRemoveOnFinish = TRUE;
@@ -549,7 +554,7 @@ static NSInteger maxSpecialComboUse = 5;
     [_powerUpPosition removeChild:powerup];
 //    points_fister += 5;
     powerupavailable = false;
-    
+     
     return TRUE;
 }
 

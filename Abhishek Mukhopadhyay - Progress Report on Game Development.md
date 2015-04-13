@@ -1,7 +1,7 @@
 #Progress Report on Game Development
 
 
-Date: March 24th 2015
+#Date: March 24th 2015
 
 <b>What was the goal for last week..
 
@@ -29,7 +29,7 @@ Figure out how to make the game more interesting and implement it
 
 
 
-Date: March 31st 2015
+#Date: March 31st 2015
 
 <b>What was the goal for last week..
 
@@ -67,7 +67,7 @@ Figure out how to make the game more interesting and implement it
 
 
 
-Date: April 7th 2015
+#Date: April 7th 2015
 
 <b>What was the goal for last week..
 
@@ -105,7 +105,7 @@ Figure out how to make the game more interesting
 
 
 
-Date: April 12th 2015
+#Date: April 12th 2015
 
 <b>What was the goal for last week..
 
