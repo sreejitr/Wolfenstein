@@ -41,11 +41,11 @@ Add lateral movement to players
 
 Added lateral movements to players, used UISwipeGestureRecognizer and UITapGestureRecognizer, however, the movements are not smooth. (This version of the game was not committed in git. I had a copy of the Gameplay.m file from this version which I have added in the Repository separately)
 
-Figured out how to make the game more interesting by introducing power-ups, shields and bonus points
+Figured out how to make the game more interesting by introducing power-ups, shields, game score & bonus scores/health points
 
 <b>What I am doing this week..
 
-Figure out the game will progress 
+Figure out how the game will progress 
 
 Add enemy’s health
 
@@ -79,7 +79,7 @@ Added enemy’s health
 
 Improved player movements by using touchBegan and touchMoved methods to recognize swipe gestures
 
-Game Progress - 30 seconds into the game, power-ups, bonus health points, shields will show on the top of the screen and both players will compete to get them by jumping. Game ends when one of the player's health goes to zero.
+Game Progress - 30 seconds into the game, power-ups, bonus health points/player score, shields will show on the top of the screen and both players will compete to get them by jumping. Game ends when one of the player's health goes to zero.
 
 <b>What I am doing this week..
 
@@ -89,7 +89,11 @@ Add more fight tactics to players, add jump movement
 
 <b>What I am doing next week..
 
-Add high score screen, and if possible, more levels
+Improve Health labels and add score labels 
+
+Add menu screen
+
+Add more levels
 
 <b>Goals for the rest of the game.. 
 
@@ -117,7 +121,7 @@ Added a crouchcombo attack for Wolfe
 
 <b>What I am doing this week..
 
-Improve Health and score labels
+Improve Health labels and add score labels
 
 Add menu screen
 

@@ -17,7 +17,6 @@
 
 static NSString * const kFirstLevel = @"Level1";
 static NSString *selectedLevel = @"Level1";
-static NSInteger maxSpecialComboUse = 5;
 
 
 @implementation Gameplay{
@@ -102,7 +101,7 @@ static NSInteger maxSpecialComboUse = 5;
     healthPointsToDeducthero = 4;
     healthPointsToDeductenemy = 4;
     playerScore = 0;
-    _reqScore.string = [NSString stringWithFormat:@"Required Score: 15000"];
+    _reqScore.string = [NSString stringWithFormat:@"Required Score: 12000"];
     _reqScore.visible = true;
 }
 
@@ -121,29 +120,30 @@ static NSInteger maxSpecialComboUse = 5;
 -(void)update:(CCTime)delta
 {
     [self showScore];
-    if (points_fister <= 0 && playerScore >= 15000) {
+    if (points_fister <= 0 && playerScore >= 12000) {
         [self winScreen];
     }
-    if (points_fister <= 0 && playerScore < 15000) {
+    if (points_fister <= 0 && playerScore < 12000) {
         [self loseScreen];
     }
     if (points <= 0) {
         [self loseScreen];
     }
-    if (_wolfe.position.x < 70) {
-        _wolfe.position = ccp(60, _wolfe.position.y);
-    }
-    if (_wolfe.position.x > 740) {
-        _wolfe.position = ccp(740, _wolfe.position.y);
-    }
-    if (_fister.position.x < 60) {
-        _fister.position = ccp(60, _wolfe.position.y);
-    }
-    if (_fister.position.x > 740) {
-        _fister.position = ccp(740, _wolfe.position.y);
-    }
+    
 //    _fister.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _fister.contentSize} cornerRadius:0];
     if (!_gameOver) {
+        if (_wolfe.position.x < 70) {
+            _wolfe.position = ccp(60, _wolfe.position.y);
+        }
+        if (_wolfe.position.x > 740) {
+            _wolfe.position = ccp(740, _wolfe.position.y);
+        }
+        if (_fister.position.x < 60) {
+            _fister.position = ccp(60, _wolfe.position.y);
+        }
+        if (_fister.position.x > 740) {
+            _fister.position = ccp(740, _wolfe.position.y);
+        }
         timeelapsed += delta;
         totaltimeelapsed += delta;
         if (totaltimeelapsed >= 30.f && !powerupsactivated) {
@@ -243,37 +243,39 @@ static NSInteger maxSpecialComboUse = 5;
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
     self.userInteractionEnabled = TRUE;
-    [_fister idle];
+//    [_fister idle];
     
     touchMovedLocation = [touch locationInNode:self.parent];
 //    NSLog([NSString stringWithFormat:@"touchbegan x: %f", touchBeganLocation.x]);
 //    NSLog([NSString stringWithFormat:@"touchbegan y: %f", touchBeganLocation.y]);
 //    NSLog([NSString stringWithFormat:@"touchMovedLocation x: %f", touchMovedLocation.x]);
 //    NSLog([NSString stringWithFormat:@"touchMovedLocation y: %f", touchMovedLocation.y]);
-    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchBeganLocation.x - touchMovedLocation.x > 50) && !wolfe_jumped) {
-        [self jumpLeft];
-    } else if ((touchBeganLocation.x - touchMovedLocation.x > 50) && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90) && !wolfe_jumped) {
-        [self walkLeft];
+    if (!_gameOver) {
+        if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchBeganLocation.x - touchMovedLocation.x > 50) && !wolfe_jumped) {
+            [self jumpLeft];
+        } else if ((touchBeganLocation.x - touchMovedLocation.x > 50) && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90) && !wolfe_jumped) {
+            [self walkLeft];
+        }
+        
+        if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchMovedLocation.x - touchBeganLocation.x > 50) && ((_wolfe.position.x + 200) < (_loadedLevel.boundingBox.size.width - _wolfe.boundingBox.size.width)) && !wolfe_jumped) {
+            [self jumpRight];
+        } else if ((touchMovedLocation.x - touchBeganLocation.x > 50) && (_wolfe.position.x + 20 < (_loadedLevel.boundingBox.size.width - 90)) && !wolfe_jumped) {
+            [self walkRight];
+        }
+        
+        if ((touchMovedLocation.y - touchBeganLocation.y > 50) && !wolfe_jumped) {
+            [self jumpUp];
+        }
+        
+        if (touchBeganLocation.y - touchMovedLocation.y > 50) {
+            wolfeAttackEnable = TRUE;
+            crouchCombo = TRUE;
+        } else {
+            wolfeAttackEnable = false;
+        }
+        _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
+        [_levelNode runAction:_followWolfe];
     }
-    
-    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchMovedLocation.x - touchBeganLocation.x > 50) && ((_wolfe.position.x + 200) < (_loadedLevel.boundingBox.size.width - _wolfe.boundingBox.size.width)) && !wolfe_jumped) {
-        [self jumpRight];
-    } else if ((touchMovedLocation.x - touchBeganLocation.x > 50) && (_wolfe.position.x + 20 < (_loadedLevel.boundingBox.size.width - 90)) && !wolfe_jumped) {
-        [self walkRight];
-    }
-    
-    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && !wolfe_jumped) {
-        [self jumpUp];
-    }
-    
-    if (touchBeganLocation.y - touchMovedLocation.y > 50) {
-        wolfeAttackEnable = TRUE;
-        crouchCombo = TRUE;
-    } else {
-        wolfeAttackEnable = false;
-    }
-    _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
-    [_levelNode runAction:_followWolfe];
 }
 
 -(void) touchEnded:(CCTouch*)touch withEvent:(CCTouchEvent *)event{
