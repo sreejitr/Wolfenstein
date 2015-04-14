@@ -19,6 +19,7 @@
 		17179E811ABF862400144940 /* Fister.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E801ABF862400144940 /* Fister.m */; };
 		17179E9B1ABFB39500144940 /* WinPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E9A1ABFB39500144940 /* WinPopUp.m */; };
 		17289D8A1AD8A54100BF4485 /* Health.m in Sources */ = {isa = PBXBuildFile; fileRef = 17289D891AD8A54100BF4485 /* Health.m */; };
+		172A2AD31ADC6F1B00831D40 /* barHorizontal_green_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = 172A2AD21ADC6F1A00831D40 /* barHorizontal_green_mid.png */; };
 		173DCE111AC9F988003161AE /* CCActionFollow+CurrentOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = 173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */; };
 		5B121030197484FA004C1E1D /* WolfensteinActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B12102F197484FA004C1E1D /* WolfensteinActivity.m */; };
 		5B121038197487F2004C1E1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B737893E1807617C0076A88C /* AppDelegate.m */; };
@@ -186,6 +187,7 @@
 		17179E9A1ABFB39500144940 /* WinPopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WinPopUp.m; path = Source/WinPopUp.m; sourceTree = "<group>"; };
 		17289D881AD8A54100BF4485 /* Health.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Health.h; path = Source/Health.h; sourceTree = "<group>"; };
 		17289D891AD8A54100BF4485 /* Health.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Health.m; path = Source/Health.m; sourceTree = "<group>"; };
+		172A2AD21ADC6F1A00831D40 /* barHorizontal_green_mid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barHorizontal_green_mid.png; sourceTree = "<group>"; };
 		173DCE0F1AC9F988003161AE /* CCActionFollow+CurrentOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCActionFollow+CurrentOffset.h"; path = "Source/CCActionFollow+CurrentOffset.h"; sourceTree = "<group>"; };
 		173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCActionFollow+CurrentOffset.m"; path = "Source/CCActionFollow+CurrentOffset.m"; sourceTree = "<group>"; };
 		5B12100919748273004C1E1D /* libEGL.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libEGL.so; path = /usr/lib/armv7a/libEGL.so; sourceTree = SDKROOT; };
@@ -583,6 +585,7 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				172A2AD21ADC6F1A00831D40 /* barHorizontal_green_mid.png */,
 				7A40366119DDF8C2007B6E8F /* Platforms */,
 				5B12100D197483EE004C1E1D /* res */,
 				B73789911807667A0076A88C /* Icons */,
@@ -798,6 +801,7 @@
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
 				B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */,
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
+				172A2AD31ADC6F1B00831D40 /* barHorizontal_green_mid.png in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,

@@ -29,6 +29,8 @@ static NSInteger maxSpecialComboUse = 5;
     CCLabelTTF *_healthLabel;
     CCLabelTTF *_fisterHealth;
     CCLabelTTF *_winPopUpLabel;
+    CCLabelTTF *_gamePoints;
+    CCLabelTTF *_reqScore;
     double_t timeelapsed;
     double_t totaltimeelapsed;
     int wolfe_hit;
@@ -55,7 +57,7 @@ static NSInteger maxSpecialComboUse = 5;
     NSInteger healthPointsToDeductenemy;
     BOOL facingeachother;
     NSString *currentPowerUp;
-    NSInteger playerScore;
+    int playerScore;
     BOOL wolfeAttackEnable;
     BOOL crouchCombo;
     NSString *playerCollidedwithPowerUp;
@@ -83,21 +85,25 @@ static NSInteger maxSpecialComboUse = 5;
     timeelapsed = 0.0f;
     _healthLabel.visible = TRUE;
     _fisterHealth.visible = TRUE;
+    _gamePoints.visible = TRUE;
     points = 100;
     points_fister = 100;
     [self showScore];
     _gameOver = FALSE;
     powerupavailable = false;
     powerupsactivated = false;
-    powerupArray = @[@"Health", @"TwoX", @"Star", @"Fire", @"Shield", @"Lightening", @"Freeze"];
+//    powerupArray = @[@"Health", @"TwoX", @"Star", @"Fire", @"Shield", @"Lightening", @"Freeze"];
+    powerupArray = @[@"Health", @"TwoX", @"Star", @"Shield", @"Lightening", @"Freeze"];
     wolfe_jumped = false;
     playerGroundHit = FALSE;
     countSpecialComboUse = 0;
 //    _physicsNode.debugDraw = TRUE;
     facingeachother = true;
-    healthPointsToDeducthero = 3;
-    healthPointsToDeductenemy = 3;
+    healthPointsToDeducthero = 4;
+    healthPointsToDeductenemy = 4;
     playerScore = 0;
+    _reqScore.string = [NSString stringWithFormat:@"Required Score: 15000"];
+    _reqScore.visible = true;
 }
 
 - (void)onEnter {
@@ -106,14 +112,22 @@ static NSInteger maxSpecialComboUse = 5;
     CCActionFollow *follow = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
     _physicsNode.position = [follow currentOffset];
     [_physicsNode runAction:follow];
+//    CCSprite *sprite = [CCSprite spriteWithImageNamed:@"healthbar.png"];
+//    sprite.position = ccp(self.contentSizeInPoints.width/2, 10.f);
+//    sprite.scaleX = 200;
+//    [_physicsNode addChild:sprite];
 }
 
 -(void)update:(CCTime)delta
 {
-    if (points_fister == 0) {
+    [self showScore];
+    if (points_fister <= 0 && playerScore >= 15000) {
         [self winScreen];
     }
-    if (points == 0) {
+    if (points_fister <= 0 && playerScore < 15000) {
+        [self loseScreen];
+    }
+    if (points <= 0) {
         [self loseScreen];
     }
     if (_wolfe.position.x < 70) {
@@ -136,7 +150,7 @@ static NSInteger maxSpecialComboUse = 5;
             [self loadpowerups];
             powerupsactivated = TRUE;
         }
-        else if (totaltimeelapsed > 15.f && powerupsactivated) {
+        else if (totaltimeelapsed > 25.f && powerupsactivated) {
             [self loadpowerups];
             totaltimeelapsed = 0.0f;
         }
@@ -145,7 +159,7 @@ static NSInteger maxSpecialComboUse = 5;
             [_wolfe performSelector:@selector(getup) withObject:nil afterDelay:2.f];
             [self performSelector:@selector(resetplayerGroundHit) withObject:nil afterDelay:2.2f];
         }
-        if (timeelapsed > 1.5f) {
+        if (timeelapsed > 1.2f) {
         
             if (!wolfe_attack && fabsf(_wolfe.position.x - _fister.position.x) <= 200 && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
                 [self enemyAttackBegan];
@@ -172,10 +186,10 @@ static NSInteger maxSpecialComboUse = 5;
     fister_attack = TRUE;
     wolfe_hit += 1;
     playerScore -= 200;
-    //                points -= healthPointsToDeductenemy;
+    points -= healthPointsToDeductenemy;
     [self showScore];
     [_fister punch];
-    [_wolfe hit];
+    [_wolfe performSelector:@selector(hit) withObject:nil afterDelay:0.2f];
     [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.9f];
     if (_fister.flipX == NO) {
         id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_fister.position.x + 90, _fister.position.y)];
@@ -197,10 +211,18 @@ static NSInteger maxSpecialComboUse = 5;
 
 - (void)showScore
 {
+    if (points < 0) {
+        points = 0;
+    }
+    if (points_fister < 0) {
+        points_fister = 0;
+    }
     _healthLabel.string = [NSString stringWithFormat:@"Wolfe: %d", points];
     _healthLabel.visible = true;
     _fisterHealth.string = [NSString stringWithFormat:@"Fister: %d", points_fister];
     _fisterHealth.visible = true;
+    _gamePoints.string = [NSString stringWithFormat:@"Score: %d", playerScore];
+    _gamePoints.visible = true;
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -209,6 +231,8 @@ static NSInteger maxSpecialComboUse = 5;
 //    NSLog([NSString stringWithFormat:@"Wolfe physicsbody: %f", _wolfe.physicsBody.]);
 //    NSLog([NSString stringWithFormat:@"Fister width: %f", _fister.boundingBox.size.width]);
 //    NSLog([NSString stringWithFormat:@"Level width: %f", _loadedLevel.boundingBox.size.width]);
+    
+//     _progressNode.percentage += 10.0f;
     
     touchBeganLocation = [touch locationInNode:self.parent];
     wolfeAttackEnable = TRUE;
@@ -292,7 +316,7 @@ static NSInteger maxSpecialComboUse = 5;
 }
 
 - (void) updateEnemyScore {
-    if (fabsf(_fister.position.x - _wolfe.position.x) < 200) {
+    if ( (_wolfe.flipX == NO) || (fabsf(_fister.position.x - _wolfe.position.x) < 200)) {
         fister_hit += 1;
         playerScore += 500;
         points_fister -= healthPointsToDeducthero;
@@ -430,7 +454,7 @@ static NSInteger maxSpecialComboUse = 5;
         [_fister performSelector:@selector(groundhit) withObject:nil afterDelay:0.7f];
         enemyGroundHit = TRUE;
         fister_hit += 1;
-        playerScore += 500;
+        playerScore += 1000;
         points_fister -= healthPointsToDeducthero;
         [self showScore];
     }
@@ -489,6 +513,7 @@ static NSInteger maxSpecialComboUse = 5;
     [_powerUpPosition setPosition:[_physicsNode convertToNodeSpace:[self convertToWorldSpace:ccp(self.contentSizeInPoints.width/2, self.contentSizeInPoints.height* 0.8f)]]];
     [_powerUpPosition addChild:_powerUp];
     effect = (CCParticleSystem *)[CCBReader load:@"PowerupEffect"];
+    effect.autoRemoveOnFinish = TRUE;
     effect.position = _powerUp.position;
     [_powerUp.parent addChild:effect];
     powerupavailable = TRUE;
@@ -515,8 +540,9 @@ static NSInteger maxSpecialComboUse = 5;
         effect.autoRemoveOnFinish = TRUE;
         effect.position = _wolfe.position;
         [_wolfe.parent addChild:effect];
-        healthPointsToDeducthero = 6;
-        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:2.f];
+        healthPointsToDeducthero = 8;
+        playerScore += 100;
+        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:5.f];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Star"]) {
         playerScore += 1000;
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Shield"]) {
@@ -525,26 +551,27 @@ static NSInteger maxSpecialComboUse = 5;
         effect.position = _wolfe.position;
         [_wolfe.parent addChild:effect];
         healthPointsToDeductenemy = 0;
-        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:5.f];
+        playerScore += 200;
+        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"LighteningEffect"];
         effect.autoRemoveOnFinish = TRUE;
         effect.position = _fister.position;
         [_fister.parent addChild:effect];
         healthPointsToDeducthero = 10;
-        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:5.f];
+        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Freeze"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"FreezeEffect"];
         effect.autoRemoveOnFinish = TRUE;
         effect.position = _fister.position;
         [_fister.parent addChild:effect];
-        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:5.f];
+        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
     }
 }
 
 - (void) resetplayerCollidedwithPowerUp {
-    healthPointsToDeducthero = 3;
-    healthPointsToDeductenemy = 3;
+    healthPointsToDeducthero = 4;
+    healthPointsToDeductenemy = 4;
     playerCollidedwithPowerUp = @"";
 }
 
