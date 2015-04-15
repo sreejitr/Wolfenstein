@@ -120,11 +120,8 @@ static NSString *selectedLevel = @"Level1";
 -(void)update:(CCTime)delta
 {
     [self showScore];
-    if (points_fister <= 0 && playerScore >= 12000) {
+    if (points_fister <= 0) {
         [self winScreen];
-    }
-    if (points_fister <= 0 && playerScore < 12000) {
-        [self loseScreen];
     }
     if (points <= 0) {
         [self loseScreen];
@@ -217,10 +214,27 @@ static NSString *selectedLevel = @"Level1";
     if (points_fister < 0) {
         points_fister = 0;
     }
+    if (points >= 60) {
+        _healthLabel.color = [CCColor colorWithRed:0.2 green:0.7 blue:0.1];
+    } else if (points < 60 && points >= 25) {
+        _healthLabel.color = [CCColor colorWithRed:0.7 green:0.28 blue:0.0];
+    } else if (points < 25 && points >= 0) {
+        _healthLabel.color = [CCColor colorWithRed:1.0 green:0.0 blue:0.0];
+    }
+    
     _healthLabel.string = [NSString stringWithFormat:@"Wolfe: %d", points];
     _healthLabel.visible = true;
+    
     _fisterHealth.string = [NSString stringWithFormat:@"Fister: %d", points_fister];
     _fisterHealth.visible = true;
+    if (points_fister >= 60) {
+        _fisterHealth.color = [CCColor colorWithRed:0.2 green:0.7 blue:0.1];
+    } else if (points_fister < 60 && points_fister >= 25) {
+        _fisterHealth.color = [CCColor colorWithRed:0.7 green:0.2 blue:0.0];
+    } else if (points_fister < 25 && points_fister >= 0) {
+        _fisterHealth.color = [CCColor colorWithRed:1.0 green:0.0 blue:0.0];
+    }
+    
     _gamePoints.string = [NSString stringWithFormat:@"Score: %d", playerScore];
     _gamePoints.visible = true;
 }
