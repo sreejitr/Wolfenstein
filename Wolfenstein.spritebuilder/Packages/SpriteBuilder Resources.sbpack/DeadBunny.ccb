@@ -1541,7 +1541,6 @@
 			<array/>
 			<key>collisionMask</key>
 			<array>
-				<string>hero</string>
 				<string>ground</string>
 			</array>
 			<key>collisionType</key>
@@ -1728,6 +1727,8 @@
 				<array/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
