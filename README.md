@@ -1,4 +1,4 @@
-# Wolfenstein
+# Wolfe
 iOS Game
 
 Game art by Jose Ortiz

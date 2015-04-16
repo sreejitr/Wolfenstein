@@ -19,6 +19,7 @@
 		17179E811ABF862400144940 /* Fister.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E801ABF862400144940 /* Fister.m */; };
 		17179E9B1ABFB39500144940 /* WinPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 17179E9A1ABFB39500144940 /* WinPopUp.m */; };
 		1728649B1ADF319F00529925 /* TutorialGameplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1728649A1ADF319F00529925 /* TutorialGameplay.m */; };
+		172864AC1ADF599900529925 /* DeadBunny.m in Sources */ = {isa = PBXBuildFile; fileRef = 172864AB1ADF599900529925 /* DeadBunny.m */; };
 		17289D8A1AD8A54100BF4485 /* Health.m in Sources */ = {isa = PBXBuildFile; fileRef = 17289D891AD8A54100BF4485 /* Health.m */; };
 		172A2AD31ADC6F1B00831D40 /* barHorizontal_green_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = 172A2AD21ADC6F1A00831D40 /* barHorizontal_green_mid.png */; };
 		173DCE111AC9F988003161AE /* CCActionFollow+CurrentOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = 173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */; };
@@ -188,6 +189,8 @@
 		17179E9A1ABFB39500144940 /* WinPopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WinPopUp.m; path = Source/WinPopUp.m; sourceTree = "<group>"; };
 		172864991ADF319F00529925 /* TutorialGameplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialGameplay.h; path = Source/TutorialGameplay.h; sourceTree = "<group>"; };
 		1728649A1ADF319F00529925 /* TutorialGameplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialGameplay.m; path = Source/TutorialGameplay.m; sourceTree = "<group>"; };
+		172864AA1ADF599900529925 /* DeadBunny.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeadBunny.h; path = Source/DeadBunny.h; sourceTree = "<group>"; };
+		172864AB1ADF599900529925 /* DeadBunny.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeadBunny.m; path = Source/DeadBunny.m; sourceTree = "<group>"; };
 		17289D881AD8A54100BF4485 /* Health.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Health.h; path = Source/Health.h; sourceTree = "<group>"; };
 		17289D891AD8A54100BF4485 /* Health.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Health.m; path = Source/Health.m; sourceTree = "<group>"; };
 		172A2AD21ADC6F1A00831D40 /* barHorizontal_green_mid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barHorizontal_green_mid.png; sourceTree = "<group>"; };
@@ -487,6 +490,8 @@
 				170604711ABB779500B3EB52 /* Gameplay.m */,
 				172864991ADF319F00529925 /* TutorialGameplay.h */,
 				1728649A1ADF319F00529925 /* TutorialGameplay.m */,
+				172864AA1ADF599900529925 /* DeadBunny.h */,
+				172864AB1ADF599900529925 /* DeadBunny.m */,
 				1705745E1AD92D3600FD7A33 /* Star.h */,
 				1705745F1AD92D3600FD7A33 /* Star.m */,
 				170574581AD92AA700FD7A33 /* Freeze.h */,
@@ -894,6 +899,7 @@
 				173DCE111AC9F988003161AE /* CCActionFollow+CurrentOffset.m in Sources */,
 				1706047B1ABB807900B3EB52 /* Level.m in Sources */,
 				1728649B1ADF319F00529925 /* TutorialGameplay.m in Sources */,
+				172864AC1ADF599900529925 /* DeadBunny.m in Sources */,
 				1705744F1AD914A900FD7A33 /* TwoX.m in Sources */,
 				1705745D1AD92C0300FD7A33 /* Shield.m in Sources */,
 				17179E811ABF862400144940 /* Fister.m in Sources */,
