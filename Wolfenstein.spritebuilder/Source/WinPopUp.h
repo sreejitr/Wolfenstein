@@ -10,4 +10,5 @@
 
 @interface WinPopUp : CCNode
 @property (nonatomic, assign) CCLabelTTF *_winPopUpLabel;
+@property (nonatomic, assign) CCLabelTTF *_scoreLabel;
 @end

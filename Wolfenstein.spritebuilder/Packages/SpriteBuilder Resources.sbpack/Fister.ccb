@@ -6095,6 +6095,7 @@
 			<array>
 				<string>powerUpcol</string>
 				<string>border</string>
+				<string>ground</string>
 			</array>
 			<key>collisionType</key>
 			<string>enemy</string>
@@ -6297,9 +6298,9 @@
 				<string>Color3</string>
 				<key>value</key>
 				<array>
+					<real>0.99108511209487915</real>
 					<real>1</real>
-					<real>1</real>
-					<real>1</real>
+					<real>0.97404003143310547</real>
 					<real>1</real>
 				</array>
 			</dict>

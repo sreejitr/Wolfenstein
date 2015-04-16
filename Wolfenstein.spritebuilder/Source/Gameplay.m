@@ -72,11 +72,14 @@ static NSString *selectedLevel = @"Level1";
     self.userInteractionEnabled = TRUE;
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
     [_physicsNode addChild:_wolfe];
-    _wolfe.position = ccp(205, 110);
+    _wolfe.position = ccp(205, 130);
     rightface = TRUE;
     _fister = (Fister*)[CCBReader load:@"Fister"];
+    if ([_loadedLevel.nextLevelName isEqualToString:@"Level2"]) {
+        _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
+    }
     [_physicsNode addChild:_fister];
-    _fister.position = ccp(370, 110);
+    _fister.position = ccp(370, 150);
     wolfe_attack = FALSE;
     fister_attack = FALSE;
     wolfe_hit = 0;
@@ -101,9 +104,26 @@ static NSString *selectedLevel = @"Level1";
     healthPointsToDeducthero = 4;
     healthPointsToDeductenemy = 4;
     playerScore = 0;
-    _reqScore.string = [NSString stringWithFormat:@"Required Score: 12000"];
+    _reqScore.string = [NSString stringWithFormat:@"*For 3 stars, Score above 12000"];
     _reqScore.visible = true;
 }
+
+- (void)loadNextLevel {
+    selectedLevel = _loadedLevel.nextLevelName;
+    
+    CCScene *nextScene = nil;
+    
+    if (selectedLevel) {
+        nextScene = [CCBReader loadAsScene:@"Gameplay"];
+    } else {
+        selectedLevel = kFirstLevel;
+        nextScene = [CCBReader loadAsScene:@"MainScene"];
+    }
+    
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+    [[CCDirector sharedDirector] presentScene:nextScene withTransition:transition];
+}
+
 
 - (void)onEnter {
     [super onEnter];
@@ -129,17 +149,17 @@ static NSString *selectedLevel = @"Level1";
     
 //    _fister.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _fister.contentSize} cornerRadius:0];
     if (!_gameOver) {
-        if (_wolfe.position.x < 70) {
-            _wolfe.position = ccp(60, _wolfe.position.y);
+        if (_wolfe.position.x < _loadedLevel.positionInPoints.x + 70) {
+            _wolfe.position = ccp(_loadedLevel.positionInPoints.x + 60, _wolfe.position.y);
         }
-        if (_wolfe.position.x > 740) {
-            _wolfe.position = ccp(740, _wolfe.position.y);
+        if (_wolfe.position.x > _loadedLevel.contentSizeInPoints.width - 60) {
+            _wolfe.position = ccp(_loadedLevel.contentSizeInPoints.width - 60, _wolfe.position.y);
         }
-        if (_fister.position.x < 60) {
-            _fister.position = ccp(60, _wolfe.position.y);
+        if (_fister.position.x < _loadedLevel.positionInPoints.x + 60) {
+            _fister.position = ccp(_loadedLevel.positionInPoints.x + 60, _wolfe.position.y);
         }
-        if (_fister.position.x > 740) {
-            _fister.position = ccp(740, _wolfe.position.y);
+        if (_fister.position.x > _loadedLevel.contentSizeInPoints.width - 60) {
+            _fister.position = ccp(_loadedLevel.contentSizeInPoints.width - 60, _wolfe.position.y);
         }
         timeelapsed += delta;
         totaltimeelapsed += delta;
@@ -526,7 +546,7 @@ static NSString *selectedLevel = @"Level1";
     currentPowerUp = [powerupArray objectAtIndex:index];
     _powerUp = (CCSprite*)[CCBReader load:currentPowerUp];
     _powerUp.name = @"PowerUp";
-    [_powerUpPosition setPosition:[_physicsNode convertToNodeSpace:[self convertToWorldSpace:ccp(self.contentSizeInPoints.width/2, self.contentSizeInPoints.height* 0.8f)]]];
+    [_powerUpPosition setPosition:[_physicsNode convertToNodeSpace:[self convertToWorldSpace:ccp(self.contentSizeInPoints.width/2, self.contentSizeInPoints.height* 0.9f)]]];
     [_powerUpPosition addChild:_powerUp];
     effect = (CCParticleSystem *)[CCBReader load:@"PowerupEffect"];
     effect.autoRemoveOnFinish = TRUE;
@@ -615,7 +635,14 @@ static NSString *selectedLevel = @"Level1";
 //}
 
 - (void)winScreen {
-    popup = (WinPopUp *)[CCBReader load:@"WinPopUp" owner:self];
+    if (playerScore >= 12000) {
+        popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
+    } else if (playerScore >= 8000 && playerScore < 12000) {
+        popup = (WinPopUp *)[CCBReader load:@"WinPopUp2star" owner:self];
+    } else if (playerScore < 8000) {
+        popup = (WinPopUp *)[CCBReader load:@"WinPopUp1star" owner:self];
+    }
+    popup._scoreLabel.string = [NSString stringWithFormat:@"%d", playerScore];
     popup.positionType = CCPositionTypeNormalized;
     popup.position = ccp(0.5, 0.5);
     [_wolfe stopAllActions];
@@ -625,9 +652,9 @@ static NSString *selectedLevel = @"Level1";
 }
 
 - (void)loseScreen {
-    popup = (WinPopUp *)[CCBReader load:@"WinPopUp" owner:self];
+    popup = (WinPopUp *)[CCBReader load:@"LosePopUp" owner:self];
     popup.positionType = CCPositionTypeNormalized;
-    popup._winPopUpLabel.string = [NSString stringWithFormat:@"You Lose!!"];
+//    popup._winPopUpLabel.string = [NSString stringWithFormat:@"You Lose!!"];
     popup.position = ccp(0.5, 0.5);
     [_wolfe stopAllActions];
     [_fister stopAllActions];

@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>5</integer>
+	<integer>9</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -41,7 +41,7 @@
 		<array>
 			<dict>
 				<key>UUID</key>
-				<integer>3</integer>
+				<integer>8</integer>
 				<key>baseClass</key>
 				<string>CCNode</string>
 				<key>children</key>
@@ -89,11 +89,11 @@
 							<real>60</real>
 						</array>
 						<array>
-							<real>1200</real>
+							<real>855</real>
 							<real>60</real>
 						</array>
 						<array>
-							<real>1200</real>
+							<real>855</real>
 							<real>0.0</real>
 						</array>
 					</array>
@@ -101,11 +101,11 @@
 					<array>
 						<array>
 							<array>
-								<real>1200</real>
+								<real>855</real>
 								<real>0.0</real>
 							</array>
 							<array>
-								<real>1200</real>
+								<real>855</real>
 								<real>60</real>
 							</array>
 							<array>
@@ -136,8 +136,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>-22.305156707763672</real>
-							<real>-11.573824882507324</real>
+							<real>0.0</real>
+							<real>0.0</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -150,7 +150,7 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>1200</real>
+							<real>855</real>
 							<real>60</real>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -174,17 +174,19 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1.0217963457107544</real>
-							<real>0.90551483631134033</real>
+							<real>1</real>
+							<real>1</real>
 							<false/>
 							<integer>0</integer>
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
-				<integer>4</integer>
+				<integer>5</integer>
 				<key>baseClass</key>
 				<string>CCSprite</string>
 				<key>children</key>
@@ -192,7 +194,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>background1</string>
+				<string>background_par_A</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -214,8 +216,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>595.1087646484375</real>
-							<real>189.21308898925781</real>
+							<real>445.7645263671875</real>
+							<real>215.42198181152344</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -239,8 +241,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.72397661209106445</real>
-							<real>0.58453249931335449</real>
+							<real>1.1144113540649414</real>
+							<real>0.71735328435897827</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -253,7 +255,115 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>viking_BG/background1.png</string>
+							<string>viking_BG/background_par_A.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>normalMapSpriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string></string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>effects</string>
+						<key>type</key>
+						<string>EffectControl</string>
+						<key>value</key>
+						<array/>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>UUID</key>
+				<integer>6</integer>
+				<key>baseClass</key>
+				<string>CCSprite</string>
+				<key>children</key>
+				<array/>
+				<key>customClass</key>
+				<string></string>
+				<key>displayName</key>
+				<string>backgroundA</string>
+				<key>memberVarAssignmentName</key>
+				<string></string>
+				<key>memberVarAssignmentType</key>
+				<integer>1</integer>
+				<key>properties</key>
+				<array>
+					<dict>
+						<key>name</key>
+						<string>name</string>
+						<key>type</key>
+						<string>StringSimple</string>
+						<key>value</key>
+						<string></string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>position</string>
+						<key>type</key>
+						<string>Position</string>
+						<key>value</key>
+						<array>
+							<real>447.22576904296875</real>
+							<real>193.74227905273438</real>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>scale</string>
+						<key>type</key>
+						<string>ScaleLock</string>
+						<key>value</key>
+						<array>
+							<real>1.1180644035339355</real>
+							<real>0.82443523406982422</real>
+							<false/>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>spriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string>viking_BG/backgroundA.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -292,20 +402,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string>Level</string>
-		<key>customProperties</key>
-		<array>
-			<dict>
-				<key>name</key>
-				<string>nextLevelName</string>
-				<key>optimized</key>
-				<false/>
-				<key>type</key>
-				<integer>3</integer>
-				<key>value</key>
-				<string>Level2</string>
-			</dict>
-		</array>
+		<string></string>
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
@@ -343,8 +440,8 @@
 				<string>Size</string>
 				<key>value</key>
 				<array>
-					<real>1150</real>
-					<real>390</real>
+					<real>855</real>
+					<real>384</real>
 					<integer>0</integer>
 					<integer>0</integer>
 				</array>
@@ -374,8 +471,6 @@
 				</array>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
