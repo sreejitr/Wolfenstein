@@ -11,6 +11,7 @@
 #import "Wolfe.h"
 #import "DeadBunny.h"
 #import "WinPopUp.h"
+#import "CCActionFollow+CurrentOffset.h"
 
 
 static NSString *selectedLevel = @"Level0";
@@ -24,11 +25,14 @@ static NSString * const kFirstLevel = @"Level0";
     CCLabelTTF *_instructions;
     CCLabelTTF *_score;
     CGPoint touchBeganLocation;
+    CGPoint touchMovedLocation;
     BOOL wolfeAttackEnable;
     BOOL crouchCombo;
     int points;
     int numOfHits;
     WinPopUp *popup;
+    CCAction *_followWolfe;
+    BOOL wolfe_jumped;
 }
 
 - (void)didLoadFromCCB {
@@ -53,6 +57,15 @@ static NSString * const kFirstLevel = @"Level0";
     points = 0;
     _score.visible = true;
     numOfHits = 0;
+    wolfe_jumped = FALSE;
+}
+
+- (void)onEnter {
+    [super onEnter];
+    
+    CCActionFollow *followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
+    _physicsNode.position = [followWolfe currentOffset];
+    [_physicsNode runAction:followWolfe];
 }
 
 - (void)loadNextLevel {
@@ -81,8 +94,36 @@ static NSString * const kFirstLevel = @"Level0";
     } else if ([_loadedLevel.nextLevelName isEqualToString:@"None"]) {
         touchBeganLocation = [touch locationInNode:self];
     }
+}
+
+- (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
+{
+    touchMovedLocation = [touch locationInNode:self.parent];
+    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchBeganLocation.x - touchMovedLocation.x > 50) && !wolfe_jumped) {
+//        [self jumpLeft];
+    } else if ((touchBeganLocation.x - touchMovedLocation.x > 50) && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90) && !wolfe_jumped) {
+//        [self walkLeft];
+    }
     
+    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchMovedLocation.x - touchBeganLocation.x > 50) && ((_wolfe.position.x + 200) < (_loadedLevel.boundingBox.size.width - _wolfe.boundingBox.size.width)) && !wolfe_jumped) {
+//        [self jumpRight];
+    } else if ((touchMovedLocation.x - touchBeganLocation.x > 50) && (_wolfe.position.x + 20 < (_loadedLevel.boundingBox.size.width - 90)) && !wolfe_jumped) {
+//        [self walkRight];
+    }
     
+    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && !wolfe_jumped) {
+//        [self jumpUp];
+    }
+    
+    if (touchBeganLocation.y - touchMovedLocation.y > 50) {
+        wolfeAttackEnable = TRUE;
+        crouchCombo = TRUE;
+    } else {
+        wolfeAttackEnable = false;
+    }
+    _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
+    [_levelNode runAction:_followWolfe];
+
 }
 
 -(void)update:(CCTime)delta
