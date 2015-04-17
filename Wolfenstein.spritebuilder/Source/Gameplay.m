@@ -15,7 +15,7 @@
 #import "CCPhysics+ObjectiveChipmunk.h"
 #import "CCDirector.h"
 
-static NSString * const kFirstLevel = @"Level1";
+static NSString * const kFirstLevel = @"Level2";
 static NSString *selectedLevel = @"Level1";
 
 

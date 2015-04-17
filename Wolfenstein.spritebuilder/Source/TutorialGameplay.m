@@ -62,7 +62,7 @@ static NSString * const kFirstLevel = @"Level0";
 //    _bunny.position = ccp(370, 140);
     if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
         _instructions.string = [NSString stringWithFormat:@"Tap anywhere on the screen to hit Dead Bunny"];
-    } else if ([_loadedLevel.nextLevelName isEqualToString:@"None"]) {
+    } else if (!_loadedLevel.nextLevelName) {
         _instructions.string = [NSString stringWithFormat:@"Swipe left to move away from Dead Bunny"];
     }
     
@@ -113,7 +113,7 @@ static NSString * const kFirstLevel = @"Level0";
         _instructions.string = [NSString stringWithFormat:@"Thats awesome!! Now hit Dead Bunny 5 times.."];
         _instructions.visible = true;
         crouchCombo = FALSE;
-    } else if ([_loadedLevel.nextLevelName isEqualToString:@"None"]) {
+    } else if (!_loadedLevel.nextLevelName) {
         touchBeganLocation = [touch locationInNode:self];
     }
 }
@@ -305,7 +305,7 @@ static NSString * const kFirstLevel = @"Level0";
     [self showScore];
     if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"] && numOfHits >= 6) {
         [self performSelector:@selector(winScreen) withObject:nil afterDelay:1.f];
-    } else if ([_loadedLevel.nextLevelName isEqualToString:@"None"]) {
+    } else if (!_loadedLevel.nextLevelName) {
         if (!swiped_left) {
             _instructions.string = [NSString stringWithFormat:@"Swipe left to move away from Dead Bunny"];
             _instructions.visible = true;
@@ -319,11 +319,11 @@ static NSString * const kFirstLevel = @"Level0";
             _instructions.string = [NSString stringWithFormat:@"Swipe up to jump"];
             _instructions.visible = true;
         } else if (!jumped_right) {
-            _instructions.string = [NSString stringWithFormat:@"Swipe at an angle from bottom-left to top-right to jump and move right"];
+            _instructions.string = [NSString stringWithFormat:@"Swipe diagonally from bottom-left to top-right to jump and move right"];
             _instructions.fontSize = 15;
             _instructions.visible = true;
         } else if (!jumped_left) {
-            _instructions.string = [NSString stringWithFormat:@"Swipe at an angle from bottom-right to top-left to jump and move left"];
+            _instructions.string = [NSString stringWithFormat:@"Swipe diagonally from bottom-right to top-left to jump and move left"];
             _instructions.fontSize = 15;
             _instructions.visible = true;
         }
