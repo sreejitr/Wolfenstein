@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>188</integer>
+	<integer>238</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -98,8 +98,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.4050152599811554</real>
-							<real>0.46286946535110474</real>
+							<real>0.44698056578636169</real>
+							<real>0.57747215032577515</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -187,6 +187,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -282,11 +284,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>285</real>
-							<real>268.16799926757812</real>
-							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.50176054239273071</real>
+							<real>0.16197499632835388</real>
+							<integer>1</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -339,7 +341,7 @@
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>40</real>
+							<real>35</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -502,11 +504,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>254.01023864746094</real>
-							<real>146.94285583496094</real>
-							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.55279886722564697</real>
+							<real>0.45919641852378845</real>
+							<integer>3</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -621,11 +623,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>295.5</real>
-							<real>144.87043762207031</real>
-							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.4797535240650177</real>
+							<real>0.45272010564804077</real>
+							<integer>3</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -660,7 +662,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>enemies/Gas-o/idle/gas-o_idle0025.png</string>
+							<string>Gas-o/idle/gas-o_idle0001.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -729,11 +731,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>385.66342163085938</real>
-							<real>136.43118286132812</real>
-							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.32101508975028992</real>
+							<real>0.42634743452072144</real>
+							<integer>3</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -837,11 +839,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>461.51025390625</real>
-							<real>136.43118286132812</real>
-							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.18748195469379425</real>
+							<real>0.42634743452072144</real>
+							<integer>3</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -945,11 +947,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>285</real>
-							<real>122.73080444335938</real>
-							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.47975349426269531</real>
+							<real>0.31069418787956238</real>
+							<integer>3</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -1271,11 +1273,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.50176054239273071</real>
-							<real>62.5</real>
-							<integer>0</integer>
+							<real>0.47975349426269531</real>
+							<real>0.14378915727138519</real>
+							<integer>3</integer>
 							<integer>2</integer>
-							<integer>0</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>

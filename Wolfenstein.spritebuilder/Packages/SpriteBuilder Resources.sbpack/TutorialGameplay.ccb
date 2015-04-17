@@ -247,11 +247,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>5.3290863037109375</real>
-							<real>270</real>
-							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.0093821939080953598</real>
+							<real>0.15625</real>
+							<integer>1</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -346,11 +346,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>283.52276611328125</real>
-							<real>295</real>
-							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.49915981292724609</real>
+							<real>0.078125</real>
+							<integer>1</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -520,6 +520,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -553,11 +555,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>283.52276611328125</real>
-							<real>19.671957015991211</real>
+							<real>0.49915981292724609</real>
+							<real>0.061474867165088654</real>
 							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -661,11 +663,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>283.52276611328125</real>
-							<real>19.671957015991211</real>
+							<real>0.49915981292724609</real>
+							<real>0.061474867165088654</real>
 							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -848,8 +850,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

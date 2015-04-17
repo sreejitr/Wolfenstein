@@ -72,14 +72,21 @@ static NSString *selectedLevel = @"Level1";
     self.userInteractionEnabled = TRUE;
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
     [_physicsNode addChild:_wolfe];
-    _wolfe.position = ccp(205, 130);
+    CGPoint offsetFromParentCenter = CGPointMake(180, 130);
+    _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
+                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+//    _wolfe.position = ccp(205, 130);
+//    [_wolfe setPosition:[_physicsNode convertToNodeSpace:[self convertToWorldSpace:ccp(self.contentSizeInPoints.width/2, self.contentSizeInPoints.height* 0.1f)]]];
     rightface = TRUE;
     _fister = (Fister*)[CCBReader load:@"Fister"];
     if ([_loadedLevel.nextLevelName isEqualToString:@"Level2"]) {
         _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
     }
     [_physicsNode addChild:_fister];
-    _fister.position = ccp(370, 150);
+    offsetFromParentCenter = CGPointMake(330, 150);
+    _fister.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
+                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+//    _fister.position = ccp(370, 150);
     wolfe_attack = FALSE;
     fister_attack = FALSE;
     wolfe_hit = 0;

@@ -52,8 +52,14 @@ static NSString * const kFirstLevel = @"Level0";
     _bunny = (DeadBunny*)[CCBReader load:@"DeadBunny"];
     [_physicsNode addChild:_wolfe];
     [_physicsNode addChild:_bunny];
-    _wolfe.position = ccp(230, 130);
-    _bunny.position = ccp(370, 140);
+//    _wolfe.position = ccp(230, 130);
+    CGPoint offsetFromParentCenter = CGPointMake(200, 130);
+    _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
+                                     self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+    offsetFromParentCenter = CGPointMake(340, 140);
+    _bunny.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
+                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+//    _bunny.position = ccp(370, 140);
     if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
         _instructions.string = [NSString stringWithFormat:@"Tap anywhere on the screen to hit Dead Bunny"];
     } else if ([_loadedLevel.nextLevelName isEqualToString:@"None"]) {
@@ -314,9 +320,11 @@ static NSString * const kFirstLevel = @"Level0";
             _instructions.visible = true;
         } else if (!jumped_right) {
             _instructions.string = [NSString stringWithFormat:@"Swipe at an angle from bottom-left to top-right to jump and move right"];
+            _instructions.fontSize = 15;
             _instructions.visible = true;
         } else if (!jumped_left) {
             _instructions.string = [NSString stringWithFormat:@"Swipe at an angle from bottom-right to top-left to jump and move left"];
+            _instructions.fontSize = 15;
             _instructions.visible = true;
         }
         if (swiped_left && swiped_right && swiped_down && jumped_up && jumped_right && jumped_left) {
