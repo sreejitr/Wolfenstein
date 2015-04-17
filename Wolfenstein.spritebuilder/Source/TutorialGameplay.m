@@ -367,6 +367,14 @@ static NSString * const kFirstLevel = @"Level0";
 - (void)winScreen {
     popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
     popup._scoreLabel.string = [NSString stringWithFormat:@"Score: %d", points];
+    if (!_loadedLevel.nextLevelName) {
+        popup._winPopUpLabel.string = [NSString stringWithFormat:@"Excellent!! Proceed to the challenge!!"];
+        popup._winPopUpLabel.fontSize = 20;
+        popup._winPopUpLabel.dimensions = CGSizeMake(180,100);
+        CGPoint offsetFromParentCenter = CGPointMake(10, 60);
+        popup._winPopUpLabel.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
+                                      self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+    }
     popup.positionType = CCPositionTypeNormalized;
     popup.position = ccp(0.5, 0.5);
     [_wolfe stopAllActions];
