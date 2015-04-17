@@ -24,6 +24,7 @@
 		172A2AD31ADC6F1B00831D40 /* barHorizontal_green_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = 172A2AD21ADC6F1A00831D40 /* barHorizontal_green_mid.png */; };
 		173DCE111AC9F988003161AE /* CCActionFollow+CurrentOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = 173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */; };
 		17E6944C1AE0845A0087BE08 /* Gaso.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E6944B1AE0845A0087BE08 /* Gaso.m */; };
+		17E6945D1AE0BA670087BE08 /* Hencher.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E6945C1AE0BA670087BE08 /* Hencher.m */; };
 		5B121030197484FA004C1E1D /* WolfensteinActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B12102F197484FA004C1E1D /* WolfensteinActivity.m */; };
 		5B121038197487F2004C1E1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B737893E1807617C0076A88C /* AppDelegate.m */; };
 		7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
@@ -199,6 +200,8 @@
 		173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCActionFollow+CurrentOffset.m"; path = "Source/CCActionFollow+CurrentOffset.m"; sourceTree = "<group>"; };
 		17E6944A1AE0845A0087BE08 /* Gaso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gaso.h; path = Source/Gaso.h; sourceTree = "<group>"; };
 		17E6944B1AE0845A0087BE08 /* Gaso.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gaso.m; path = Source/Gaso.m; sourceTree = "<group>"; };
+		17E6945B1AE0BA670087BE08 /* Hencher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hencher.h; path = Source/Hencher.h; sourceTree = "<group>"; };
+		17E6945C1AE0BA670087BE08 /* Hencher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hencher.m; path = Source/Hencher.m; sourceTree = "<group>"; };
 		5B12100919748273004C1E1D /* libEGL.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libEGL.so; path = /usr/lib/armv7a/libEGL.so; sourceTree = SDKROOT; };
 		5B12100F197483EE004C1E1D /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_launcher.png; sourceTree = "<group>"; };
 		5B121011197483EE004C1E1D /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_launcher.png; sourceTree = "<group>"; };
@@ -517,6 +520,8 @@
 				17179E801ABF862400144940 /* Fister.m */,
 				17E6944A1AE0845A0087BE08 /* Gaso.h */,
 				17E6944B1AE0845A0087BE08 /* Gaso.m */,
+				17E6945B1AE0BA670087BE08 /* Hencher.h */,
+				17E6945C1AE0BA670087BE08 /* Hencher.m */,
 				17179E741ABD0D7800144940 /* Wolfe.h */,
 				17179E751ABD0D7800144940 /* Wolfe.m */,
 				170604791ABB807900B3EB52 /* Level.h */,
@@ -917,6 +922,7 @@
 				170574601AD92D3600FD7A33 /* Star.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 				17179E9B1ABFB39500144940 /* WinPopUp.m in Sources */,
+				17E6945D1AE0BA670087BE08 /* Hencher.m in Sources */,
 				17289D8A1AD8A54100BF4485 /* Health.m in Sources */,
 				170574541AD922CB00FD7A33 /* Fire.m in Sources */,
 			);

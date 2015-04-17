@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>5</integer>
+	<integer>4</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -89,11 +89,11 @@
 							<real>60</real>
 						</array>
 						<array>
-							<real>1200</real>
+							<real>1300</real>
 							<real>60</real>
 						</array>
 						<array>
-							<real>1200</real>
+							<real>1300</real>
 							<real>0.0</real>
 						</array>
 					</array>
@@ -101,11 +101,11 @@
 					<array>
 						<array>
 							<array>
-								<real>1200</real>
+								<real>1300</real>
 								<real>0.0</real>
 							</array>
 							<array>
-								<real>1200</real>
+								<real>1300</real>
 								<real>60</real>
 							</array>
 							<array>
@@ -136,8 +136,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>-22.305156707763672</real>
-							<real>-11.573824882507324</real>
+							<real>0.0</real>
+							<real>0.0</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -150,7 +150,7 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>1200</real>
+							<real>1300</real>
 							<real>60</real>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -174,8 +174,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1.0217963457107544</real>
-							<real>0.90551483631134033</real>
+							<real>1.039240837097168</real>
+							<real>1</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -184,7 +184,7 @@
 			</dict>
 			<dict>
 				<key>UUID</key>
-				<integer>4</integer>
+				<integer>2</integer>
 				<key>baseClass</key>
 				<string>CCSprite</string>
 				<key>children</key>
@@ -192,7 +192,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>background1</string>
+				<string>background2</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -214,8 +214,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>595.1087646484375</real>
-							<real>189.21308898925781</real>
+							<real>670.46124267578125</real>
+							<real>197.63955688476562</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -239,8 +239,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.72397661209106445</real>
-							<real>0.58453249931335449</real>
+							<real>1.0399215221405029</real>
+							<real>0.67768651247024536</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -253,7 +253,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>viking_BG/background1.png</string>
+							<string>viking_BG/background2.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -303,7 +303,7 @@
 				<key>type</key>
 				<integer>3</integer>
 				<key>value</key>
-				<string>Level3</string>
+				<string>Level4</string>
 			</dict>
 		</array>
 		<key>displayName</key>
@@ -343,8 +343,8 @@
 				<string>Size</string>
 				<key>value</key>
 				<array>
-					<real>1150</real>
-					<real>390</real>
+					<real>1300</real>
+					<real>384</real>
 					<integer>0</integer>
 					<integer>0</integer>
 				</array>
