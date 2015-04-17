@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>238</integer>
+	<integer>304</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -180,75 +180,49 @@
 										<key>type</key>
 										<string>Float</string>
 										<key>value</key>
-										<real>-0.2518448531627655</real>
+										<real>-0.043919406831264496</real>
+									</dict>
+								</array>
+							</dict>
+							<dict>
+								<key>UUID</key>
+								<integer>240</integer>
+								<key>baseClass</key>
+								<string>CCEffectHue</string>
+								<key>className</key>
+								<string>CCBPEffectHue</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>hue</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>9.5896120071411133</real>
+									</dict>
+								</array>
+							</dict>
+							<dict>
+								<key>UUID</key>
+								<integer>250</integer>
+								<key>baseClass</key>
+								<string>CCEffectSaturation</string>
+								<key>className</key>
+								<string>CCBPEffectSaturation</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>saturation</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>-0.79000377655029297</real>
 									</dict>
 								</array>
 							</dict>
 						</array>
-					</dict>
-				</array>
-				<key>selected</key>
-				<true/>
-			</dict>
-			<dict>
-				<key>UUID</key>
-				<integer>7</integer>
-				<key>baseClass</key>
-				<string>CCBFile</string>
-				<key>children</key>
-				<array/>
-				<key>customClass</key>
-				<string></string>
-				<key>displayName</key>
-				<string>Wolfe</string>
-				<key>memberVarAssignmentName</key>
-				<string></string>
-				<key>memberVarAssignmentType</key>
-				<integer>1</integer>
-				<key>properties</key>
-				<array>
-					<dict>
-						<key>name</key>
-						<string>name</string>
-						<key>type</key>
-						<string>StringSimple</string>
-						<key>value</key>
-						<string></string>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>position</string>
-						<key>type</key>
-						<string>Position</string>
-						<key>value</key>
-						<array>
-							<real>75.445747375488281</real>
-							<real>155.41184997558594</real>
-							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
-						</array>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>scale</string>
-						<key>type</key>
-						<string>ScaleLock</string>
-						<key>value</key>
-						<array>
-							<real>1.1607037782669067</real>
-							<real>1.1034151315689087</real>
-							<false/>
-							<integer>0</integer>
-						</array>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>ccbFile</string>
-						<key>type</key>
-						<string>CCBFile</string>
-						<key>value</key>
-						<string>Wolfe.ccb</string>
 					</dict>
 				</array>
 			</dict>
@@ -587,7 +561,27 @@
 						<key>type</key>
 						<string>EffectControl</string>
 						<key>value</key>
-						<array/>
+						<array>
+							<dict>
+								<key>UUID</key>
+								<integer>260</integer>
+								<key>baseClass</key>
+								<string>CCEffectSaturation</string>
+								<key>className</key>
+								<string>CCBPEffectSaturation</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>saturation</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>-1</real>
+									</dict>
+								</array>
+							</dict>
+						</array>
 					</dict>
 				</array>
 			</dict>
@@ -695,7 +689,27 @@
 						<key>type</key>
 						<string>EffectControl</string>
 						<key>value</key>
-						<array/>
+						<array>
+							<dict>
+								<key>UUID</key>
+								<integer>261</integer>
+								<key>baseClass</key>
+								<string>CCEffectSaturation</string>
+								<key>className</key>
+								<string>CCBPEffectSaturation</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>saturation</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>-1</real>
+									</dict>
+								</array>
+							</dict>
+						</array>
 					</dict>
 				</array>
 			</dict>
@@ -803,7 +817,27 @@
 						<key>type</key>
 						<string>EffectControl</string>
 						<key>value</key>
-						<array/>
+						<array>
+							<dict>
+								<key>UUID</key>
+								<integer>262</integer>
+								<key>baseClass</key>
+								<string>CCEffectSaturation</string>
+								<key>className</key>
+								<string>CCBPEffectSaturation</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>saturation</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>-0.94361817836761475</real>
+									</dict>
+								</array>
+							</dict>
+						</array>
 					</dict>
 				</array>
 			</dict>
@@ -911,7 +945,27 @@
 						<key>type</key>
 						<string>EffectControl</string>
 						<key>value</key>
-						<array/>
+						<array>
+							<dict>
+								<key>UUID</key>
+								<integer>263</integer>
+								<key>baseClass</key>
+								<string>CCEffectSaturation</string>
+								<key>className</key>
+								<string>CCBPEffectSaturation</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>saturation</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>-0.94663029909133911</real>
+									</dict>
+								</array>
+							</dict>
+						</array>
 					</dict>
 				</array>
 			</dict>
@@ -1042,7 +1096,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>interface_buttons-2-1/buttons-32.png</string>
+							<string>interface_buttons-2-1/buttons-37.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1053,7 +1107,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>interface_buttons-2-1/buttons-32.png</string>
+							<string>interface_buttons-2-1/buttons-37.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1077,7 +1131,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>interface_buttons-2-1/buttons-33.png</string>
+							<string>interface_buttons-2-1/buttons-37.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1096,7 +1150,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>interface_buttons-2-1/buttons-38.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1368,7 +1422,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>interface_buttons-2-1/buttons-30.png</string>
+							<string>interface_buttons-2-1/buttons-35.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1379,7 +1433,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>interface_buttons-2-1/buttons-30.png</string>
+							<string>interface_buttons-2-1/buttons-35.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1422,7 +1476,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>interface_buttons-2-1/buttons-31.png</string>
+							<string>interface_buttons-2-1/buttons-36.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1566,6 +1620,155 @@
 						</array>
 					</dict>
 				</array>
+			</dict>
+			<dict>
+				<key>UUID</key>
+				<integer>280</integer>
+				<key>baseClass</key>
+				<string>CCSprite</string>
+				<key>children</key>
+				<array/>
+				<key>customClass</key>
+				<string></string>
+				<key>displayName</key>
+				<string>ram_idle0001</string>
+				<key>memberVarAssignmentName</key>
+				<string></string>
+				<key>memberVarAssignmentType</key>
+				<integer>1</integer>
+				<key>properties</key>
+				<array>
+					<dict>
+						<key>name</key>
+						<string>name</string>
+						<key>type</key>
+						<string>StringSimple</string>
+						<key>value</key>
+						<string></string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>position</string>
+						<key>type</key>
+						<string>Position</string>
+						<key>value</key>
+						<array>
+							<real>0.11795774847269058</real>
+							<real>0.3863568902015686</real>
+							<integer>0</integer>
+							<integer>2</integer>
+							<integer>2</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>scale</string>
+						<key>type</key>
+						<string>ScaleLock</string>
+						<key>value</key>
+						<array>
+							<real>1.1038551330566406</real>
+							<real>1.1077464818954468</real>
+							<false/>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>spriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string>Ram/ram_idle/ram_idle0001.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>normalMapSpriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string></string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>effects</string>
+						<key>type</key>
+						<string>EffectControl</string>
+						<key>value</key>
+						<array>
+							<dict>
+								<key>UUID</key>
+								<integer>281</integer>
+								<key>baseClass</key>
+								<string>CCEffectSaturation</string>
+								<key>className</key>
+								<string>CCBPEffectSaturation</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>saturation</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>-0.5115775465965271</real>
+									</dict>
+								</array>
+							</dict>
+							<dict>
+								<key>UUID</key>
+								<integer>283</integer>
+								<key>baseClass</key>
+								<string>CCEffectBrightness</string>
+								<key>className</key>
+								<string>CCBPEffectBrightness</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>brightness</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>0.11846762895584106</real>
+									</dict>
+								</array>
+							</dict>
+						</array>
+					</dict>
+				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

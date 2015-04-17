@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>4</integer>
+	<integer>8</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -286,9 +286,50 @@
 						<key>type</key>
 						<string>EffectControl</string>
 						<key>value</key>
-						<array/>
+						<array>
+							<dict>
+								<key>UUID</key>
+								<integer>4</integer>
+								<key>baseClass</key>
+								<string>CCEffectHue</string>
+								<key>className</key>
+								<string>CCBPEffectHue</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>hue</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>-180</real>
+									</dict>
+								</array>
+							</dict>
+							<dict>
+								<key>UUID</key>
+								<integer>5</integer>
+								<key>baseClass</key>
+								<string>CCEffectSaturation</string>
+								<key>className</key>
+								<string>CCBPEffectSaturation</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>saturation</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>0.81362950801849365</real>
+									</dict>
+								</array>
+							</dict>
+						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
@@ -374,8 +415,6 @@
 				</array>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
