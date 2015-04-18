@@ -165,8 +165,8 @@ static NSString *selectedLevel = @"Level1";
         if (_fister.position.x < _loadedLevel.positionInPoints.x + 60) {
             _fister.position = ccp(_loadedLevel.positionInPoints.x + 60, _wolfe.position.y);
         }
-        if (_fister.position.x > _loadedLevel.contentSizeInPoints.width - 60) {
-            _fister.position = ccp(_loadedLevel.contentSizeInPoints.width - 60, _wolfe.position.y);
+        if (_fister.position.x > _loadedLevel.contentSizeInPoints.width - 50) {
+            _fister.position = ccp(_loadedLevel.contentSizeInPoints.width - 50, _wolfe.position.y);
         }
         timeelapsed += delta;
         totaltimeelapsed += delta;
@@ -185,14 +185,14 @@ static NSString *selectedLevel = @"Level1";
         }
         if (timeelapsed > 1.2f) {
         
-            if (!wolfe_attack && fabsf(_wolfe.position.x - _fister.position.x) <= 200 && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
+            if (!wolfe_attack && fabsf(_wolfe.position.x - _fister.position.x) <= 180 && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
                 [self enemyAttackBegan];
             } else if (!wolfe_attack && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
                 [self flip_handle];
-                if (_fister.position.x - _wolfe.position.x > 200){
+                if (_fister.position.x - _wolfe.position.x > 180){
                     [self walkLeftEnemy];
                 }
-                if (_wolfe.position.x - _fister.position.x > 200){
+                if (_wolfe.position.x - _fister.position.x > 180){
                     [self walkRightEnemy];
                 }
                 
@@ -212,11 +212,15 @@ static NSString *selectedLevel = @"Level1";
     playerScore -= 200;
     points -= healthPointsToDeductenemy;
     [self showScore];
+    if (_fister.flipX == NO) {
+        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_fister.position.x - 50, _fister.position.y)];
+        [_fister runAction:moveBy];
+    }
     [_fister punch];
     [_wolfe performSelector:@selector(hit) withObject:nil afterDelay:0.2f];
-    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.9f];
+//    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.9f];
     if (_fister.flipX == NO) {
-        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_fister.position.x + 90, _fister.position.y)];
+        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_fister.position.x + 120, _fister.position.y)];
         [_fister runAction:moveBy];
     }
     if (points == 0) {
@@ -252,15 +256,16 @@ static NSString *selectedLevel = @"Level1";
     _healthLabel.string = [NSString stringWithFormat:@"Wolfe: %d", points];
     _healthLabel.visible = true;
     
+    
+    if (points_fister >= 60) {
+        _fisterHealth.fontColor = [CCColor colorWithRed:0.2 green:0.7 blue:0.1];
+    } else if (points_fister < 60 && points_fister >= 25) {
+        _fisterHealth.fontColor = [CCColor colorWithRed:0.7 green:0.28 blue:0.0];
+    } else if (points_fister < 25 && points_fister >= 0) {
+        _fisterHealth.fontColor = [CCColor colorWithRed:1.0 green:0.0 blue:0.0];
+    }
     _fisterHealth.string = [NSString stringWithFormat:@"Fister: %d", points_fister];
     _fisterHealth.visible = true;
-    if (points_fister >= 60) {
-        _fisterHealth.color = [CCColor colorWithRed:0.2 green:0.7 blue:0.1];
-    } else if (points_fister < 60 && points_fister >= 25) {
-        _fisterHealth.color = [CCColor colorWithRed:0.7 green:0.2 blue:0.0];
-    } else if (points_fister < 25 && points_fister >= 0) {
-        _fisterHealth.color = [CCColor colorWithRed:1.0 green:0.0 blue:0.0];
-    }
     
     _gamePoints.string = [NSString stringWithFormat:@"Score: %d", playerScore];
     _gamePoints.visible = true;
@@ -324,7 +329,7 @@ static NSString *selectedLevel = @"Level1";
         
     if (!_gameOver) {
         
-        if (!fister_attack && fabsf(_wolfe.position.x - _fister.position.x) < 200 && !wolfe_jumped && !playerGroundHit && !enemyGroundHit) {
+        if (!fister_attack && fabsf(_wolfe.position.x - _fister.position.x) < 180 && !wolfe_jumped && !playerGroundHit && !enemyGroundHit) {
             [self wolfeAttackBegan];
         }
         else if (fister_attack && ([playerCollidedwithPowerUp isEqualToString:@"Shield"])) {
@@ -347,7 +352,7 @@ static NSString *selectedLevel = @"Level1";
         [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:3.5f];
     } else {
         [_wolfe attack];
-        [_fister hit];
+        [_fister hit:_wolfe.position];
         [self performSelector:@selector(updateEnemyScore) withObject:nil afterDelay:1.2f];
         [self showScore];
         if (points_fister == 0) {
@@ -359,7 +364,7 @@ static NSString *selectedLevel = @"Level1";
 }
 
 - (void) updateEnemyScore {
-    if ( (_wolfe.flipX == NO) || (fabsf(_fister.position.x - _wolfe.position.x) < 200)) {
+    if ( (_wolfe.flipX == NO) || (fabsf(_fister.position.x - _wolfe.position.x) < 180)) {
         fister_hit += 1;
         playerScore += 500;
         points_fister -= healthPointsToDeducthero;
@@ -392,7 +397,7 @@ static NSString *selectedLevel = @"Level1";
     _fister.flipX=YES;
     NSLog(@"Right");
     [_fister run];
-    id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 180, _fister.position.y)];
+    id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 160, _fister.position.y)];
     [_fister runAction:moveRight];
     facingeachother = false;
     [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
@@ -493,7 +498,7 @@ static NSString *selectedLevel = @"Level1";
     if (wolfe_attack) {
 //        countSpecialComboUse += 1;
         [_wolfe crouchcombo];
-        [_fister hit];
+        [_fister hit:_wolfe.position];
         [_fister performSelector:@selector(groundhit) withObject:nil afterDelay:0.7f];
         enemyGroundHit = TRUE;
         fister_hit += 1;

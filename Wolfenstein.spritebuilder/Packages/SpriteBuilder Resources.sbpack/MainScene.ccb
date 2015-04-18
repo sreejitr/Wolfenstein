@@ -10,11 +10,11 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>304</integer>
+	<integer>344</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>currentSequenceId</key>
 	<integer>0</integer>
 	<key>docDimensionsType</key>
@@ -296,7 +296,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>THE WFE CHAMPIONSHIP</string>
+							<string>WOLFE CHRONICLES</string>
 							<false/>
 						</array>
 					</dict>
@@ -315,7 +315,7 @@
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>35</real>
+							<real>42</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -445,6 +445,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -577,7 +579,7 @@
 										<key>type</key>
 										<string>Float</string>
 										<key>value</key>
-										<real>-1</real>
+										<real>-0.40888553857803345</real>
 									</dict>
 								</array>
 							</dict>
@@ -705,7 +707,7 @@
 										<key>type</key>
 										<string>Float</string>
 										<key>value</key>
-										<real>-1</real>
+										<real>-0.46103161573410034</real>
 									</dict>
 								</array>
 							</dict>
@@ -833,7 +835,7 @@
 										<key>type</key>
 										<string>Float</string>
 										<key>value</key>
-										<real>-0.94361817836761475</real>
+										<real>-0.49679964780807495</real>
 									</dict>
 								</array>
 							</dict>
@@ -961,7 +963,7 @@
 										<key>type</key>
 										<string>Float</string>
 										<key>value</key>
-										<real>-0.94663029909133911</real>
+										<real>-0.59920936822891235</real>
 									</dict>
 								</array>
 							</dict>
@@ -1767,8 +1769,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

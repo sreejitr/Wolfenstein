@@ -12,6 +12,7 @@
 {
     CCPhysicsNode* _physicsNode;
     CCNode* _powerUpPosition;
+    
 }
 //@property (nonatomic, assign) CCLabelTTF *_gamePoints;
 @end

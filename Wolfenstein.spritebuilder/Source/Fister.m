@@ -7,6 +7,7 @@
 //
 
 #import "Fister.h"
+#import "Gameplay.h"
 
 @implementation Fister {
     CCAnimationManager* animationManager;
@@ -23,7 +24,7 @@
 
 - (void) punch {
     if (self.flipX == NO) {
-        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 40, self.position.y)];
+        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 60, self.position.y)];
         [self runAction:moveBy];
     }
     [animationManager runAnimationsForSequenceNamed:@"Punch"];
@@ -37,13 +38,15 @@
     [animationManager runAnimationsForSequenceNamed:@"Uppercut"];
 }
 
-- (void) hit {
+- (void) hit:(CGPoint) position {
     if (self.flipX == YES) {
-        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 40, self.position.y)];
-        [self runAction:moveBy];
+        if (self.position.x >= position.x - 160) {
+            id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(position.x - 160, self.position.y)];
+            [self runAction:moveBy];
+        }
     }
     [animationManager runAnimationsForSequenceNamed:@"Hit"];
-    [self performSelector:@selector(idle) withObject:nil afterDelay:1.8f];
+//    [self performSelector:@selector(idle) withObject:nil afterDelay:1.8f];
 }
 
 - (void) groundhit {

@@ -9,7 +9,7 @@
 #import "CCSprite.h"
 
 @interface Fister : CCSprite
-- (void) hit;
+- (void) hit:(CGPoint) position;
 - (void) idle;
 - (void) punch;
 - (void) groundhit;
