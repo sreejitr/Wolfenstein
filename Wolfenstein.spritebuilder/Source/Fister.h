@@ -15,4 +15,6 @@
 - (void) groundhit;
 - (void) run;
 - (void) getup;
+- (void) correctPositionOnScreenAtPosition:(CGPoint)loadedLevelPosition withWidth:(CGSize)width;
+
 @end

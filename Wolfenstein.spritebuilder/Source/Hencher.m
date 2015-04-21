@@ -17,6 +17,15 @@
     self.physicsBody.collisionType = @"enemy";
 }
 
+- (void) correctPositionOnScreenAtPosition:(CGPoint)loadedLevelPosition withWidth:(CGSize)width{
+    if (self.position.x < loadedLevelPosition.x + 60) {
+        self.position = ccp(loadedLevelPosition.x + 60, self.position.y);
+    }
+    if (self.position.x > width.width - 50) {
+        self.position = ccp(width.width - 50, self.position.y);
+    }
+}
+
 - (void) idle {
     [animationManager runAnimationsForSequenceNamed:@"Idle"];
 }

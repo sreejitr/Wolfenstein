@@ -10,6 +10,7 @@
 
 @interface Wolfe : CCSprite
 - (void) idle;
+- (void) attack:(CGPoint)position withDistance:(NSInteger) distance;
 - (void) attack;
 - (void) hit;
 - (void) groundhit;
@@ -18,4 +19,5 @@
 - (void) jumpflip;
 - (void) crouchcombo;
 - (void) getup;
+- (void) correctPositionOnScreenAtPosition:(CGPoint)loadedLevelPosition withWidth:(CGSize)width;
 @end

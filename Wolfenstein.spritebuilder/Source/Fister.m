@@ -9,6 +9,7 @@
 #import "Fister.h"
 #import "Gameplay.h"
 
+
 @implementation Fister {
     CCAnimationManager* animationManager;
 }
@@ -18,15 +19,25 @@
     self.physicsBody.collisionType = @"enemy";
 }
 
+- (void) correctPositionOnScreenAtPosition:(CGPoint)loadedLevelPosition withWidth:(CGSize)width{
+    if (self.position.x < loadedLevelPosition.x + 60) {
+        self.position = ccp(loadedLevelPosition.x + 60, self.position.y);
+    }
+    if (self.position.x > width.width - 50) {
+        self.position = ccp(width.width - 50, self.position.y);
+    }
+}
+
 - (void) idle {
     [animationManager runAnimationsForSequenceNamed:@"Idle"];
 }
 
 - (void) punch {
     if (self.flipX == NO) {
-        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 60, self.position.y)];
+        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 110, self.position.y)];
         [self runAction:moveBy];
     }
+    
     [animationManager runAnimationsForSequenceNamed:@"Punch"];
 }
 

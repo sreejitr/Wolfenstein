@@ -19,8 +19,30 @@
     self.physicsBody.collisionType = @"hero";
 }
 
+- (void) correctPositionOnScreenAtPosition:(CGPoint)loadedLevelPosition withWidth:(CGSize)width{
+    if (self.position.x < loadedLevelPosition.x + 70) {
+        self.position = ccp(loadedLevelPosition.x + 60, self.position.y);
+    }
+    if (self.position.x > width.width - 60) {
+        self.position = ccp(width.width - 60, self.position.y);
+    }
+}
+
 - (void) idle {
     [animationManager runAnimationsForSequenceNamed:@"Idle"];
+}
+
+- (void) attack:(CGPoint)position withDistance:(NSInteger) distance {
+    if (self.flipX == NO) {
+        if (position.x > self.position.x + distance) {
+            id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(position.x - distance, self.position.y)];
+            [self runAction:moveBy];
+        }
+        
+    }
+    [animationManager runAnimationsForSequenceNamed:@"Attack"];
+
+    
 }
 
 - (void) attack {

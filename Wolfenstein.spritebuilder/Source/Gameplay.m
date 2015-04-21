@@ -10,18 +10,22 @@
 #import "Level.h"
 #import "Wolfe.h"
 #import "Fister.h"
+#import "Gaso.h"
+#import "Hencher.h"
 #import "WinPopUp.h"
 #import "CCActionFollow+CurrentOffset.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
 #import "CCDirector.h"
 
-static NSString * const kFirstLevel = @"Level2";
+static NSString * const kFirstLevel = @"Level4";
 static NSString *selectedLevel = @"Level1";
 
 
 @implementation Gameplay{
     Wolfe *_wolfe;
     Fister *_fister;
+    Gaso *_gaso;
+    Hencher *_hencher;
     CCSprite *_powerUp;
     CCNode *_levelNode;
     Level *_loadedLevel;
@@ -29,7 +33,6 @@ static NSString *selectedLevel = @"Level1";
     CCLabelTTF *_fisterHealth;
     CCLabelTTF *_winPopUpLabel;
     CCLabelTTF *_gamePoints;
-    CCLabelTTF *_reqScore;
     double_t timeelapsed;
     double_t totaltimeelapsed;
     int wolfe_hit;
@@ -60,6 +63,10 @@ static NSString *selectedLevel = @"Level1";
     BOOL wolfeAttackEnable;
     BOOL crouchCombo;
     NSString *playerCollidedwithPowerUp;
+    NSDictionary *enemy;
+    NSDictionary *fister_v;
+    NSDictionary *gaso_v;
+    NSDictionary *hencher_v;
 }
 
 
@@ -72,20 +79,69 @@ static NSString *selectedLevel = @"Level1";
     self.userInteractionEnabled = TRUE;
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
     [_physicsNode addChild:_wolfe];
-    CGPoint offsetFromParentCenter = CGPointMake(180, 130);
+    CGPoint offsetFromParentCenter = CGPointMake(180, 120);
     _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
                                   self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
 //    _wolfe.position = ccp(205, 130);
 //    [_wolfe setPosition:[_physicsNode convertToNodeSpace:[self convertToWorldSpace:ccp(self.contentSizeInPoints.width/2, self.contentSizeInPoints.height* 0.1f)]]];
     rightface = TRUE;
-    _fister = (Fister*)[CCBReader load:@"Fister"];
+    offsetFromParentCenter = CGPointMake(330, 140);
+    fister_v = @{
+              @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
+              @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
+              @"maintainDistanceFromWolfe" : @170,
+              @"moveToAfterPunchAttack" : @120,
+              @"walkRightTo" : @155,
+              @"walkLeftTo" : @170,
+              @"wolfeDistBeforeAttack" : @150
+              };
+    offsetFromParentCenter = CGPointMake(290, 120);
+    gaso_v = @{
+                 @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
+                 @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
+                 @"maintainDistanceFromWolfe" : @140,
+                 @"moveToAfterPunchAttack" : @140,
+                 @"walkRightTo" : @140,
+                 @"walkLeftTo" : @140,
+                 @"wolfeDistBeforeAttack" : @120
+                 };
+    hencher_v = @{
+                 @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
+                 @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
+                 @"maintainDistanceFromWolfe" : @170,
+                 @"moveToAfterPunchAttack" : @120,
+                 @"walkRightTo" : @155,
+                 @"walkLeftTo" : @170,
+                 @"wolfeDistBeforeAttack" : @150
+                 };
     if ([_loadedLevel.nextLevelName isEqualToString:@"Level2"]) {
-        _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
+        enemy = gaso_v;
+        _gaso = (Gaso*)[CCBReader load:@"Gaso"];
+        [_physicsNode addChild:_gaso];
+        _gaso.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
+                                     self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
+
     }
-    [_physicsNode addChild:_fister];
-    offsetFromParentCenter = CGPointMake(330, 150);
-    _fister.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
-                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+    else if ([_loadedLevel.nextLevelName isEqualToString:@"Level3"]) {
+        enemy = hencher_v;
+        _hencher = (Hencher*)[CCBReader load:@"Hencher"];
+        _hencher.scale = 0.5f;
+        [_physicsNode addChild:_hencher];
+        _hencher.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
+                                     self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
+
+    }
+    else {
+        _fister = (Fister*)[CCBReader load:@"Fister"];
+        enemy = fister_v;
+        if ([_loadedLevel.nextLevelName isEqualToString:@"Level3"]) {
+            _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
+        }
+        [_physicsNode addChild:_fister];
+        _fister.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
+                                       self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
+    }
+    
 //    _fister.position = ccp(370, 150);
     wolfe_attack = FALSE;
     fister_attack = FALSE;
@@ -111,8 +167,7 @@ static NSString *selectedLevel = @"Level1";
     healthPointsToDeducthero = 4;
     healthPointsToDeductenemy = 4;
     playerScore = 0;
-    _reqScore.string = [NSString stringWithFormat:@"*For 3 stars, Score above 12000"];
-    _reqScore.visible = true;
+    
 }
 
 - (void)loadNextLevel {
@@ -156,18 +211,15 @@ static NSString *selectedLevel = @"Level1";
     
 //    _fister.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _fister.contentSize} cornerRadius:0];
     if (!_gameOver) {
-        if (_wolfe.position.x < _loadedLevel.positionInPoints.x + 70) {
-            _wolfe.position = ccp(_loadedLevel.positionInPoints.x + 60, _wolfe.position.y);
+        [_wolfe correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
+        if (_fister) {
+            [_fister correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
+        } else if (_gaso) {
+            [_gaso correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
+        } else if (_hencher) {
+            [_hencher correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
         }
-        if (_wolfe.position.x > _loadedLevel.contentSizeInPoints.width - 60) {
-            _wolfe.position = ccp(_loadedLevel.contentSizeInPoints.width - 60, _wolfe.position.y);
-        }
-        if (_fister.position.x < _loadedLevel.positionInPoints.x + 60) {
-            _fister.position = ccp(_loadedLevel.positionInPoints.x + 60, _wolfe.position.y);
-        }
-        if (_fister.position.x > _loadedLevel.contentSizeInPoints.width - 50) {
-            _fister.position = ccp(_loadedLevel.contentSizeInPoints.width - 50, _wolfe.position.y);
-        }
+        
         timeelapsed += delta;
         totaltimeelapsed += delta;
         if (totaltimeelapsed >= 30.f && !powerupsactivated) {
@@ -184,18 +236,45 @@ static NSString *selectedLevel = @"Level1";
             [self performSelector:@selector(resetplayerGroundHit) withObject:nil afterDelay:2.2f];
         }
         if (timeelapsed > 1.2f) {
-        
-            if (!wolfe_attack && fabsf(_wolfe.position.x - _fister.position.x) <= 180 && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
-                [self enemyAttackBegan];
-            } else if (!wolfe_attack && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
-                [self flip_handle];
-                if (_fister.position.x - _wolfe.position.x > 180){
-                    [self walkLeftEnemy];
-                }
-                if (_wolfe.position.x - _fister.position.x > 180){
-                    [self walkRightEnemy];
+            NSNumber *maintainDistanceFromWolfe = enemy[@"maintainDistanceFromWolfe"];
+            NSNumber *moveToAfterAttack = enemy[@"moveToAfterPunchAttack"];
+            if (_fister) {
+                if (!wolfe_attack && fabs(_wolfe.position.x - _fister.position.x) <= [maintainDistanceFromWolfe intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
+                    [self enemyAttackBegan:[moveToAfterAttack intValue] withDistanceFromWolfe:[maintainDistanceFromWolfe intValue]];
+                } else if (!wolfe_attack && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
+                    [self flip_handle];
+                    if (_fister.position.x - _wolfe.position.x > [maintainDistanceFromWolfe intValue]){
+                        [self walkLeftEnemy];
+                    }
+                    if (_wolfe.position.x - _fister.position.x > [maintainDistanceFromWolfe intValue]){
+                        [self walkRightEnemy];
+                    }
                 }
                 
+            } else if (_gaso) {
+                if (!wolfe_attack && fabs(_wolfe.position.x - _gaso.position.x) <= [maintainDistanceFromWolfe intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
+                    [self enemyAttackBegan:[moveToAfterAttack intValue] withDistanceFromWolfe:[maintainDistanceFromWolfe intValue]];
+                } else if (!wolfe_attack && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
+                    [self flip_handle];
+                    if (_gaso.position.x - _wolfe.position.x > [maintainDistanceFromWolfe intValue]){
+                        [self walkLeftEnemy];
+                    }
+                    if (_wolfe.position.x - _gaso.position.x > [maintainDistanceFromWolfe intValue]){
+                        [self walkRightEnemy];
+                    }
+                }
+            } else if (_hencher) {
+                if (!wolfe_attack && fabs(_wolfe.position.x - _hencher.position.x) <= [maintainDistanceFromWolfe intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
+                    [self enemyAttackBegan:[moveToAfterAttack intValue] withDistanceFromWolfe:[maintainDistanceFromWolfe intValue]];
+                } else if (!wolfe_attack && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
+                    [self flip_handle];
+                    if (_hencher.position.x - _wolfe.position.x > [maintainDistanceFromWolfe intValue]){
+                        [self walkLeftEnemy];
+                    }
+                    if (_wolfe.position.x - _hencher.position.x > [maintainDistanceFromWolfe intValue]){
+                        [self walkRightEnemy];
+                    }
+                }
             } else if ([playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
                 [self flip_handle];
             }
@@ -205,24 +284,35 @@ static NSString *selectedLevel = @"Level1";
     }
 }
 
-- (void) enemyAttackBegan {
+- (void) enemyAttackBegan:(NSInteger) moveToVal withDistanceFromWolfe:(NSInteger) distanceFromWolfe{
     self.userInteractionEnabled = FALSE;
     fister_attack = TRUE;
     wolfe_hit += 1;
     playerScore -= 200;
     points -= healthPointsToDeductenemy;
     [self showScore];
-    if (_fister.flipX == NO) {
-        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_fister.position.x - 50, _fister.position.y)];
-        [_fister runAction:moveBy];
-    }
-    [_fister punch];
-    [_wolfe performSelector:@selector(hit) withObject:nil afterDelay:0.2f];
+    
 //    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.9f];
-    if (_fister.flipX == NO) {
-        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_fister.position.x + 120, _fister.position.y)];
-        [_fister runAction:moveBy];
+    if (_fister) {
+        if (_fister.flipX == NO) {
+            id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_fister.position.x + moveToVal, _fister.position.y)];
+            [_fister runAction:moveBy];
+        }
+        [_fister punch];
+    } else if (_gaso) {
+        if (_gaso.flipX == NO) {
+//            id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_gaso.position.x + moveToVal, _gaso.position.y)];
+//            [_gaso runAction:moveBy];
+        }
+        [_gaso punch];
+    } else if (_hencher) {
+        if (_hencher.flipX == NO) {
+            id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_hencher.position.x + moveToVal, _hencher.position.y)];
+            [_hencher runAction:moveBy];
+        }
+        [_hencher punch];
     }
+    [_wolfe performSelector:@selector(hit) withObject:nil afterDelay:0.2f];
     if (points == 0) {
         [_wolfe groundhit];
         playerGroundHit = TRUE;
@@ -231,9 +321,20 @@ static NSString *selectedLevel = @"Level1";
     [self performSelector:@selector(turnoff_fister_attack) withObject:nil afterDelay:2.f];
 //    NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
 //    NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
-    if (_wolfe.position.x < _fister.position.x) {
-        _fister.position = ccp(_wolfe.position.x + 170, _fister.position.y);
+    if (_fister) {
+        if (_wolfe.position.x < _fister.position.x) {
+            _fister.position = ccp(_wolfe.position.x + distanceFromWolfe, _fister.position.y);
+        }
+    } else if (_gaso) {
+//        if (_wolfe.position.x < _gaso.position.x) {
+//            _gaso.position = ccp(_wolfe.position.x + distanceFromWolfe, _gaso.position.y);
+//        }
+    } else if (_hencher) {
+        if (_wolfe.position.x < _hencher.position.x) {
+            _hencher.position = ccp(_wolfe.position.x + distanceFromWolfe, _hencher.position.y);
+        }
     }
+    
 
 }
 
@@ -328,8 +429,15 @@ static NSString *selectedLevel = @"Level1";
     if (wolfeAttackEnable) {
         
     if (!_gameOver) {
-        
-        if (!fister_attack && fabsf(_wolfe.position.x - _fister.position.x) < 180 && !wolfe_jumped && !playerGroundHit && !enemyGroundHit) {
+        float xpos;
+        if (_fister) {
+            xpos = _fister.position.x;
+        } else if (_gaso) {
+            xpos = _gaso.position.x;
+        } else if (_hencher) {
+            xpos = _hencher.position.x;
+        }
+        if (!fister_attack && fabsf(_wolfe.position.x - xpos) < [enemy[@"maintainDistanceFromWolfe"] intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit) {
             [self wolfeAttackBegan];
         }
         else if (fister_attack && ([playerCollidedwithPowerUp isEqualToString:@"Shield"])) {
@@ -346,25 +454,42 @@ static NSString *selectedLevel = @"Level1";
     if (crouchCombo) {
         [self crouchComboAttack];
         if (enemyGroundHit && !_gameOver) {
-            [_fister performSelector:@selector(getup) withObject:nil afterDelay:2.f];
-            [self performSelector:@selector(resetenemyGroundHit) withObject:nil afterDelay:1.f];
+            if (_fister) {
+                [_fister performSelector:@selector(getup) withObject:nil afterDelay:2.f];
+                [self performSelector:@selector(resetenemyGroundHit) withObject:nil afterDelay:1.f];
+            }
         }
         [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:3.5f];
     } else {
-        [_wolfe attack];
-        [_fister hit:_wolfe.position];
+        if (_fister) {
+            [_wolfe attack:_fister.position withDistance:[enemy[@"wolfeDistBeforeAttack"] intValue]];
+            [_fister hit:_wolfe.position];
+        } else if (_gaso) {
+            [_wolfe attack:_gaso.position withDistance:[enemy[@"wolfeDistBeforeAttack"] intValue]];
+            [_gaso hit];
+        } else if (_hencher) {
+            [_wolfe attack:_hencher.position withDistance:[enemy[@"wolfeDistBeforeAttack"] intValue]];
+            [_hencher hit];
+        }
+        
         [self performSelector:@selector(updateEnemyScore) withObject:nil afterDelay:1.2f];
         [self showScore];
-        if (points_fister == 0) {
-            [_fister groundhit];
-        }
+
         [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:1.9f];
     }
     
 }
 
 - (void) updateEnemyScore {
-    if ( (_wolfe.flipX == NO) || (fabsf(_fister.position.x - _wolfe.position.x) < 180)) {
+    float xPos;
+    if (_fister) {
+        xPos = _fister.position.x;
+    } else if (_gaso) {
+        xPos = _gaso.position.x;
+    } else if (_hencher) {
+        xPos = _hencher.position.x;
+    }
+    if ( (_wolfe.flipX == NO) || (fabsf(xPos - _wolfe.position.x) < [enemy[@"maintainDistanceFromWolfe"] intValue])) {
         fister_hit += 1;
         playerScore += 500;
         points_fister -= healthPointsToDeducthero;
@@ -379,10 +504,10 @@ static NSString *selectedLevel = @"Level1";
     
 //    [_wolfe idle];
     wolfeAttackEnable = false;
-    if (_fister.flipX == YES) {
-//        id moveTo = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_fister.position.x + 40, _fister.position.y)];
-//        [_fister runAction:moveTo];
-    }
+//    if (_fister.flipX == YES) {
+////        id moveTo = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_fister.position.x + 40, _fister.position.y)];
+////        [_fister runAction:moveTo];
+//    }
     
 }
 
@@ -394,18 +519,48 @@ static NSString *selectedLevel = @"Level1";
 
 
 - (void)walkRightEnemy {
-    _fister.flipX=YES;
-    NSLog(@"Right");
-    [_fister run];
-    id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 160, _fister.position.y)];
-    [_fister runAction:moveRight];
+    if (_fister) {
+        _fister.flipX=YES;
+        NSLog(@"Right");
+        [_fister run];
+        id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - [enemy[@"walkRightTo"] intValue], _fister.position.y)];
+        [_fister runAction:moveRight];
+        [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
+
+    } else if (_gaso) {
+        _gaso.flipX=YES;
+        NSLog(@"Right");
+        [_gaso run];
+        id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - [enemy[@"walkRightTo"] intValue], _gaso.position.y)];
+        [_gaso runAction:moveRight];
+        [self performSelector:@selector(gaso_idle) withObject:nil afterDelay:0.5f];
+    } else if (_hencher) {
+        _hencher.flipX=YES;
+        NSLog(@"Right");
+        [_hencher run];
+        id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - [enemy[@"walkRightTo"] intValue], _hencher.position.y)];
+        [_hencher runAction:moveRight];
+        [self performSelector:@selector(hencher_idle) withObject:nil afterDelay:0.5f];
+    }
     facingeachother = false;
-    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
+    
     
 }
 
 - (void)walkRight {
-    if ((_wolfe.position.x + _wolfe.contentSizeInPoints.width/2 + 20) < (_fister.position.x - _fister.contentSizeInPoints.width/2 + 5) || (_wolfe.position.x > _fister.position.x)) {
+    float xPos;
+    float size;
+    if (_fister) {
+        xPos = _fister.position.x;
+        size = _fister.contentSizeInPoints.width;
+    } else if (_gaso) {
+        xPos = _gaso.position.x;
+        size = _gaso.contentSizeInPoints.width;
+    } else if (_hencher) {
+        xPos = _hencher.position.x;
+        size = _hencher.contentSizeInPoints.width;
+    }
+    if ((_wolfe.position.x + _wolfe.contentSizeInPoints.width/2 + 20) < (xPos - size/2 + 5) || (_wolfe.position.x > xPos)) {
         _wolfe.flipX=NO;
         [_wolfe walk];
         id moveRight = [CCActionMoveBy actionWithDuration:0.10 position:ccp(20, 0)];
@@ -420,16 +575,43 @@ static NSString *selectedLevel = @"Level1";
     //NSLog([NSString stringWithFormat:@"box origin x: %f", _loadedLevel.boundingBox.origin.x]);
     //NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
     //NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
-    [_fister run];
-    id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + 170, _fister.position.y)];
-    [_fister runAction:moveLeft];
-    facingeachother = FALSE;
-    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
+    if (_fister) {
+        [_fister run];
+        id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + [enemy[@"walkLeftTo"] intValue], _fister.position.y)];
+        [_fister runAction:moveLeft];
+        facingeachother = FALSE;
+        [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
+    } else if (_gaso) {
+        [_gaso run];
+        id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + [enemy[@"walkLeftTo"] intValue], _gaso.position.y)];
+        [_gaso runAction:moveLeft];
+        facingeachother = FALSE;
+        [self performSelector:@selector(gaso_idle) withObject:nil afterDelay:0.5f];
+    } else if (_hencher) {
+        [_hencher run];
+        id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + [enemy[@"walkLeftTo"] intValue], _hencher.position.y)];
+        [_hencher runAction:moveLeft];
+        facingeachother = FALSE;
+        [self performSelector:@selector(hencher_idle) withObject:nil afterDelay:0.5f];
+    }
+    
     
 }
 
 - (void)walkLeft {
-    if (((_wolfe.position.x - _wolfe.contentSizeInPoints.width/2 - 20) > (_fister.position.x + _fister.contentSizeInPoints.width/2 - 5)) || (_wolfe.position.x < _fister.position.x)) {
+    float xPos;
+    float size;
+    if (_fister) {
+        xPos = _fister.position.x;
+        size = _fister.contentSizeInPoints.width;
+    } else if (_gaso) {
+        xPos = _gaso.position.x;
+        size = _gaso.contentSizeInPoints.width;
+    } else if (_hencher) {
+        xPos = _hencher.position.x;
+        size = _hencher.contentSizeInPoints.width;
+    }
+    if (((_wolfe.position.x - _wolfe.contentSizeInPoints.width/2 - 20) > (xPos + size/2 - 5)) || (_wolfe.position.x < xPos)) {
     _wolfe.flipX=YES;
     [_wolfe walk];
     id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-20, 0)];
@@ -498,9 +680,15 @@ static NSString *selectedLevel = @"Level1";
     if (wolfe_attack) {
 //        countSpecialComboUse += 1;
         [_wolfe crouchcombo];
-        [_fister hit:_wolfe.position];
-        [_fister performSelector:@selector(groundhit) withObject:nil afterDelay:0.7f];
-        enemyGroundHit = TRUE;
+        if (_fister) {
+            [_fister hit:_wolfe.position];
+            [_fister performSelector:@selector(groundhit) withObject:nil afterDelay:0.7f];
+            enemyGroundHit = TRUE;
+        } else if (_gaso) {
+            [_gaso hit];
+        } else if (_hencher) {
+            [_hencher hit];
+        }
         fister_hit += 1;
         playerScore += 1000;
         points_fister -= healthPointsToDeducthero;
@@ -524,19 +712,43 @@ static NSString *selectedLevel = @"Level1";
 }
 
 - (void)flip_handle {
+    float enemyXcoordRight;
+    float enemyXcoordLeft;
     float wolfeXcoordRight = _wolfe.boundingBox.origin.x + _wolfe.boundingBox.size.width;
     float wolfeXcoordLeft = _wolfe.boundingBox.origin.x;
-    float fisterXcoordRight = _fister.boundingBox.origin.x + _fister.boundingBox.size.width;
-    float fisterXcoordLeft = _fister.boundingBox.origin.x;
-    if (wolfeXcoordRight < fisterXcoordLeft) {
+    if (_fister) {
+        enemyXcoordRight = _fister.boundingBox.origin.x + _fister.boundingBox.size.width;
+        enemyXcoordLeft = _fister.boundingBox.origin.x;
+    } else if (_gaso) {
+        enemyXcoordRight = _gaso.boundingBox.origin.x + _gaso.boundingBox.size.width;
+        enemyXcoordLeft = _gaso.boundingBox.origin.x;
+    } else if (_hencher) {
+        enemyXcoordRight = _hencher.boundingBox.origin.x + _hencher.boundingBox.size.width;
+        enemyXcoordLeft = _hencher.boundingBox.origin.x;
+    }
+    
+    if (wolfeXcoordRight < enemyXcoordLeft) {
         rightface = TRUE;
         _wolfe.flipX=NO;
-        _fister.flipX=NO;
+        if (_fister) {
+            _fister.flipX=NO;
+        } else if (_gaso) {
+            _gaso.flipX=NO;
+        } else if (_hencher) {
+            _hencher.flipX=NO;
+        }
     }
-    else if (wolfeXcoordLeft > fisterXcoordRight) {
+    else if (wolfeXcoordLeft > enemyXcoordRight) {
         rightface = FALSE;
         _wolfe.flipX=YES;
-        _fister.flipX=YES;
+        if (_fister) {
+            _fister.flipX=YES;
+        } else if (_gaso) {
+            _gaso.flipX=YES;
+        } else if (_hencher) {
+            _hencher.flipX=YES;
+        }
+
     }
 }
 
@@ -548,6 +760,18 @@ static NSString *selectedLevel = @"Level1";
 
 - (void)fister_idle {
     [_fister idle];
+    [self flip_handle];
+    facingeachother = TRUE;
+}
+
+- (void)gaso_idle {
+    [_gaso idle];
+    [self flip_handle];
+    facingeachother = TRUE;
+}
+
+- (void)hencher_idle {
+    [_hencher idle];
     [self flip_handle];
     facingeachother = TRUE;
 }
@@ -604,15 +828,32 @@ static NSString *selectedLevel = @"Level1";
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"LighteningEffect"];
         effect.autoRemoveOnFinish = TRUE;
-        effect.position = _fister.position;
-        [_fister.parent addChild:effect];
+        if (_fister) {
+            effect.position = _fister.position;
+            [_fister.parent addChild:effect];
+        } else if (_gaso) {
+            effect.position = _gaso.position;
+            [_gaso.parent addChild:effect];
+        } else if (_hencher) {
+            effect.position = _hencher.position;
+            [_hencher.parent addChild:effect];
+        }
+        
         healthPointsToDeducthero = 10;
         [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Freeze"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"FreezeEffect"];
         effect.autoRemoveOnFinish = TRUE;
-        effect.position = _fister.position;
-        [_fister.parent addChild:effect];
+        if (_fister) {
+            effect.position = _fister.position;
+            [_fister.parent addChild:effect];
+        } else if (_gaso) {
+            effect.position = _gaso.position;
+            [_gaso.parent addChild:effect];
+        } else if (_hencher) {
+            effect.position = _hencher.position;
+            [_hencher.parent addChild:effect];
+        }
         [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
     }
 }
