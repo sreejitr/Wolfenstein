@@ -105,7 +105,7 @@ Figure out how to make the game more interesting
 
 
 
-#Date: April 12th 2015
+#Date: April 14th 2015
 
 <b>What was the goal for last week..
 
@@ -128,6 +128,46 @@ Add more props/power-ups to the first level
 <b>What I am doing next week..
 
 Add variety to the gameplay - increased difficulty/different actions apart from rope hopping
+
+<b>Goals for the rest of the game.. 
+
+Improve the finish of the game
+
+
+
+#Date: April 21st 2015
+
+<b>What was the goal for last week..
+
+Brainstorm on how to improve the current level
+
+Add more props/power-ups to the first level
+
+Add infinite background loop
+
+<b>What I actually did last week..
+
+Created a working infinite loop along with dynamically created joints
+
+Improvement on current level - Made game infinite, changed the theme of the game 
+to the monkey escaping the burning forest
+
+Added particle fire effects, rope and game timers to implement new theme
+
+<b>What I am doing this week..
+
+Variable rope lengths
+
+Swipe gestures instead of tap
+
+Add artifacts to gameplay
+
+
+<b>What I am doing next week..
+
+Add more artifacts to increase engagement
+
+Improve the finish of the game
 
 <b>Goals for the rest of the game.. 
 
