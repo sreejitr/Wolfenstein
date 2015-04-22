@@ -28,17 +28,20 @@
 
 - (void) idle {
     if (self.flipX == NO) {
-        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 10, self.position.y)];
+        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 30, self.position.y)];
         [self runAction:moveBy];
     }
+    
     [animationManager runAnimationsForSequenceNamed:@"Idle"];
 }
 
-- (void) punch {
-//    if (self.flipX == NO) {
-//        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 40, self.position.y)];
-//        [self runAction:moveBy];
-//    }
+- (void) punch:(CGPoint) position {
+    id moveBy;
+    if (self.flipX == NO) {
+        moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(position.x + 120, self.position.y)];
+    } else {
+        moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(position.x - 70, self.position.y)];
+    }
     [animationManager runAnimationsForSequenceNamed:@"Punch"];
 }
 
@@ -46,13 +49,17 @@
     [animationManager runAnimationsForSequenceNamed:@"Walk"];
 }
 
-- (void) hit {
-//    if (self.flipX == YES) {
-//        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 40, self.position.y)];
-//        [self runAction:moveBy];
-//    }
+- (void) hit:(CGPoint) position {
+    id moveBy;
+    if (self.flipX == NO) {
+        moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(position.x + 120, self.position.y)];
+    } else {
+        moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(position.x - 110, self.position.y)];
+    }
+    [self runAction:moveBy];
     [animationManager runAnimationsForSequenceNamed:@"Hit"];
     [self performSelector:@selector(idle) withObject:nil afterDelay:1.8f];
+    
 }
 
 @end

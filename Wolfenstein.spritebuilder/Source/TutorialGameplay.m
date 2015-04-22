@@ -99,7 +99,7 @@ static NSString * const kFirstLevel = @"Level0";
         nextScene = [CCBReader loadAsScene:@"TutorialGameplay"];
     } else {
         selectedLevel = kFirstLevel;
-        nextScene = [CCBReader loadAsScene:@"MainScene"];
+        nextScene = [CCBReader loadAsScene:@"Gameplay"];
     }
     
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];

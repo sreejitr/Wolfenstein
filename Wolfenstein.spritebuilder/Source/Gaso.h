@@ -9,9 +9,9 @@
 #import "CCSprite.h"
 
 @interface Gaso : CCSprite
-- (void) hit;
+- (void) hit:(CGPoint) position;
 - (void) idle;
-- (void) punch;
+- (void) punch:(CGPoint) position;
 - (void) run;
 - (void) correctPositionOnScreenAtPosition:(CGPoint)loadedLevelPosition withWidth:(CGSize)width;
 @end

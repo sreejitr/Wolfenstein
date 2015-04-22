@@ -31,10 +31,10 @@
 }
 
 - (void) punch {
-    //    if (self.flipX == NO) {
-    //        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 40, self.position.y)];
-    //        [self runAction:moveBy];
-    //    }
+    if (self.flipX == NO) {
+        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 130, self.position.y)];
+        [self runAction:moveBy];
+    }
     [animationManager runAnimationsForSequenceNamed:@"Punch"];
 }
 
@@ -44,8 +44,8 @@
 
 - (void) hit {
     if (self.flipX == YES) {
-        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 40, self.position.y)];
-        [self runAction:moveBy];
+//        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 40, self.position.y)];
+//        [self runAction:moveBy];
     }
     [animationManager runAnimationsForSequenceNamed:@"Hit"];
     [self performSelector:@selector(idle) withObject:nil afterDelay:1.8f];
