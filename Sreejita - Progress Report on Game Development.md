@@ -149,11 +149,11 @@ Add more levels/enemies
 
 <b>What I actually did last week..
 
-Improve Health labels and add score labels
+Improved Health labels and add score labels
 
 Added Training mode for the game
 
-Add 4 levels to main Challenge and 2 levels to Training
+Added 4 levels to main Challenge and 2 levels to Training
 
 Added enemies Gaso and Hencher
 

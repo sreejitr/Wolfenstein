@@ -16,6 +16,7 @@
 #import "CCActionFollow+CurrentOffset.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
 #import "CCDirector.h"
+#import "MenuLayer.h"
 
 static NSString * const kFirstLevel = @"Level4";
 static NSString *selectedLevel = @"Level1";
@@ -67,12 +68,15 @@ static NSString *selectedLevel = @"Level1";
     NSDictionary *fister_v;
     NSDictionary *gaso_v;
     NSDictionary *hencher_v;
+    MenuLayer *_menuLayer;
+    MenuLayer *_popoverMenuLayer;
 }
 
 
 #pragma mark - Node Lifecycle
 
 - (void)didLoadFromCCB {
+    _menuLayer.gamePlay = self;
     _physicsNode.collisionDelegate = self;
     _loadedLevel = (Level *) [CCBReader load:selectedLevel owner:self];
     [_levelNode addChild:_loadedLevel];
