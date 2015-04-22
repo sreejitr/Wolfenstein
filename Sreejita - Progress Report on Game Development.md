@@ -103,7 +103,7 @@ Work on adding more levels if possible
 
 
 
-#Date: April 12th 2015
+#Date: April 14th 2015
 
 <b>What was the goal for last week..
 
@@ -134,4 +134,48 @@ Add more attack combos/improve enemy's attack (increased difficulty)
 <b>Goals for the rest of the game.. 
 
 Improve the finish, background, add high score screens, etc
+
+
+
+#Date: April 21st 2015
+
+<b>What was the goal for last week..
+
+Improve Health labels and add score labels
+
+Add menu screen
+
+Add more levels/enemies
+
+<b>What I actually did last week..
+
+Improve Health labels and add score labels
+
+Added Training mode for the game
+
+Add 4 levels to main Challenge and 2 levels to Training
+
+Added enemies Gaso and Hencher
+
+Improved fighting sequences (animation)
+
+Generalized the code to work for all enemies
+
+<b>What I am doing this week..
+
+Add menu screen
+
+Improve Gaso and Hencher's attack sequences
+
+Add special combo attacks for new levels for both Wolfe and Enemies
+
+Enable enemies to compete for power-ups in levels 3 and 4
+
+<b>What I am doing next week..
+
+Improve the finish
+
+<b>Goals for the rest of the game.. 
+
+Improve the finish
 
