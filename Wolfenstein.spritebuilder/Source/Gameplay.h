@@ -15,4 +15,6 @@
     
 }
 //@property (nonatomic, assign) CCLabelTTF *_gamePoints;
+-(void) showPopoverNamed:(NSString*)popoverName;
+-(void) removePopover;
 @end

@@ -71,8 +71,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>19.5</real>
-							<real>17</real>
+							<real>41.67889404296875</real>
+							<real>12.163171768188477</real>
 							<integer>3</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -96,8 +96,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.61358624696731567</real>
-							<real>0.54231667518615723</real>
+							<real>0.82774466276168823</real>
+							<real>0.44655543565750122</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -120,7 +120,7 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>40</real>
+							<real>50</real>
 							<real>40</real>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -154,7 +154,7 @@
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string></string>
+							<string>PAUSE</string>
 							<false/>
 						</array>
 					</dict>
@@ -166,7 +166,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>interface_glossy-game-interface/Pause.png</string>
+							<string>Progress/pbar.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -177,7 +177,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>interface_glossy-game-interface/Pause.png</string>
+							<string>Progress/pbar.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -201,7 +201,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>Progress/pbar.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -220,7 +220,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>interface_glossy-game-interface/Forward.png</string>
+							<string>Progress/pbar.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -229,7 +229,7 @@
 						<key>type</key>
 						<string>Float</string>
 						<key>value</key>
-						<real>1</real>
+						<real>0.80000001192092896</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -237,7 +237,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Helvetica</string>
+						<string>Cochin-BoldItalic</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -246,7 +246,7 @@
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>17</real>
+							<real>15</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -295,10 +295,10 @@
 						<string>Color4</string>
 						<key>value</key>
 						<array>
-							<real>255</real>
-							<real>255</real>
-							<real>255</real>
-							<real>255</real>
+							<real>0.0068224365822970867</real>
+							<real>0.0068224365822970867</real>
+							<real>0.0068224365822970867</real>
+							<real>1</real>
 						</array>
 					</dict>
 					<dict>
@@ -364,6 +364,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
@@ -436,8 +438,6 @@
 				</array>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

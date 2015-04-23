@@ -174,6 +174,30 @@ static NSString *selectedLevel = @"Level1";
     
 }
 
+-(void) showPopoverNamed:(NSString*)name
+{
+    if (_popoverMenuLayer == nil)
+    {
+        MenuLayer* newMenuLayer = (MenuLayer*)[CCBReader load:name];
+        [self addChild:newMenuLayer];
+        _popoverMenuLayer = newMenuLayer;
+        _popoverMenuLayer.gamePlay = self;
+        _menuLayer.visible = NO;
+        _levelNode.paused = YES;
+    }
+}
+
+-(void) removePopover
+{
+    if (_popoverMenuLayer)
+    {
+        [_popoverMenuLayer removeFromParent];
+        _popoverMenuLayer = nil;
+        _menuLayer.visible = YES;
+        _levelNode.paused = NO;
+    }
+}
+
 - (void)loadNextLevel {
     selectedLevel = _loadedLevel.nextLevelName;
     
@@ -214,7 +238,7 @@ static NSString *selectedLevel = @"Level1";
     }
     
 //    _fister.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _fister.contentSize} cornerRadius:0];
-    if (!_gameOver) {
+    if (!_gameOver && !_levelNode.paused) {
         [_wolfe correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
         if (_fister) {
             [_fister correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
@@ -902,31 +926,36 @@ static NSString *selectedLevel = @"Level1";
 //}
 
 - (void)winScreen {
-    if (playerScore >= 35000) {
-        popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
-    } else if (playerScore >= 22000 && playerScore < 35000) {
-        popup = (WinPopUp *)[CCBReader load:@"WinPopUp2star" owner:self];
-    } else if (playerScore < 22000) {
-        popup = (WinPopUp *)[CCBReader load:@"WinPopUp1star" owner:self];
+    if (popup == nil) {
+
+        if (playerScore >= 35000) {
+            popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
+        } else if (playerScore >= 22000 && playerScore < 35000) {
+            popup = (WinPopUp *)[CCBReader load:@"WinPopUp2star" owner:self];
+        } else if (playerScore < 22000) {
+            popup = (WinPopUp *)[CCBReader load:@"WinPopUp1star" owner:self];
+        }
+        popup._scoreLabel.string = [NSString stringWithFormat:@"%d", playerScore];
+        popup.positionType = CCPositionTypeNormalized;
+        popup.position = ccp(0.5, 0.5);
+        [_wolfe stopAllActions];
+        [_fister stopAllActions];
+        [self addChild:popup];
+        _gameOver = TRUE;
     }
-    popup._scoreLabel.string = [NSString stringWithFormat:@"%d", playerScore];
-    popup.positionType = CCPositionTypeNormalized;
-    popup.position = ccp(0.5, 0.5);
-    [_wolfe stopAllActions];
-    [_fister stopAllActions];
-    [self addChild:popup];
-    _gameOver = TRUE;
 }
 
 - (void)loseScreen {
-    popup = (WinPopUp *)[CCBReader load:@"LosePopUp" owner:self];
-    popup.positionType = CCPositionTypeNormalized;
-//    popup._winPopUpLabel.string = [NSString stringWithFormat:@"You Lose!!"];
-    popup.position = ccp(0.5, 0.5);
-    [_wolfe stopAllActions];
-    [_fister stopAllActions];
-    [self addChild:popup];
-    _gameOver = TRUE;
+    if (popup == nil) {
+        popup = (WinPopUp *)[CCBReader load:@"LosePopUp" owner:self];
+        popup.positionType = CCPositionTypeNormalized;
+    //    popup._winPopUpLabel.string = [NSString stringWithFormat:@"You Lose!!"];
+        popup.position = ccp(0.5, 0.5);
+        [_wolfe stopAllActions];
+        [_fister stopAllActions];
+        [self addChild:popup];
+        _gameOver = TRUE;
+    }
 }
 
 @end
