@@ -12,5 +12,7 @@
 {
     CCPhysicsNode* _physicsNode;
 }
-
+-(void) showPopoverNamed:(NSString*)popoverName;
+-(void) removePopover;
+-(void) loadLevel: (NSString*) levelName;
 @end

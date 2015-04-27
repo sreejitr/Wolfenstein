@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>8</integer>
+	<integer>21</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -321,15 +321,13 @@
 										<key>type</key>
 										<string>Float</string>
 										<key>value</key>
-										<real>0.81362950801849365</real>
+										<real>0.016754517331719398</real>
 									</dict>
 								</array>
 							</dict>
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

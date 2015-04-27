@@ -9,10 +9,21 @@
 #import "MenuLayer.h"
 #import "Gameplay.h"
 #import "SceneManager.h"
+#import "TutorialGameplay.h"
 
 @implementation MenuLayer
 - (void)didLoadFromCCB {
     
+}
+
+-(void) shouldLoadLevel1
+{
+    [_gamePlay loadLevel:@"Level1" withLevelStart: @"LevelStart1"];
+}
+
+-(void) shouldLoadLevel
+{
+    [_gamePlay loadLevel:_currentLevel withLevelStart: nil];
 }
 
 -(void) resumeGame
@@ -26,6 +37,11 @@
 -(void) resumeGameDidEnd
 {
     [_gamePlay removePopover];
+}
+
+-(void) shouldLoadTutorial
+{
+    [_tutorialGamePlay loadLevel:_currentLevel];
 }
 
 - (void)pauseGame {

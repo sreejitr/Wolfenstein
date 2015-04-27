@@ -12,10 +12,12 @@
 #import "DeadBunny.h"
 #import "WinPopUp.h"
 #import "CCActionFollow+CurrentOffset.h"
+#import "MenuLayer.h"
 
 
 static NSString *selectedLevel = @"Level0";
-static NSString * const kFirstLevel = @"Level0";
+//static NSString * const kFirstLevel = @"Level0";
+static NSString *currentLevelStart = @"LevelStart0";
 
 @implementation TutorialGameplay {
     CCNode *_levelNode;
@@ -41,30 +43,19 @@ static NSString * const kFirstLevel = @"Level0";
     BOOL jumped_up;
     BOOL jumped_left;
     BOOL jumped_right;
+    MenuLayer *_popoverMenuLayer;
 }
 
 - (void)didLoadFromCCB {
     _physicsNode.collisionDelegate = self;
-    _loadedLevel = (Level *) [CCBReader load:selectedLevel owner:self];
-    [_levelNode addChild:_loadedLevel];
-    self.userInteractionEnabled = TRUE;
-    _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
-    _bunny = (DeadBunny*)[CCBReader load:@"DeadBunny"];
-    [_physicsNode addChild:_wolfe];
-    [_physicsNode addChild:_bunny];
-//    _wolfe.position = ccp(230, 130);
-    CGPoint offsetFromParentCenter = CGPointMake(200, 130);
-    _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
-                                     self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
-    offsetFromParentCenter = CGPointMake(340, 140);
-    _bunny.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
-                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+    [self showPopoverNamed:currentLevelStart];
+
 //    _bunny.position = ccp(370, 140);
-    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
+//    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
         _instructions.string = [NSString stringWithFormat:@"Tap anywhere on the screen to hit Dead Bunny"];
-    } else if (!_loadedLevel.nextLevelName) {
-        _instructions.string = [NSString stringWithFormat:@"Swipe left to move away from Dead Bunny"];
-    }
+//    } else if (!_loadedLevel.nextLevelName) {
+//        _instructions.string = [NSString stringWithFormat:@"Swipe left to move away from Dead Bunny"];
+//    }
     
     _instructions.visible = true;
     [self showScore];
@@ -80,27 +71,82 @@ static NSString * const kFirstLevel = @"Level0";
     jumped_left = FALSE;
     jumped_right = FALSE;
     swiped_down = FALSE;
+    
+    
 }
 
-- (void)onEnter {
-    [super onEnter];
-    
+-(void) loadLevel: (NSString*) levelName
+{
+    _loadedLevel = (Level *) [CCBReader load:levelName owner:self];
+    [_levelNode addChild:_loadedLevel];
+    self.userInteractionEnabled = TRUE;
+    _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
+    _bunny = (DeadBunny*)[CCBReader load:@"DeadBunny"];
+    [_physicsNode addChild:_wolfe];
+    [_physicsNode addChild:_bunny];
+    //    _wolfe.position = ccp(230, 130);
+    CGPoint offsetFromParentCenter = CGPointMake(200, 130);
+    _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
+                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+    offsetFromParentCenter = CGPointMake(340, 140);
+    _bunny.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
+                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+    if (_popoverMenuLayer)
+    {
+        [_popoverMenuLayer removeFromParent];
+        _popoverMenuLayer = nil;
+        _levelNode.paused = NO;
+    }
     CCActionFollow *followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
     _physicsNode.position = [followWolfe currentOffset];
     [_physicsNode runAction:followWolfe];
 }
 
+-(void) showPopoverNamed:(NSString*)name
+{
+    if (_popoverMenuLayer == nil)
+    {
+        MenuLayer* newMenuLayer = (MenuLayer*)[CCBReader load:name];
+        [self addChild:newMenuLayer];
+        _popoverMenuLayer = newMenuLayer;
+        _popoverMenuLayer.tutorialGamePlay = self;
+        _levelNode.paused = YES;
+        if ([name containsString:@"LevelStart"]) {
+            currentLevelStart = newMenuLayer.nextLevelStart;
+        }
+    }
+}
+
+-(void) removePopover
+{
+    if (_popoverMenuLayer)
+    {
+        [_popoverMenuLayer removeFromParent];
+        _popoverMenuLayer = nil;
+        _levelNode.paused = NO;
+    }
+}
+
+
+- (void)onEnter {
+    [super onEnter];
+    
+//    CCActionFollow *followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
+//    _physicsNode.position = [followWolfe currentOffset];
+//    [_physicsNode runAction:followWolfe];
+}
+
 - (void)loadNextLevel {
-    selectedLevel = _loadedLevel.nextLevelName;
+//    selectedLevel = _loadedLevel.nextLevelName;
     
     CCScene *nextScene = nil;
     
-    if (selectedLevel) {
-        nextScene = [CCBReader loadAsScene:@"TutorialGameplay"];
-    } else {
-        selectedLevel = kFirstLevel;
+//    if (selectedLevel) {
+//        nextScene = [CCBReader loadAsScene:@"TutorialGameplay"];
+//    } else {
+//        selectedLevel = kFirstLevel;
         nextScene = [CCBReader loadAsScene:@"Gameplay"];
-    }
+//    }
     
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
     [[CCDirector sharedDirector] presentScene:nextScene withTransition:transition];
@@ -108,12 +154,13 @@ static NSString * const kFirstLevel = @"Level0";
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
+//    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
+    if (numOfHits < 6) {
         [self wolfeAttackBegan];
         _instructions.string = [NSString stringWithFormat:@"Thats awesome!! Now hit Dead Bunny 5 times.."];
         _instructions.visible = true;
         crouchCombo = FALSE;
-    } else if (!_loadedLevel.nextLevelName) {
+    } else {
         touchBeganLocation = [touch locationInNode:self];
     }
 }
@@ -303,9 +350,9 @@ static NSString * const kFirstLevel = @"Level0";
     }
     
     [self showScore];
-    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"] && numOfHits >= 6) {
-        [self performSelector:@selector(winScreen) withObject:nil afterDelay:1.f];
-    } else if (!_loadedLevel.nextLevelName) {
+//    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"] && numOfHits >= 6) {
+//        [self performSelector:@selector(loadNextLevel) withObject:nil afterDelay:0.5f];
+    if (numOfHits >= 6) {
         if (!swiped_left) {
             _instructions.string = [NSString stringWithFormat:@"Swipe left to move away from Dead Bunny"];
             _instructions.visible = true;
@@ -343,6 +390,7 @@ static NSString * const kFirstLevel = @"Level0";
             swiped_down = TRUE;
             points += 1000;
         }
+        crouchCombo = FALSE;
     } else {
         [_wolfe attack];
         [_bunny hit];
@@ -367,14 +415,12 @@ static NSString * const kFirstLevel = @"Level0";
 - (void)winScreen {
     popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
     popup._scoreLabel.string = [NSString stringWithFormat:@"Score: %d", points];
-    if (!_loadedLevel.nextLevelName) {
-        popup._winPopUpLabel.string = [NSString stringWithFormat:@"Excellent!! Proceed to the challenge!!"];
-        popup._winPopUpLabel.fontSize = 20;
-        popup._winPopUpLabel.dimensions = CGSizeMake(180,100);
-        CGPoint offsetFromParentCenter = CGPointMake(10, 60);
-        popup._winPopUpLabel.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
-                                      self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
-    }
+    popup._winPopUpLabel.string = [NSString stringWithFormat:@"Congratulations!! You have cleared this level!!"];
+    popup._winPopUpLabel.fontSize = 20;
+    popup._winPopUpLabel.dimensions = CGSizeMake(180,100);
+    CGPoint offsetFromParentCenter = CGPointMake(10, 70);
+    popup._winPopUpLabel.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
+                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
     popup.positionType = CCPositionTypeNormalized;
     popup.position = ccp(0.5, 0.5);
     [_wolfe stopAllActions];

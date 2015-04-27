@@ -18,11 +18,12 @@
     [[CCDirector sharedDirector] presentScene:s withTransition:t];
 }
 
+
 +(void) presentGameplayScene
 {
     id s = [CCBReader loadAsScene:@"Gameplay"];
     id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionRight
-                                              duration:1.0];
+                                              duration:0.1];
     [[CCDirector sharedDirector] presentScene:s withTransition:t];
 }
 
@@ -38,7 +39,7 @@
 {
     id s = [CCBReader loadAsScene:@"TutorialGameplay"];
     id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionRight
-                                              duration:1.0];
+                                              duration:0.1];
     [[CCDirector sharedDirector] presentScene:s withTransition:t];
 }
 

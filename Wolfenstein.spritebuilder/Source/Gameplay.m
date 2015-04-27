@@ -17,9 +17,11 @@
 #import "CCPhysics+ObjectiveChipmunk.h"
 #import "CCDirector.h"
 #import "MenuLayer.h"
+#import "GameState.h"
 
 static NSString * const kFirstLevel = @"Level4";
 static NSString *selectedLevel = @"Level1";
+static NSString *currentLevelStart = @"LevelStart1";
 
 
 @implementation Gameplay{
@@ -70,82 +72,18 @@ static NSString *selectedLevel = @"Level1";
     NSDictionary *hencher_v;
     MenuLayer *_menuLayer;
     MenuLayer *_popoverMenuLayer;
+    GameState* gameState;
+    NSMutableDictionary *levelInfo;
 }
-
 
 #pragma mark - Node Lifecycle
 
 - (void)didLoadFromCCB {
+    gameState = [GameState sharedGameState];
+    levelInfo = gameState.levelInfo;
     _menuLayer.gamePlay = self;
     _physicsNode.collisionDelegate = self;
-    _loadedLevel = (Level *) [CCBReader load:selectedLevel owner:self];
-    [_levelNode addChild:_loadedLevel];
-    self.userInteractionEnabled = TRUE;
-    _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
-    [_physicsNode addChild:_wolfe];
-    CGPoint offsetFromParentCenter = CGPointMake(180, 120);
-    _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
-                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
-//    _wolfe.position = ccp(205, 130);
-//    [_wolfe setPosition:[_physicsNode convertToNodeSpace:[self convertToWorldSpace:ccp(self.contentSizeInPoints.width/2, self.contentSizeInPoints.height* 0.1f)]]];
-    rightface = TRUE;
-    offsetFromParentCenter = CGPointMake(330, 140);
-    fister_v = @{
-              @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
-              @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
-              @"maintainDistanceFromWolfe" : @170,
-              @"moveToAfterPunchAttack" : @120,
-              @"walkRightTo" : @155,
-              @"walkLeftTo" : @170,
-              @"wolfeDistBeforeAttack" : @150
-              };
-    offsetFromParentCenter = CGPointMake(290, 120);
-    gaso_v = @{
-                 @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
-                 @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
-                 @"maintainDistanceFromWolfe" : @150,
-                 @"moveToAfterPunchAttack" : @105,
-                 @"walkRightTo" : @155,
-                 @"walkLeftTo" : @110,
-                 @"wolfeDistBeforeAttack" : @120
-                 };
-    hencher_v = @{
-                 @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
-                 @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
-                 @"maintainDistanceFromWolfe" : @160,
-                 @"moveToAfterPunchAttack" : @120,
-                 @"walkRightTo" : @145,
-                 @"walkLeftTo" : @160,
-                 @"wolfeDistBeforeAttack" : @150
-                 };
-    if ([_loadedLevel.nextLevelName isEqualToString:@"Level2"]) {
-        enemy = gaso_v;
-        _gaso = (Gaso*)[CCBReader load:@"Gaso"];
-        [_physicsNode addChild:_gaso];
-        _gaso.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
-                                     self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
-
-    }
-    else if ([_loadedLevel.nextLevelName isEqualToString:@"Level3"]) {
-        enemy = hencher_v;
-        _hencher = (Hencher*)[CCBReader load:@"Hencher"];
-        _hencher.scale = 0.5f;
-        [_physicsNode addChild:_hencher];
-        _hencher.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
-                                     self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
-
-    }
-    else {
-        _fister = (Fister*)[CCBReader load:@"Fister"];
-        enemy = fister_v;
-        if ([_loadedLevel.nextLevelName isEqualToString:@"Level4"]) {
-            _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
-        }
-        [_physicsNode addChild:_fister];
-        _fister.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
-                                       self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
-    }
-    
+    [self showPopoverNamed:currentLevelStart];
 //    _fister.position = ccp(370, 150);
     wolfe_attack = FALSE;
     fister_attack = FALSE;
@@ -174,6 +112,103 @@ static NSString *selectedLevel = @"Level1";
     
 }
 
+-(void) loadLevel: (NSString*) levelName withLevelStart: (NSString*) levelStart
+{
+    selectedLevel = levelName;
+    if (levelStart) {
+        currentLevelStart = levelStart;
+        selectedLevel = levelName;
+    }
+    _loadedLevel = (Level *) [CCBReader load:levelName owner:self];
+    [_levelNode addChild:_loadedLevel];
+    self.userInteractionEnabled = TRUE;
+    _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
+    [_physicsNode addChild:_wolfe];
+    CGPoint offsetFromParentCenter = CGPointMake(180, 120);
+    _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
+                                  self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
+    //    _wolfe.position = ccp(205, 130);
+    //    [_wolfe setPosition:[_physicsNode convertToNodeSpace:[self convertToWorldSpace:ccp(self.contentSizeInPoints.width/2, self.contentSizeInPoints.height* 0.1f)]]];
+    rightface = TRUE;
+    offsetFromParentCenter = CGPointMake(330, 140);
+    fister_v = @{
+                 @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
+                 @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
+                 @"maintainDistanceFromWolfe" : @170,
+                 @"moveToAfterPunchAttack" : @120,
+                 @"walkRightTo" : @155,
+                 @"walkLeftTo" : @170,
+                 @"wolfeDistBeforeAttack" : @150
+                 };
+    offsetFromParentCenter = CGPointMake(290, 120);
+    gaso_v = @{
+               @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
+               @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
+               @"maintainDistanceFromWolfe" : @150,
+               @"moveToAfterPunchAttack" : @105,
+               @"walkRightTo" : @155,
+               @"walkLeftTo" : @110,
+               @"wolfeDistBeforeAttack" : @120
+               };
+    hencher_v = @{
+                  @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
+                  @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
+                  @"maintainDistanceFromWolfe" : @160,
+                  @"moveToAfterPunchAttack" : @120,
+                  @"walkRightTo" : @145,
+                  @"walkLeftTo" : @160,
+                  @"wolfeDistBeforeAttack" : @150
+                  };
+    if ([_loadedLevel.nextLevelName isEqualToString:@"Level2"]) {
+        enemy = gaso_v;
+        _gaso = (Gaso*)[CCBReader load:@"Gaso"];
+        [_physicsNode addChild:_gaso];
+        _gaso.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
+                                     self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
+        
+    }
+    else if ([_loadedLevel.nextLevelName isEqualToString:@"Level3"]) {
+        enemy = hencher_v;
+        _hencher = (Hencher*)[CCBReader load:@"Hencher"];
+        _hencher.scale = 0.5f;
+        [_physicsNode addChild:_hencher];
+        _hencher.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
+                                        self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
+        
+    }
+    else {
+        _fister = (Fister*)[CCBReader load:@"Fister"];
+        enemy = fister_v;
+        if ([_loadedLevel.nextLevelName isEqualToString:@"Level4"]) {
+            _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
+        }
+        [_physicsNode addChild:_fister];
+        _fister.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
+                                       self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
+    }
+    if (_popoverMenuLayer)
+    {
+        [_popoverMenuLayer removeFromParent];
+        _popoverMenuLayer = nil;
+        _menuLayer.visible = YES;
+        _levelNode.paused = NO;
+    }
+    CCActionFollow *follow = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
+    _physicsNode.position = [follow currentOffset];
+    [_physicsNode runAction:follow];
+}
+
+-(void) levelInfoDidChange
+{
+    [GameState sharedGameState].levelInfo = levelInfo;
+}
+
+-(void) shouldClose
+{
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self removeFromParent];
+}
+
 -(void) showPopoverNamed:(NSString*)name
 {
     if (_popoverMenuLayer == nil)
@@ -184,6 +219,9 @@ static NSString *selectedLevel = @"Level1";
         _popoverMenuLayer.gamePlay = self;
         _menuLayer.visible = NO;
         _levelNode.paused = YES;
+        if ([name containsString:@"LevelStart"]) {
+            currentLevelStart = newMenuLayer.nextLevelStart;
+        }
     }
 }
 
@@ -218,9 +256,7 @@ static NSString *selectedLevel = @"Level1";
 - (void)onEnter {
     [super onEnter];
     
-    CCActionFollow *follow = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
-    _physicsNode.position = [follow currentOffset];
-    [_physicsNode runAction:follow];
+    
 //    CCSprite *sprite = [CCSprite spriteWithImageNamed:@"healthbar.png"];
 //    sprite.position = ccp(self.contentSizeInPoints.width/2, 10.f);
 //    sprite.scaleX = 200;
@@ -592,7 +628,7 @@ static NSString *selectedLevel = @"Level1";
     } else if (_gaso) {
         xPos = _gaso.position.x;
         size = _gaso.contentSizeInPoints.width;
-    } else if (_hencher) {
+    } else {
         xPos = _hencher.position.x;
         size = _hencher.contentSizeInPoints.width;
     }

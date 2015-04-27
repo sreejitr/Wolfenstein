@@ -16,5 +16,5 @@
 - (void) run;
 - (void) getup;
 - (void) correctPositionOnScreenAtPosition:(CGPoint)loadedLevelPosition withWidth:(CGSize)width;
-
+- (void) punchcharge;
 @end
