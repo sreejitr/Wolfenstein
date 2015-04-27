@@ -14,7 +14,7 @@
 {
     id s = [CCBReader loadAsScene:@"MainScene"];
     id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft
-                                              duration:1.0];
+                                              duration:0.2];
     [[CCDirector sharedDirector] presentScene:s withTransition:t];
 }
 
