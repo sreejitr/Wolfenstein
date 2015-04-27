@@ -15,7 +15,7 @@ static NSString *currentLevelStart = @"LevelStart0";
 
 - (void)didLoadFromCCB {
     _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
-     [_fister punchcharge];
+    [_fister performSelector:@selector(idle) withObject:nil afterDelay:1.f];
 }
 
 //- (void)play {

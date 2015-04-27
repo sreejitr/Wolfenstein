@@ -38,7 +38,7 @@
 +(void) presentTrainingScene
 {
     id s = [CCBReader loadAsScene:@"TutorialGameplay"];
-    id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionRight
+    id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft
                                               duration:0.1];
     [[CCDirector sharedDirector] presentScene:s withTransition:t];
 }

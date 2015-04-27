@@ -72,8 +72,8 @@
     [animationManager runAnimationsForSequenceNamed:@"Run"];
 }
 
-- (void) punchcharge {
-    [animationManager runAnimationsForSequenceNamed:@"Punchcharge"];
+- (void) jabtaunt {
+    [animationManager runAnimationsForSequenceNamed:@"Jabtaunt"];
 }
 
 @end

@@ -78,6 +78,13 @@
 			<key>previewFolderHidden</key>
 			<true/>
 		</dict>
+		<key>FacesForLabel</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
 		<key>Heavy_Terror_sprites/effects/GunMachine PS02_11.wav</key>
 		<dict>
 			<key>format_ios_sound</key>

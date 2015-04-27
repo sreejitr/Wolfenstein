@@ -14,11 +14,12 @@
 #import "CCActionFollow+CurrentOffset.h"
 #import "MenuLayer.h"
 #import "GameState.h"
+#import "SceneManager.h"
 
 
-static NSString *selectedLevel = @"Level0";
+static NSString *thisLevel = @"Level0";
 //static NSString * const kFirstLevel = @"Level0";
-static NSString *currentLevelStart = @"LevelStart0";
+//static NSString *thisLevelStart = @"LevelStart0";
 
 @implementation TutorialGameplay {
     CCNode *_levelNode;
@@ -49,7 +50,7 @@ static NSString *currentLevelStart = @"LevelStart0";
 
 - (void)didLoadFromCCB {
     _physicsNode.collisionDelegate = self;
-//    [self showPopoverNamed:currentLevelStart];
+//    [self showPopoverNamed:thisLevelStart];
 
 //    _bunny.position = ccp(370, 140);
 //    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
@@ -78,7 +79,7 @@ static NSString *currentLevelStart = @"LevelStart0";
 
 //-(void) loadLevel: (NSString*) levelName
 //{
-    _loadedLevel = (Level *) [CCBReader load:selectedLevel owner:self];
+    _loadedLevel = (Level *) [CCBReader load:thisLevel owner:self];
     [_levelNode addChild:_loadedLevel];
     self.userInteractionEnabled = TRUE;
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
@@ -113,7 +114,7 @@ static NSString *currentLevelStart = @"LevelStart0";
 //        _popoverMenuLayer.tutorialGamePlay = self;
 //        _levelNode.paused = YES;
 //        if ([name containsString:@"LevelStart"]) {
-//            currentLevelStart = newMenuLayer.nextLevelStart;
+//            thisLevelStart = newMenuLayer.nextLevelStart;
 //        }
 //    }
 //}
@@ -138,19 +139,20 @@ static NSString *currentLevelStart = @"LevelStart0";
 }
 
 - (void)loadNextLevel {
-//    selectedLevel = _loadedLevel.nextLevelName;
+//    thisLevel = _loadedLevel.nextLevelName;
     
-    CCScene *nextScene = nil;
+//    CCScene *nextScene = nil;
     
-//    if (selectedLevel) {
+//    if (thisLevel) {
 //        nextScene = [CCBReader loadAsScene:@"TutorialGameplay"];
 //    } else {
-//        selectedLevel = kFirstLevel;
-        nextScene = [CCBReader loadAsScene:@"Gameplay"];
+//        thisLevel = kFirstLevel;
+//        nextScene = [CCBReader loadAsScene:@"Gameplay"];
 //    }
     
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-    [[CCDirector sharedDirector] presentScene:nextScene withTransition:transition];
+//    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+//    [[CCDirector sharedDirector] presentScene:nextScene withTransition:transition];
+    [SceneManager presentGameplayScene];
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -168,29 +170,31 @@ static NSString *currentLevelStart = @"LevelStart0";
 
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-    touchMovedLocation = [touch locationInNode:self.parent];
-    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchBeganLocation.x - touchMovedLocation.x > 50) && !wolfe_jumped && !jumped_left) {
-        [self jumpLeft];
-    } else if ((touchBeganLocation.x - touchMovedLocation.x > 50) && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90) && !wolfe_jumped) {
-        [self walkLeft];
-    }
-    
-    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchMovedLocation.x - touchBeganLocation.x > 50) && ((_wolfe.position.x + 200) < (_loadedLevel.boundingBox.size.width - _wolfe.boundingBox.size.width)) && !wolfe_jumped && !jumped_right) {
-        [self jumpRight];
-    } else if ((touchMovedLocation.x - touchBeganLocation.x > 50) && (_wolfe.position.x + 20 < (_loadedLevel.boundingBox.size.width - 90)) && !wolfe_jumped) {
-        [self walkRight];
-    }
-    
-    if ((touchMovedLocation.y - touchBeganLocation.y > 50) && !wolfe_jumped && !jumped_up) {
-        [self jumpUp];
-    }
-    
-    if (touchBeganLocation.y - touchMovedLocation.y > 50 && !swiped_down) {
-        wolfeAttackEnable = TRUE;
-        crouchCombo = TRUE;
-        [self wolfeAttackBegan];
-    } else {
-        wolfeAttackEnable = false;
+    if (numOfHits >= 6) {
+        touchMovedLocation = [touch locationInNode:self.parent];
+        if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchBeganLocation.x - touchMovedLocation.x > 50) && !wolfe_jumped && !jumped_left && swiped_left && swiped_right && jumped_right && swiped_down && jumped_up) {
+            [self jumpLeft];
+        } else if ((touchBeganLocation.x - touchMovedLocation.x > 50) && (_wolfe.position.x - 20 > _loadedLevel.boundingBox.origin.x + 90) && !wolfe_jumped) {
+            [self walkLeft];
+        }
+        
+        if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchMovedLocation.x - touchBeganLocation.x > 50) && ((_wolfe.position.x + 200) < (_loadedLevel.boundingBox.size.width - _wolfe.boundingBox.size.width)) && !wolfe_jumped && !jumped_right && swiped_left && swiped_right && swiped_down && jumped_up) {
+            [self jumpRight];
+        } else if ((touchMovedLocation.x - touchBeganLocation.x > 50) && (_wolfe.position.x + 20 < (_loadedLevel.boundingBox.size.width - 90)) && !wolfe_jumped && swiped_left) {
+            [self walkRight];
+        }
+        
+        if ((touchMovedLocation.y - touchBeganLocation.y > 50) && !wolfe_jumped && !jumped_up && swiped_left && swiped_right && swiped_down) {
+            [self jumpUp];
+        }
+        
+        if (touchBeganLocation.y - touchMovedLocation.y > 50 && !swiped_down && swiped_left && swiped_right) {
+            wolfeAttackEnable = TRUE;
+            crouchCombo = TRUE;
+            [self wolfeAttackBegan];
+        } else {
+            wolfeAttackEnable = false;
+        }
     }
     _followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:self.boundingBox];
     [_levelNode runAction:_followWolfe];
@@ -355,16 +359,16 @@ static NSString *currentLevelStart = @"LevelStart0";
 //        [self performSelector:@selector(loadNextLevel) withObject:nil afterDelay:0.5f];
     if (numOfHits >= 6) {
         if (!swiped_left) {
-            _instructions.string = [NSString stringWithFormat:@"Swipe left to move away from Dead Bunny"];
+            _instructions.string = [NSString stringWithFormat:@"Nicely done! Now swipe left to move away from Dead Bunny"];
             _instructions.visible = true;
         } else if (!swiped_right) {
-            _instructions.string = [NSString stringWithFormat:@"Swipe right to move back towards Dead Bunny"];
+            _instructions.string = [NSString stringWithFormat:@"Excellent! Now swipe right to move back towards Dead Bunny"];
             _instructions.visible = true;
         } else if (!swiped_down) {
-            _instructions.string = [NSString stringWithFormat:@"Swipe down for Crouch-Combo attack"];
+            _instructions.string = [NSString stringWithFormat:@"Perfect! Now swipe down for Crouch-Combo attack"];
             _instructions.visible = true;
         } else if (!jumped_up) {
-            _instructions.string = [NSString stringWithFormat:@"Swipe up to jump"];
+            _instructions.string = [NSString stringWithFormat:@"You're doing great! Now swipe up to jump"];
             _instructions.visible = true;
         } else if (!jumped_right) {
             _instructions.string = [NSString stringWithFormat:@"Swipe diagonally from bottom-left to top-right to jump and move right"];
@@ -436,7 +440,7 @@ static NSString *currentLevelStart = @"LevelStart0";
     NSString *highestUnlockedLevel = [GameState sharedGameState].highestUnlockedLevel;
     NSString *levelnumber = [highestUnlockedLevel substringFromIndex: [highestUnlockedLevel length] - 1];
     int level = levelnumber.intValue;
-    int currentLevel = [selectedLevel substringFromIndex: [selectedLevel length] - 1].intValue;
+    int currentLevel = [thisLevel substringFromIndex: [thisLevel length] - 1].intValue;
     if (level == currentLevel) {
         [GameState sharedGameState].highestUnlockedLevel = @"LevelStart1";
     }

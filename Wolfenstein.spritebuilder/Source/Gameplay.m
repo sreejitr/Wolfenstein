@@ -21,7 +21,7 @@
 
 static NSString * const kFirstLevel = @"Level4";
 static NSString *selectedLevel = @"Level1";
-static NSString *currentLevelStart = @"LevelStart1";
+//static NSString *currentLevelStart = @"LevelStart1";
 
 
 @implementation Gameplay{
@@ -33,18 +33,18 @@ static NSString *currentLevelStart = @"LevelStart1";
     CCNode *_levelNode;
     Level *_loadedLevel;
     CCLabelTTF *_healthLabel;
-    CCLabelTTF *_fisterHealth;
+    CCLabelTTF *_enemyHealth;
     CCLabelTTF *_winPopUpLabel;
     CCLabelTTF *_gamePoints;
     double_t timeelapsed;
     double_t totaltimeelapsed;
     int wolfe_hit;
-    int fister_hit;
+    int enemy_hit;
     BOOL wolfe_attack;
-    BOOL fister_attack;
+    BOOL enemy_attack;
     WinPopUp *popup;
-    int points;
-    int points_fister;
+    int healthPointsWolfe;
+    int healthPointsEnemy;
     BOOL _gameOver;
     BOOL rightface;
     CCAction *_followWolfe;
@@ -74,29 +74,27 @@ static NSString *currentLevelStart = @"LevelStart1";
     MenuLayer *newMenuLayer;
     MenuLayer *_popoverMenuLayer;
     GameState* gameState;
-//    NSMutableDictionary *levelInfo;
+    CCSprite *_enemyFace;
 }
 
 #pragma mark - Node Lifecycle
 
 - (void)didLoadFromCCB {
     gameState = [GameState sharedGameState];
-    currentLevelStart = gameState.highestUnlockedLevel;
-//    levelInfo = gameState.levelInfo;
+//    currentLevelStart = gameState.highestUnlockedLevel;
     _menuLayer.gamePlay = self;
     _physicsNode.collisionDelegate = self;
-    [self showPopoverNamed:currentLevelStart];
-//    _fister.position = ccp(370, 150);
+    [self showPopoverNamed:gameState.highestUnlockedLevel];
     wolfe_attack = FALSE;
-    fister_attack = FALSE;
+    enemy_attack = FALSE;
     wolfe_hit = 0;
-    fister_hit = 0;
+    enemy_hit = 0;
     timeelapsed = 0.0f;
     _healthLabel.visible = TRUE;
-    _fisterHealth.visible = TRUE;
+    _enemyHealth.visible = TRUE;
     _gamePoints.visible = TRUE;
-    points = 100;
-    points_fister = 100;
+    healthPointsWolfe = 100;
+    healthPointsEnemy = 100;
     [self showScore];
     _gameOver = FALSE;
     powerupavailable = false;
@@ -111,6 +109,7 @@ static NSString *currentLevelStart = @"LevelStart1";
     healthPointsToDeducthero = 4;
     healthPointsToDeductenemy = 4;
     playerScore = 0;
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"FacesForLabel.plist"];
     
 }
 
@@ -125,8 +124,6 @@ static NSString *currentLevelStart = @"LevelStart1";
     CGPoint offsetFromParentCenter = CGPointMake(180, 120);
     _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
                                   self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
-    //    _wolfe.position = ccp(205, 130);
-    //    [_wolfe setPosition:[_physicsNode convertToNodeSpace:[self convertToWorldSpace:ccp(self.contentSizeInPoints.width/2, self.contentSizeInPoints.height* 0.1f)]]];
     rightface = TRUE;
     offsetFromParentCenter = CGPointMake(330, 140);
     fister_v = @{
@@ -163,7 +160,8 @@ static NSString *currentLevelStart = @"LevelStart1";
         [_physicsNode addChild:_gaso];
         _gaso.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
                                      self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
-        
+        [_enemyFace setSpriteFrame:[CCSpriteFrame frameWithImageNamed: @"FacesForLabel/gaso_face.png"]];
+
     }
     else if ([_loadedLevel.nextLevelName isEqualToString:@"Level3"]) {
         enemy = hencher_v;
@@ -172,7 +170,9 @@ static NSString *currentLevelStart = @"LevelStart1";
         [_physicsNode addChild:_hencher];
         _hencher.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
                                         self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
-        
+        [_enemyFace setSpriteFrame:[CCSpriteFrame frameWithImageNamed: @"FacesForLabel/hencher_face.png"]];
+        _enemyFace.scaleX = 0.28f;
+        _enemyFace.scaleY = 0.28f;
     }
     else {
         _fister = (Fister*)[CCBReader load:@"Fister"];
@@ -183,7 +183,15 @@ static NSString *currentLevelStart = @"LevelStart1";
         [_physicsNode addChild:_fister];
         _fister.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
                                        self.contentSize.height * self.anchorPoint.y + [enemy[@"offsetFromParentCenterY"] floatValue]);
+        if ([selectedLevel isEqualToString:@"Level3"]) {
+            [_enemyFace setSpriteFrame:[CCSpriteFrame frameWithImageNamed: @"FacesForLabel/Fester.png"]];
+            _enemyFace.scaleX = 0.24f;
+            _enemyFace.scaleY = 0.24f;
+        } else {
+            [_enemyFace setSpriteFrame:[CCSpriteFrame frameWithImageNamed: @"FacesForLabel/fister.png"]];
+        }
     }
+
     if (_popoverMenuLayer)
     {
         [_popoverMenuLayer removeFromParent];
@@ -204,7 +212,7 @@ static NSString *currentLevelStart = @"LevelStart1";
     int level = levelnumber.intValue;
     int currentLevel = [selectedLevel substringFromIndex: [selectedLevel length] - 1].intValue;
     if (level == currentLevel) {
-        [GameState sharedGameState].highestUnlockedLevel = currentLevelStart = newMenuLayer.nextLevelStart;
+        [GameState sharedGameState].highestUnlockedLevel = newMenuLayer.nextLevelStart;
     }
     
 }
@@ -245,12 +253,12 @@ static NSString *currentLevelStart = @"LevelStart1";
     
     CCScene *nextScene = nil;
     
-    if (selectedLevel) {
+//    if (selectedLevel) {
         nextScene = [CCBReader loadAsScene:@"Gameplay"];
-    } else {
-        selectedLevel = kFirstLevel;
-        nextScene = [CCBReader loadAsScene:@"MainScene"];
-    }
+//    } else {
+//        selectedLevel = kFirstLevel;
+//        nextScene = [CCBReader loadAsScene:@"MainScene"];
+//    }
     
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
     [[CCDirector sharedDirector] presentScene:nextScene withTransition:transition];
@@ -259,21 +267,15 @@ static NSString *currentLevelStart = @"LevelStart1";
 
 - (void)onEnter {
     [super onEnter];
-    
-    
-//    CCSprite *sprite = [CCSprite spriteWithImageNamed:@"healthbar.png"];
-//    sprite.position = ccp(self.contentSizeInPoints.width/2, 10.f);
-//    sprite.scaleX = 200;
-//    [_physicsNode addChild:sprite];
 }
 
 -(void)update:(CCTime)delta
 {
     [self showScore];
-    if (points_fister <= 0) {
+    if (healthPointsEnemy <= 0) {
         [self winScreen];
     }
-    if (points <= 0) {
+    if (healthPointsWolfe <= 0) {
         [self loseScreen];
     }
     
@@ -304,8 +306,6 @@ static NSString *currentLevelStart = @"LevelStart1";
             [self performSelector:@selector(resetplayerGroundHit) withObject:nil afterDelay:2.2f];
         }
         if (timeelapsed > 1.2f) {
-//            id moveBy = [CCActionMoveTo actionWithDuration:0.01 position:ccp(_wolfe.position.x, 120)];
-//            [_wolfe runAction:moveBy];
             NSNumber *maintainDistanceFromWolfe = enemy[@"maintainDistanceFromWolfe"];
             NSNumber *moveToAfterAttack = enemy[@"moveToAfterPunchAttack"];
             if (_fister) {
@@ -362,13 +362,12 @@ static NSString *currentLevelStart = @"LevelStart1";
 
 - (void) enemyAttackBegan:(NSInteger) moveToVal withDistanceFromWolfe:(NSInteger) distanceFromWolfe{
     self.userInteractionEnabled = FALSE;
-    fister_attack = TRUE;
+    enemy_attack = TRUE;
     wolfe_hit += 1;
     playerScore -= 950;
-    points -= healthPointsToDeductenemy;
+    healthPointsWolfe -= healthPointsToDeductenemy;
     [self showScore];
     
-//    [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.9f];
     if (_fister) {
         if (_fister.flipX == NO) {
             id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_fister.position.x + moveToVal, _fister.position.y)];
@@ -389,12 +388,12 @@ static NSString *currentLevelStart = @"LevelStart1";
         [_hencher punch];
     }
     [_wolfe performSelector:@selector(hit) withObject:nil afterDelay:0.2f];
-    if (points == 0) {
+    if (healthPointsWolfe == 0) {
         [_wolfe groundhit];
         playerGroundHit = TRUE;
     }
     
-    [self performSelector:@selector(turnoff_fister_attack) withObject:nil afterDelay:2.f];
+    [self performSelector:@selector(turnoff_enemy_attack) withObject:nil afterDelay:2.f];
 //    NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
 //    NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
     if (_fister) {
@@ -416,33 +415,45 @@ static NSString *currentLevelStart = @"LevelStart1";
 
 - (void)showScore
 {
-    if (points < 0) {
-        points = 0;
+    if (healthPointsWolfe < 0) {
+        healthPointsWolfe = 0;
     }
-    if (points_fister < 0) {
-        points_fister = 0;
+    if (healthPointsEnemy < 0) {
+        healthPointsEnemy = 0;
     }
-    if (points >= 60) {
+    if (healthPointsWolfe >= 60) {
         _healthLabel.color = [CCColor colorWithRed:0.2 green:0.7 blue:0.1];
-    } else if (points < 60 && points >= 25) {
+    } else if (healthPointsWolfe < 60 && healthPointsWolfe >= 25) {
         _healthLabel.color = [CCColor colorWithRed:0.7 green:0.28 blue:0.0];
-    } else if (points < 25 && points >= 0) {
+    } else if (healthPointsWolfe < 25 && healthPointsWolfe >= 0) {
         _healthLabel.color = [CCColor colorWithRed:1.0 green:0.0 blue:0.0];
     }
     
-    _healthLabel.string = [NSString stringWithFormat:@"Wolfe: %d", points];
+    _healthLabel.string = [NSString stringWithFormat:@"Wolfe: %d", healthPointsWolfe];
     _healthLabel.visible = true;
     
     
-    if (points_fister >= 60) {
-        _fisterHealth.fontColor = [CCColor colorWithRed:0.2 green:0.7 blue:0.1];
-    } else if (points_fister < 60 && points_fister >= 25) {
-        _fisterHealth.fontColor = [CCColor colorWithRed:0.7 green:0.28 blue:0.0];
-    } else if (points_fister < 25 && points_fister >= 0) {
-        _fisterHealth.fontColor = [CCColor colorWithRed:1.0 green:0.0 blue:0.0];
+    if (healthPointsEnemy >= 60) {
+        _enemyHealth.fontColor = [CCColor colorWithRed:0.2 green:0.7 blue:0.1];
+    } else if (healthPointsEnemy < 60 && healthPointsEnemy >= 25) {
+        _enemyHealth.fontColor = [CCColor colorWithRed:0.7 green:0.28 blue:0.0];
+    } else if (healthPointsEnemy < 25 && healthPointsEnemy >= 0) {
+        _enemyHealth.fontColor = [CCColor colorWithRed:1.0 green:0.0 blue:0.0];
     }
-    _fisterHealth.string = [NSString stringWithFormat:@"Fister: %d", points_fister];
-    _fisterHealth.visible = true;
+    if (_fister) {
+        if ([selectedLevel isEqualToString:@"Level3"]) {
+            _enemyHealth.string = [NSString stringWithFormat:@"Fester: %d", healthPointsEnemy];
+        } else {
+        _enemyHealth.string = [NSString stringWithFormat:@"Fister: %d", healthPointsEnemy];
+        }
+    } else if (_gaso) {
+        _enemyHealth.string = [NSString stringWithFormat:@"Gaso: %d", healthPointsEnemy];
+    } else {
+        _enemyHealth.string = [NSString stringWithFormat:@"Hencher: %d", healthPointsEnemy];
+        _enemyHealth.fontSize = 17;
+    }
+    
+    _enemyHealth.visible = true;
     
     _gamePoints.string = [NSString stringWithFormat:@"Score: %d", playerScore];
     _gamePoints.visible = true;
@@ -451,11 +462,9 @@ static NSString *currentLevelStart = @"LevelStart1";
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
 //    NSLog([NSString stringWithFormat:@"Wolfe width: %f", _wolfe.boundingBox.size.width]);
-//    NSLog([NSString stringWithFormat:@"Wolfe physicsbody: %f", _wolfe.physicsBody.]);
 //    NSLog([NSString stringWithFormat:@"Fister width: %f", _fister.boundingBox.size.width]);
 //    NSLog([NSString stringWithFormat:@"Level width: %f", _loadedLevel.boundingBox.size.width]);
     
-//     _progressNode.percentage += 10.0f;
     
     touchBeganLocation = [touch locationInNode:self.parent];
     wolfeAttackEnable = TRUE;
@@ -513,10 +522,10 @@ static NSString *currentLevelStart = @"LevelStart1";
         } else if (_hencher) {
             xpos = _hencher.position.x;
         }
-        if (!fister_attack && fabsf(_wolfe.position.x - xpos) < [enemy[@"maintainDistanceFromWolfe"] intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit) {
+        if (!enemy_attack && fabsf(_wolfe.position.x - xpos) < [enemy[@"maintainDistanceFromWolfe"] intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit) {
             [self wolfeAttackBegan];
         }
-        else if (fister_attack && ([playerCollidedwithPowerUp isEqualToString:@"Shield"])) {
+        else if (enemy_attack && ([playerCollidedwithPowerUp isEqualToString:@"Shield"])) {
             [_wolfe block];
         }
         
@@ -566,9 +575,9 @@ static NSString *currentLevelStart = @"LevelStart1";
         xPos = _hencher.position.x;
     }
     if ( (_wolfe.flipX == NO) || (fabsf(xPos - _wolfe.position.x) < [enemy[@"maintainDistanceFromWolfe"] intValue])) {
-        fister_hit += 1;
+        enemy_hit += 1;
         playerScore += 1000;
-        points_fister -= healthPointsToDeducthero;
+        healthPointsEnemy -= healthPointsToDeducthero;
     }
 
 }
@@ -577,18 +586,12 @@ static NSString *currentLevelStart = @"LevelStart1";
     wolfe_attack = FALSE;
     self.userInteractionEnabled = TRUE;
     self.multipleTouchEnabled = TRUE;
-    
-//    [_wolfe idle];
     wolfeAttackEnable = false;
-//    if (_fister.flipX == YES) {
-////        id moveTo = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_fister.position.x + 40, _fister.position.y)];
-////        [_fister runAction:moveTo];
-//    }
     
 }
 
--(void) turnoff_fister_attack {
-    fister_attack = FALSE;
+-(void) turnoff_enemy_attack {
+    enemy_attack = FALSE;
     self.userInteractionEnabled = TRUE;
     self.multipleTouchEnabled = TRUE;
 }
@@ -683,7 +686,7 @@ static NSString *currentLevelStart = @"LevelStart1";
     } else if (_gaso) {
         xPos = _gaso.position.x;
         size = _gaso.contentSizeInPoints.width;
-    } else if (_hencher) {
+    } else {
         xPos = _hencher.position.x;
         size = _hencher.contentSizeInPoints.width;
     }
@@ -765,9 +768,9 @@ static NSString *currentLevelStart = @"LevelStart1";
         } else if (_hencher) {
             [_hencher hit];
         }
-        fister_hit += 1;
+        enemy_hit += 1;
         playerScore += 2000;
-        points_fister -= healthPointsToDeducthero;
+        healthPointsEnemy -= healthPointsToDeducthero;
         [self showScore];
     }
     
@@ -882,7 +885,7 @@ static NSString *currentLevelStart = @"LevelStart1";
 // @"Health", @"TwoX", @"Star", @"Fire", @"Shield", @"Lightening", @"Freeze"
 - (void) handlePowerUp {
     if ([playerCollidedwithPowerUp isEqualToString:@"Health"]) {
-        points += 5;
+        healthPointsWolfe += 5;
         playerScore += 1000;
     } else if ([playerCollidedwithPowerUp isEqualToString:@"TwoX"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"TwoXEffect"];
@@ -946,7 +949,7 @@ static NSString *currentLevelStart = @"LevelStart1";
     CCSprite *powerup = [_powerUpPosition getChildByName:@"PowerUp" recursively:NO];
     [effect removeFromParent];
     [_powerUpPosition removeChild:powerup];
-//    points_fister += 5;
+//    healthPointsEnemy += 5;
     powerupavailable = false;
      
     return TRUE;
@@ -990,7 +993,6 @@ static NSString *currentLevelStart = @"LevelStart1";
     if (popup == nil) {
         popup = (WinPopUp *)[CCBReader load:@"LosePopUp" owner:self];
         popup.positionType = CCPositionTypeNormalized;
-    //    popup._winPopUpLabel.string = [NSString stringWithFormat:@"You Lose!!"];
         popup.position = ccp(0.5, 0.5);
         [_wolfe stopAllActions];
         [_fister stopAllActions];

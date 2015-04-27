@@ -1310,7 +1310,7 @@
 								<key>value</key>
 								<array>
 									<real>0.1289999932050705</real>
-									<real>0.5899999737739563</real>
+									<real>0.53900003433227539</real>
 									<integer>1</integer>
 									<integer>2</integer>
 									<integer>2</integer>
@@ -1384,6 +1384,8 @@
 								<array/>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>
@@ -2444,7 +2446,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>Defeat FISTER, the aliens' Lead commander</string>
+							<string>Defeated FISTER, the aliens' Lead commander</string>
 							<false/>
 						</array>
 					</dict>
@@ -3604,8 +3606,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.84330987930297852</real>
-							<real>0.19651834666728973</real>
+							<real>0.82630282640457153</real>
+							<real>0.19523827731609344</real>
 							<integer>1</integer>
 							<integer>2</integer>
 							<integer>2</integer>
@@ -3687,7 +3689,7 @@
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string>Play</string>
+							<string>Play Again</string>
 							<false/>
 						</array>
 					</dict>
@@ -4564,16 +4566,6 @@
 				<integer>3</integer>
 				<key>value</key>
 				<string>Level4</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>nextLevelStart</string>
-				<key>optimized</key>
-				<false/>
-				<key>type</key>
-				<integer>3</integer>
-				<key>value</key>
-				<string>LevelStart5</string>
 			</dict>
 		</array>
 		<key>displayName</key>

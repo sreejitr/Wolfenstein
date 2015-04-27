@@ -15,25 +15,6 @@
 - (void)didLoadFromCCB {
 }
 
-//-(void) shouldLoadLevel1
-//{
-//    [_gamePlay loadLevel:@"Level1"];
-//}
-//
-//-(void) shouldLoadLevel2
-//{
-//    [_gamePlay loadLevel:@"Level2"];
-//}
-//
-//-(void) shouldLoadLevel3
-//{
-//    [_gamePlay loadLevel:@"Level3"];
-//}
-//
-//-(void) shouldLoadLevel4
-//{
-//    [_gamePlay loadLevel:@"Level4"];
-//}
 
 -(void) shouldLoadLevel:(CCButton*)sender
 {

@@ -8,9 +8,9 @@
 
 #import "WinPopUp.h"
 
-@implementation WinPopUp{
-    CCLabelTTF *_winPopUpLabel;
-}
+@implementation WinPopUp
+CCLabelTTF *_winPopUpLabel;
+
 - (void)restart {
     CCScene *gameplayscene = [CCBReader loadAsScene:@"Gameplay"];
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
