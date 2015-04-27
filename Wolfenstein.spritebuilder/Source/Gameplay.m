@@ -71,16 +71,18 @@ static NSString *currentLevelStart = @"LevelStart1";
     NSDictionary *gaso_v;
     NSDictionary *hencher_v;
     MenuLayer *_menuLayer;
+    MenuLayer *newMenuLayer;
     MenuLayer *_popoverMenuLayer;
     GameState* gameState;
-    NSMutableDictionary *levelInfo;
+//    NSMutableDictionary *levelInfo;
 }
 
 #pragma mark - Node Lifecycle
 
 - (void)didLoadFromCCB {
     gameState = [GameState sharedGameState];
-    levelInfo = gameState.levelInfo;
+    currentLevelStart = gameState.highestUnlockedLevel;
+//    levelInfo = gameState.levelInfo;
     _menuLayer.gamePlay = self;
     _physicsNode.collisionDelegate = self;
     [self showPopoverNamed:currentLevelStart];
@@ -112,13 +114,9 @@ static NSString *currentLevelStart = @"LevelStart1";
     
 }
 
--(void) loadLevel: (NSString*) levelName withLevelStart: (NSString*) levelStart
+-(void) loadLevel: (NSString*) levelName
 {
     selectedLevel = levelName;
-    if (levelStart) {
-        currentLevelStart = levelStart;
-        selectedLevel = levelName;
-    }
     _loadedLevel = (Level *) [CCBReader load:levelName owner:self];
     [_levelNode addChild:_loadedLevel];
     self.userInteractionEnabled = TRUE;
@@ -192,6 +190,7 @@ static NSString *currentLevelStart = @"LevelStart1";
         _popoverMenuLayer = nil;
         _menuLayer.visible = YES;
         _levelNode.paused = NO;
+        
     }
     CCActionFollow *follow = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
     _physicsNode.position = [follow currentOffset];
@@ -200,7 +199,14 @@ static NSString *currentLevelStart = @"LevelStart1";
 
 -(void) levelInfoDidChange
 {
-    [GameState sharedGameState].levelInfo = levelInfo;
+    NSString *highestUnlockedLevel = [GameState sharedGameState].highestUnlockedLevel;
+    NSString *levelnumber = [highestUnlockedLevel substringFromIndex: [highestUnlockedLevel length] - 1];
+    int level = levelnumber.intValue;
+    int currentLevel = [selectedLevel substringFromIndex: [selectedLevel length] - 1].intValue;
+    if (level == currentLevel) {
+        [GameState sharedGameState].highestUnlockedLevel = currentLevelStart = newMenuLayer.nextLevelStart;
+    }
+    
 }
 
 -(void) shouldClose
@@ -213,15 +219,13 @@ static NSString *currentLevelStart = @"LevelStart1";
 {
     if (_popoverMenuLayer == nil)
     {
-        MenuLayer* newMenuLayer = (MenuLayer*)[CCBReader load:name];
+        newMenuLayer = (MenuLayer*)[CCBReader load:name];
         [self addChild:newMenuLayer];
         _popoverMenuLayer = newMenuLayer;
         _popoverMenuLayer.gamePlay = self;
         _menuLayer.visible = NO;
         _levelNode.paused = YES;
-        if ([name containsString:@"LevelStart"]) {
-            currentLevelStart = newMenuLayer.nextLevelStart;
-        }
+        
     }
 }
 
@@ -962,8 +966,8 @@ static NSString *currentLevelStart = @"LevelStart1";
 //}
 
 - (void)winScreen {
+    [self levelInfoDidChange];
     if (popup == nil) {
-
         if (playerScore >= 35000) {
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
         } else if (playerScore >= 22000 && playerScore < 35000) {
@@ -978,6 +982,7 @@ static NSString *currentLevelStart = @"LevelStart1";
         [_fister stopAllActions];
         [self addChild:popup];
         _gameOver = TRUE;
+        
     }
 }
 

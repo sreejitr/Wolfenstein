@@ -21,17 +21,18 @@ static dispatch_once_t onceToken;
     return sharedInstance;
 }
 
-static NSString* KeyForLevelDict = @"levelInfo";
-
--(void) setLevelDictionary:(NSMutableDictionary*)levelInfo
+static NSString* KeyForHighestUnlockedLevel = @"highestUnlockedLevel";
+-(void) setHighestUnlockedLevel:(NSString*)level
 {
-    [[NSUserDefaults standardUserDefaults] setObject:levelInfo forKey:KeyForLevelDict];
+    [[NSUserDefaults standardUserDefaults] setObject:level forKey:KeyForHighestUnlockedLevel];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(NSMutableDictionary*) levelInfo
+-(NSString*) highestUnlockedLevel
 {
-    NSMutableDictionary *levelInfoDictionary = [[[NSUserDefaults standardUserDefaults] objectForKey:KeyForLevelDict] mutableCopy];
-    return levelInfoDictionary;
+    NSString* level = [[NSUserDefaults standardUserDefaults]
+                        stringForKey:KeyForHighestUnlockedLevel];
+    return (level ? level : @"LevelStart1");
 }
 
 @end

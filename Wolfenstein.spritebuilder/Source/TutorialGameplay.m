@@ -13,6 +13,7 @@
 #import "WinPopUp.h"
 #import "CCActionFollow+CurrentOffset.h"
 #import "MenuLayer.h"
+#import "GameState.h"
 
 
 static NSString *selectedLevel = @"Level0";
@@ -413,6 +414,7 @@ static NSString *currentLevelStart = @"LevelStart0";
 }
 
 - (void)winScreen {
+    [GameState sharedGameState].highestUnlockedLevel = @"LevelStart1";
     popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
     popup._scoreLabel.string = [NSString stringWithFormat:@"Score: %d", points];
     popup._winPopUpLabel.string = [NSString stringWithFormat:@"Congratulations!! You have cleared this level!!"];

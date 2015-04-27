@@ -17,6 +17,6 @@
 //@property (nonatomic, assign) CCLabelTTF *_gamePoints;
 -(void) showPopoverNamed:(NSString*)popoverName;
 -(void) removePopover;
--(void) loadLevel: (NSString*) levelName withLevelStart: (NSString*) levelStart;
+-(void) loadLevel: (NSString*) levelName;
 
 @end

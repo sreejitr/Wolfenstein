@@ -18,12 +18,27 @@
 
 -(void) shouldLoadLevel1
 {
-    [_gamePlay loadLevel:@"Level1" withLevelStart: @"LevelStart1"];
+    [_gamePlay loadLevel:@"Level1"];
+}
+
+-(void) shouldLoadLevel2
+{
+    [_gamePlay loadLevel:@"Level2"];
+}
+
+-(void) shouldLoadLevel3
+{
+    [_gamePlay loadLevel:@"Level3"];
+}
+
+-(void) shouldLoadLevel4
+{
+    [_gamePlay loadLevel:@"Level4"];
 }
 
 -(void) shouldLoadLevel
 {
-    [_gamePlay loadLevel:_currentLevel withLevelStart: nil];
+    [_gamePlay loadLevel:_currentLevel];
 }
 
 -(void) resumeGame
