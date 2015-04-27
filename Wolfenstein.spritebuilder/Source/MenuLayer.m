@@ -9,36 +9,35 @@
 #import "MenuLayer.h"
 #import "Gameplay.h"
 #import "SceneManager.h"
-#import "TutorialGameplay.h"
+#import "MainScene.h"
 
 @implementation MenuLayer
 - (void)didLoadFromCCB {
-    
 }
 
--(void) shouldLoadLevel1
-{
-    [_gamePlay loadLevel:@"Level1"];
-}
+//-(void) shouldLoadLevel1
+//{
+//    [_gamePlay loadLevel:@"Level1"];
+//}
+//
+//-(void) shouldLoadLevel2
+//{
+//    [_gamePlay loadLevel:@"Level2"];
+//}
+//
+//-(void) shouldLoadLevel3
+//{
+//    [_gamePlay loadLevel:@"Level3"];
+//}
+//
+//-(void) shouldLoadLevel4
+//{
+//    [_gamePlay loadLevel:@"Level4"];
+//}
 
--(void) shouldLoadLevel2
+-(void) shouldLoadLevel:(CCButton*)sender
 {
-    [_gamePlay loadLevel:@"Level2"];
-}
-
--(void) shouldLoadLevel3
-{
-    [_gamePlay loadLevel:@"Level3"];
-}
-
--(void) shouldLoadLevel4
-{
-    [_gamePlay loadLevel:@"Level4"];
-}
-
--(void) shouldLoadLevel
-{
-    [_gamePlay loadLevel:_currentLevel];
+    [_gamePlay loadLevel:sender.name];
 }
 
 -(void) resumeGame
@@ -56,7 +55,8 @@
 
 -(void) shouldLoadTutorial
 {
-    [_tutorialGamePlay loadLevel:_currentLevel];
+    [_mainscene removePopover];
+    [SceneManager presentTrainingScene];
 }
 
 - (void)pauseGame {
@@ -67,6 +67,7 @@
 -(void) restartGame
 {
     [SceneManager presentGameplaySceneNoTransition];
+    
 }
 -(void) exitGame
 {

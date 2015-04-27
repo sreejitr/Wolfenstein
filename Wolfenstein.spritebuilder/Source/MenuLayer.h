@@ -9,11 +9,11 @@
 #import "CCNode.h"
 
 @class Gameplay;
-@class TutorialGameplay;
+@class MainScene;
 
 @interface MenuLayer : CCNode
 @property (weak) Gameplay* gamePlay;
-@property (weak) TutorialGameplay* tutorialGamePlay;
+@property (weak) MainScene* mainscene;
 @property (nonatomic, copy) NSString *nextLevelStart;
 @property (nonatomic, copy) NSString *currentLevel;
 @end

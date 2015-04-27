@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>13</integer>
+	<integer>29</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -349,8 +349,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.95413666963577271</real>
-									<real>0.91275733709335327</real>
+									<real>1.0290533304214478</real>
+									<real>0.92262387275695801</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -895,7 +895,7 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.93338745832443237</real>
+									<real>1.0137157440185547</real>
 									<real>0.89755868911743164</real>
 									<false/>
 									<integer>0</integer>
@@ -953,7 +953,7 @@
 								<string>String</string>
 								<key>value</key>
 								<array>
-									<string>Restart</string>
+									<string>Back to Menu</string>
 									<false/>
 								</array>
 							</dict>
@@ -1221,8 +1221,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.94883126020431519</real>
-									<real>0.89647626876831055</real>
+									<real>1.0221104621887207</real>
+									<real>0.90732073783874512</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -1608,9 +1608,88 @@
 						<key>type</key>
 						<string>EffectControl</string>
 						<key>value</key>
-						<array/>
+						<array>
+							<dict>
+								<key>UUID</key>
+								<integer>13</integer>
+								<key>baseClass</key>
+								<string>CCEffectHue</string>
+								<key>className</key>
+								<string>CCBPEffectHue</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>hue</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>54.708209991455078</real>
+									</dict>
+								</array>
+							</dict>
+							<dict>
+								<key>UUID</key>
+								<integer>14</integer>
+								<key>baseClass</key>
+								<string>CCEffectSaturation</string>
+								<key>className</key>
+								<string>CCBPEffectSaturation</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>saturation</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>-0.93420559167861938</real>
+									</dict>
+								</array>
+							</dict>
+							<dict>
+								<key>UUID</key>
+								<integer>15</integer>
+								<key>baseClass</key>
+								<string>CCEffectBrightness</string>
+								<key>className</key>
+								<string>CCBPEffectBrightness</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>brightness</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>-0.26044803857803345</real>
+									</dict>
+								</array>
+							</dict>
+							<dict>
+								<key>UUID</key>
+								<integer>16</integer>
+								<key>baseClass</key>
+								<string>CCEffectContrast</string>
+								<key>className</key>
+								<string>CCBPEffectContrast</string>
+								<key>properties</key>
+								<array>
+									<dict>
+										<key>name</key>
+										<string>contrast</string>
+										<key>type</key>
+										<string>Float</string>
+										<key>value</key>
+										<real>0.6852409839630127</real>
+									</dict>
+								</array>
+							</dict>
+						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 				<key>seqExpanded</key>
 				<true/>
 			</dict>

@@ -32,7 +32,7 @@ static NSString* KeyForHighestUnlockedLevel = @"highestUnlockedLevel";
 {
     NSString* level = [[NSUserDefaults standardUserDefaults]
                         stringForKey:KeyForHighestUnlockedLevel];
-    return (level ? level : @"LevelStart1");
+    return (level ? level : @"LevelStart0");
 }
 
 @end

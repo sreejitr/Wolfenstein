@@ -44,12 +44,12 @@ static NSString *currentLevelStart = @"LevelStart0";
     BOOL jumped_up;
     BOOL jumped_left;
     BOOL jumped_right;
-    MenuLayer *_popoverMenuLayer;
+//    MenuLayer *_popoverMenuLayer;
 }
 
 - (void)didLoadFromCCB {
     _physicsNode.collisionDelegate = self;
-    [self showPopoverNamed:currentLevelStart];
+//    [self showPopoverNamed:currentLevelStart];
 
 //    _bunny.position = ccp(370, 140);
 //    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
@@ -74,11 +74,11 @@ static NSString *currentLevelStart = @"LevelStart0";
     swiped_down = FALSE;
     
     
-}
+//}
 
--(void) loadLevel: (NSString*) levelName
-{
-    _loadedLevel = (Level *) [CCBReader load:levelName owner:self];
+//-(void) loadLevel: (NSString*) levelName
+//{
+    _loadedLevel = (Level *) [CCBReader load:selectedLevel owner:self];
     [_levelNode addChild:_loadedLevel];
     self.userInteractionEnabled = TRUE;
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
@@ -92,41 +92,41 @@ static NSString *currentLevelStart = @"LevelStart0";
     offsetFromParentCenter = CGPointMake(340, 140);
     _bunny.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
                                   self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
-    if (_popoverMenuLayer)
-    {
-        [_popoverMenuLayer removeFromParent];
-        _popoverMenuLayer = nil;
-        _levelNode.paused = NO;
-    }
+//    if (_popoverMenuLayer)
+//    {
+//        [_popoverMenuLayer removeFromParent];
+//        _popoverMenuLayer = nil;
+//        _levelNode.paused = NO;
+//    }
     CCActionFollow *followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
     _physicsNode.position = [followWolfe currentOffset];
     [_physicsNode runAction:followWolfe];
 }
 
--(void) showPopoverNamed:(NSString*)name
-{
-    if (_popoverMenuLayer == nil)
-    {
-        MenuLayer* newMenuLayer = (MenuLayer*)[CCBReader load:name];
-        [self addChild:newMenuLayer];
-        _popoverMenuLayer = newMenuLayer;
-        _popoverMenuLayer.tutorialGamePlay = self;
-        _levelNode.paused = YES;
-        if ([name containsString:@"LevelStart"]) {
-            currentLevelStart = newMenuLayer.nextLevelStart;
-        }
-    }
-}
-
--(void) removePopover
-{
-    if (_popoverMenuLayer)
-    {
-        [_popoverMenuLayer removeFromParent];
-        _popoverMenuLayer = nil;
-        _levelNode.paused = NO;
-    }
-}
+//-(void) showPopoverNamed:(NSString*)name
+//{
+//    if (_popoverMenuLayer == nil)
+//    {
+//        MenuLayer* newMenuLayer = (MenuLayer*)[CCBReader load:name];
+//        [self addChild:newMenuLayer];
+//        _popoverMenuLayer = newMenuLayer;
+//        _popoverMenuLayer.tutorialGamePlay = self;
+//        _levelNode.paused = YES;
+//        if ([name containsString:@"LevelStart"]) {
+//            currentLevelStart = newMenuLayer.nextLevelStart;
+//        }
+//    }
+//}
+//
+//-(void) removePopover
+//{
+//    if (_popoverMenuLayer)
+//    {
+//        [_popoverMenuLayer removeFromParent];
+//        _popoverMenuLayer = nil;
+//        _levelNode.paused = NO;
+//    }
+//}
 
 
 - (void)onEnter {
@@ -414,7 +414,8 @@ static NSString *currentLevelStart = @"LevelStart0";
 }
 
 - (void)winScreen {
-    [GameState sharedGameState].highestUnlockedLevel = @"LevelStart1";
+//    [GameState sharedGameState].highestUnlockedLevel = @"LevelStart1";
+    [self levelInfoDidChange];
     popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
     popup._scoreLabel.string = [NSString stringWithFormat:@"Score: %d", points];
     popup._winPopUpLabel.string = [NSString stringWithFormat:@"Congratulations!! You have cleared this level!!"];
@@ -430,5 +431,16 @@ static NSString *currentLevelStart = @"LevelStart0";
     [self addChild:popup];
 }
 
+-(void) levelInfoDidChange
+{
+    NSString *highestUnlockedLevel = [GameState sharedGameState].highestUnlockedLevel;
+    NSString *levelnumber = [highestUnlockedLevel substringFromIndex: [highestUnlockedLevel length] - 1];
+    int level = levelnumber.intValue;
+    int currentLevel = [selectedLevel substringFromIndex: [selectedLevel length] - 1].intValue;
+    if (level == currentLevel) {
+        [GameState sharedGameState].highestUnlockedLevel = @"LevelStart1";
+    }
+    
+}
 
 @end
