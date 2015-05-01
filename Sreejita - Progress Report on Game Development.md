@@ -161,6 +161,8 @@ Improved fighting sequences (animation)
 
 Generalized the code to work for all enemies
 
+Made the game compatible for both iPhone and iPAD
+
 <b>What I am doing this week..
 
 Add menu screen
@@ -176,6 +178,52 @@ Enable enemies to compete for power-ups in levels 3 and 4
 Improve the finish
 
 <b>Goals for the rest of the game.. 
+
+Improve the finish
+
+
+
+#Date: April 28st 2015
+
+<b>What was the goal for last week..
+
+Add menu screen
+
+Improve Gaso and Hencher's attack sequences
+
+Add special combo attacks for new levels for both Wolfe and Enemies
+
+Enable enemies to compete for power-ups in levels 3 and 4
+
+<b>What I actually did last week..
+
+Added level select menu screen showing progress of challenge
+
+Improved Gaso and Hencher's attack sequences
+
+Added ability to pause, resume and restart game, added pause menu
+
+Included tutorial level as level 1 in the challenge instead of having a separate option for tutorial
+
+Saved levels unlocked information in NSUserDefaults
+
+Added ability to replay levels that have been unlocked
+
+Enabled game to pause when it goes to the background
+
+<b>What I did/am doing this week..
+
+Added jump left and jump right movements to Fester and Fister
+
+Enabled enemies to compete for power-ups (collision detection) in levels 3, 4 and 5
+
+Added animations/effects for all powerups for both Wolfe and enemies
+
+Add stars to level menu based on latest score saved in NSUserDefaults
+
+Add a win screen for after defeating Fister
+
+Add special combo attacks for new levels for both Wolfe and Enemies
 
 Improve the finish
 

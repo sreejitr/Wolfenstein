@@ -162,7 +162,6 @@ Swipe gestures instead of tap
 
 Add artifacts to gameplay
 
-
 <b>What I am doing next week..
 
 Add more artifacts to increase engagement
@@ -170,6 +169,32 @@ Add more artifacts to increase engagement
 Improve the finish of the game
 
 <b>Goals for the rest of the game.. 
+
+Improve the finish of the game
+
+
+
+#Date: April 28st 2015
+
+<b>What was the goal for last week..
+
+Variable rope lengths
+
+Swipe gestures instead of tap
+
+Add artifacts to gameplay
+
+<b>What I actually did last week..
+
+Implemented variable rope lengths
+
+Improved rope mechanics
+
+Added buckets and flares to gameplay at random intervals 
+
+<b>What I did/am doing this week..
+ 
+Swipe gestures instead of tap
 
 Improve the finish of the game
 

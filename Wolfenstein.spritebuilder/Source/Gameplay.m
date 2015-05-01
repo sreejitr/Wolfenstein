@@ -342,10 +342,14 @@ static NSString *selectedLevel = @"Level1";
                         }
                         enemy_hit = 0;
                         [self flip_handle];
+                    } else if (enemy_hit >= randthreshold && (_fister.position.x < _loadedLevel.positionInPoints.x + 70) && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"]) {
+                        [self jumpRightEnemy];
+                        enemy_hit = 0;
+                    } else if (enemy_hit >= randthreshold && (_fister.position.x > _loadedLevel.contentSizeInPoints.width - 70) && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"]) {
+                        [self jumpLeftEnemy];
+                        enemy_hit = 0;
                     }
-                    
                 }
-
                 
             } else if (_gaso) {
                 id moveBy = [CCActionMoveBy actionWithDuration:0.01 position:ccp(0, 120 - _gaso.position.y)];
@@ -400,15 +404,12 @@ static NSString *selectedLevel = @"Level1";
                         enemy_hit = 0;
                         [self flip_handle];
                     }
-                    
                 }
-
             } //else if ([playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
               //  [self flip_handle];
             //}
             timeelapsed = 0.0f;
         }
-        
     }
 }
 
@@ -869,6 +870,26 @@ static NSString *selectedLevel = @"Level1";
     _wolfe.physicsBody.velocity = CGPointMake(0, 0);
 }
 
+-(void)jumpLeftEnemy {
+    self.userInteractionEnabled = FALSE;
+    _fister.flipX=YES;
+    [_fister jump];
+    id jumpUp = [CCActionJumpBy actionWithDuration:0.7f position:ccp(-1*_fister.position.x, 200)
+                                            height:50 jumps:1];
+    id jumpDown = [CCActionJumpBy actionWithDuration:0.7f position:ccp(-1*_fister.position.x,-80)
+                                              height:50 jumps:1];
+    
+    id seq = [CCActionSequence actions:jumpUp, jumpDown, nil];
+    
+    [_fister runAction:seq];
+    facingeachother = FALSE;
+    [_fister performSelector:@selector(idle) withObject:nil afterDelay:2.f];
+    enemy_jumped = TRUE;
+    [self performSelector:@selector(resetJumpEnemy) withObject:nil afterDelay:2.5f];
+    _fister.physicsBody.velocity = CGPointMake(0, 0);
+}
+
+
 -(void)jumpRight {
     self.userInteractionEnabled = FALSE;
     [_wolfe jumpflip];
@@ -885,6 +906,25 @@ static NSString *selectedLevel = @"Level1";
     wolfe_jumped = TRUE;
     [self performSelector:@selector(resetJump) withObject:nil afterDelay:2.5f];
     _wolfe.physicsBody.velocity = CGPointMake(0, 0);
+    
+}
+
+-(void)jumpRightEnemy {
+    self.userInteractionEnabled = FALSE;
+    [_fister jump];
+    id jumpUp = [CCActionJumpBy actionWithDuration:0.7f position:ccp(400, 200)
+                                            height:50 jumps:1];
+    id jumpDown = [CCActionJumpBy actionWithDuration:0.3f position:ccp(300,-80)
+                                              height:50 jumps:1];
+    
+    id seq = [CCActionSequence actions:jumpUp, jumpDown, nil];
+    
+    [_fister runAction:seq];
+    facingeachother = FALSE;
+    [_fister performSelector:@selector(idle) withObject:nil afterDelay:1.5f];
+    enemy_jumped = TRUE;
+    [self performSelector:@selector(resetJumpEnemy) withObject:nil afterDelay:2.5f];
+    _fister.physicsBody.velocity = CGPointMake(0, 0);
     
 }
 
