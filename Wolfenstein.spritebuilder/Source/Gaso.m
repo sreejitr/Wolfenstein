@@ -46,6 +46,7 @@
 }
 
 - (void) run {
+    
     [animationManager runAnimationsForSequenceNamed:@"Walk"];
 }
 

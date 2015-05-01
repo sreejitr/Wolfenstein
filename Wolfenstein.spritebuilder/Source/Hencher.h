@@ -13,5 +13,6 @@
 - (void) idle;
 - (void) punch;
 - (void) run;
+- (void) groundhit;
 - (void) correctPositionOnScreenAtPosition:(CGPoint)loadedLevelPosition withWidth:(CGSize)width;
 @end

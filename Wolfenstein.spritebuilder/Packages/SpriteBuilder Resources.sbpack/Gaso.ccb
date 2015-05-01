@@ -2026,6 +2026,7 @@
 			<array>
 				<string>ground</string>
 				<string>powerUpcol</string>
+				<string>hero</string>
 			</array>
 			<key>collisionType</key>
 			<string>enemy</string>
@@ -2193,6 +2194,8 @@
 				<array/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

@@ -19,6 +19,7 @@
 #import "MenuLayer.h"
 #import "GameState.h"
 
+
 static NSString * const kFirstLevel = @"Level4";
 static NSString *selectedLevel = @"Level1";
 //static NSString *currentLevelStart = @"LevelStart1";
@@ -75,6 +76,8 @@ static NSString *selectedLevel = @"Level1";
     MenuLayer *_popoverMenuLayer;
     GameState* gameState;
     CCSprite *_enemyFace;
+    BOOL enemyMovedAway;
+    CCNode *_powerUpLabel;
 }
 
 #pragma mark - Node Lifecycle
@@ -87,6 +90,7 @@ static NSString *selectedLevel = @"Level1";
     [self showPopoverNamed:gameState.highestUnlockedLevel];
     wolfe_attack = FALSE;
     enemy_attack = FALSE;
+    enemyMovedAway = false;
     wolfe_hit = 0;
     enemy_hit = 0;
     timeelapsed = 0.0f;
@@ -106,8 +110,8 @@ static NSString *selectedLevel = @"Level1";
     countSpecialComboUse = 0;
 //    _physicsNode.debugDraw = TRUE;
     facingeachother = true;
-    healthPointsToDeducthero = 4;
-    healthPointsToDeductenemy = 4;
+    healthPointsToDeducthero = 2;
+    healthPointsToDeductenemy = 2;
     playerScore = 0;
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"FacesForLabel.plist"];
     
@@ -259,7 +263,7 @@ static NSString *selectedLevel = @"Level1";
 //        selectedLevel = kFirstLevel;
 //        nextScene = [CCBReader loadAsScene:@"MainScene"];
 //    }
-    
+    [self shouldClose];
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
     [[CCDirector sharedDirector] presentScene:nextScene withTransition:transition];
 }
@@ -292,11 +296,11 @@ static NSString *selectedLevel = @"Level1";
         
         timeelapsed += delta;
         totaltimeelapsed += delta;
-        if (totaltimeelapsed >= 30.f && !powerupsactivated) {
+        if (totaltimeelapsed >= 20.f && !powerupsactivated) {
             [self loadpowerups];
             powerupsactivated = TRUE;
         }
-        else if (totaltimeelapsed > 25.f && powerupsactivated) {
+        else if ((totaltimeelapsed > 15.f && powerupsactivated && ![playerCollidedwithPowerUp isEqualToString:@"Shield"]) || (totaltimeelapsed > 20.f && powerupsactivated && [playerCollidedwithPowerUp isEqualToString:@"Shield"])) {
             [self loadpowerups];
             totaltimeelapsed = 0.0f;
         }
@@ -305,68 +309,133 @@ static NSString *selectedLevel = @"Level1";
             [_wolfe performSelector:@selector(getup) withObject:nil afterDelay:2.f];
             [self performSelector:@selector(resetplayerGroundHit) withObject:nil afterDelay:2.2f];
         }
-        if (timeelapsed > 1.2f) {
+        if (timeelapsed > 1.f) {
             NSNumber *maintainDistanceFromWolfe = enemy[@"maintainDistanceFromWolfe"];
             NSNumber *moveToAfterAttack = enemy[@"moveToAfterPunchAttack"];
             if (_fister) {
-                id moveBy = [CCActionMoveTo actionWithDuration:0.01 position:ccp(_fister.position.x, 140)];
+                id moveBy = [CCActionMoveBy actionWithDuration:0.01 position:ccp(0, 140 - _fister.position.y)];
                 [_fister runAction:moveBy];
-                if (!wolfe_attack && fabs(_wolfe.position.x - _fister.position.x) <= [maintainDistanceFromWolfe intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
-                    [self enemyAttackBegan:[moveToAfterAttack intValue] withDistanceFromWolfe:[maintainDistanceFromWolfe intValue]];
-                } else if (!wolfe_attack && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
-                    [self flip_handle];
-                    if (_fister.position.x - _wolfe.position.x > [maintainDistanceFromWolfe intValue]){
-                        [self walkLeftEnemy];
+                if (!wolfe_attack) {
+                    if (enemyMovedAway) {
+                        NSNumber *xPos = @(_fister.position.x);
+                        [self performSelector:@selector(moveEnemyTowardsWolfe:) withObject:xPos afterDelay:2.2f];
+                    } else {
+                        [self moveEnemyTowardsWolfe:_fister.position.x];
                     }
-                    if (_wolfe.position.x - _fister.position.x > [maintainDistanceFromWolfe intValue]){
-                        [self walkRightEnemy];
+                } else {
+                    int randthreshold = [self randomIntBetween:3 and:5];
+                    if(enemy_hit >= randthreshold && ((_fister.position.x > _loadedLevel.positionInPoints.x + 90) || (_fister.position.x < _loadedLevel.contentSizeInPoints.width - 90))&& ![playerCollidedwithPowerUp isEqualToString:@"Freeze"]) {
+                        enemyMovedAway = true;
+                        [_fister stopAllActions];
+                        if (rightface) {
+                            [self walkRightEnemy:(_fister.position.x + 30)];
+                        } else {
+                            [self walkLeftEnemy:(_fister.position.x - 90)];
+                        }
+                        enemy_hit = 0;
+                        [self flip_handle];
                     }
+                    
                 }
+
                 
             } else if (_gaso) {
-                id moveBy = [CCActionMoveTo actionWithDuration:0.01 position:ccp(_gaso.position.x, 120)];
+                id moveBy = [CCActionMoveBy actionWithDuration:0.01 position:ccp(0, 120 - _gaso.position.y)];
                 [_gaso runAction:moveBy];
-                if (!wolfe_attack && fabs(_wolfe.position.x - _gaso.position.x) <= [maintainDistanceFromWolfe intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
-                    [self enemyAttackBegan:[moveToAfterAttack intValue] withDistanceFromWolfe:[maintainDistanceFromWolfe intValue]];
-                } else if (!wolfe_attack && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
-                    [self flip_handle];
-                    if (_gaso.position.x - _wolfe.position.x > [maintainDistanceFromWolfe intValue]){
-                        [self walkLeftEnemy];
+                if (!wolfe_attack) {
+                    if (enemyMovedAway) {
+                        NSNumber *xPos = @(_gaso.position.x);
+                        [self performSelector:@selector(moveEnemyTowardsWolfe:) withObject:xPos afterDelay:2.2f];
+                    } else {
+                        [self moveEnemyTowardsWolfe:_gaso.position.x];
                     }
-                    if (_wolfe.position.x - _gaso.position.x > [maintainDistanceFromWolfe intValue]){
-                        [self walkRightEnemy];
+                } else {
+                    int randthreshold = [self randomIntBetween:3 and:5];
+                    if(enemy_hit >= randthreshold && ((_gaso.position.x > _loadedLevel.positionInPoints.x + 90) || (_gaso.position.x < _loadedLevel.contentSizeInPoints.width - 90))&& ![playerCollidedwithPowerUp isEqualToString:@"Freeze"]) {
+                        enemyMovedAway = true;
+                        [_gaso stopAllActions];
+                        if (rightface) {
+                            [self walkRightEnemy:(_gaso.position.x + 30)];
+                        } else {
+                            [self walkLeftEnemy:(_gaso.position.x - 90)];
+                        }
+                        enemy_hit = 0;
+                        [self flip_handle];
                     }
+                    
                 }
             } else if (_hencher) {
-                id moveBy = [CCActionMoveTo actionWithDuration:0.01 position:ccp(_hencher.position.x, 120)];
+                id moveBy = [CCActionMoveBy actionWithDuration:0.01 position:ccp(0, 120 - _hencher.position.y)];
                 [_hencher runAction:moveBy];
-                if (!wolfe_attack && fabs(_wolfe.position.x - _hencher.position.x) <= [maintainDistanceFromWolfe intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
-                    [self enemyAttackBegan:[moveToAfterAttack intValue] withDistanceFromWolfe:[maintainDistanceFromWolfe intValue]];
-                } else if (!wolfe_attack && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
-                    [self flip_handle];
-                    if (_hencher.position.x - _wolfe.position.x > [maintainDistanceFromWolfe intValue]){
-                        [self walkLeftEnemy];
+                if (!wolfe_attack) {
+                    if (enemyMovedAway) {
+                        NSNumber *xPos = @(_hencher.position.x);
+                        [self performSelector:@selector(moveEnemyTowardsWolfe:) withObject:xPos afterDelay:2.2f];
+                    } else {
+                        [self moveEnemyTowardsWolfe:_hencher.position.x];
                     }
-                    if (_wolfe.position.x - _hencher.position.x > [maintainDistanceFromWolfe intValue]){
-                        [self walkRightEnemy];
+                } else {
+                    int randthreshold = [self randomIntBetween:3 and:5];
+                    if(enemy_hit >= randthreshold && ((_hencher.position.x > _loadedLevel.positionInPoints.x + 90) || (_hencher.position.x < _loadedLevel.contentSizeInPoints.width - 90))&& ![playerCollidedwithPowerUp isEqualToString:@"Freeze"]) {
+                        enemyMovedAway = true;
+                        [_hencher stopAllActions];
+                        if (rightface) {
+                            [self walkRightEnemy:(_hencher.position.x + 30)];
+                        } else {
+                            [self walkLeftEnemy:(_hencher.position.x - 90)];
+                        }
+                        enemy_hit = 0;
+                        [self flip_handle];
                     }
+                    
                 }
-            } else if ([playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
-                [self flip_handle];
-            }
+
+            } //else if ([playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
+              //  [self flip_handle];
+            //}
             timeelapsed = 0.0f;
         }
         
     }
 }
 
+- (void) moveEnemyTowardsWolfe: (CGFloat)xPos {
+    NSNumber *maintainDistanceFromWolfe = enemy[@"maintainDistanceFromWolfe"];
+    NSNumber *moveToAfterAttack = enemy[@"moveToAfterPunchAttack"];
+    if (fabs(_wolfe.position.x - xPos) <= [maintainDistanceFromWolfe intValue] && !wolfe_jumped && !playerGroundHit && !enemyGroundHit && (![playerCollidedwithPowerUp isEqualToString:@"Freeze"])) {
+        [self enemyAttackBegan:[moveToAfterAttack intValue] withDistanceFromWolfe:[maintainDistanceFromWolfe intValue]];
+    } else if (!wolfe_attack && ![playerCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
+        [self flip_handle];
+        if (xPos - _wolfe.position.x > [maintainDistanceFromWolfe intValue]){
+            [self walkLeftEnemy:(_wolfe.position.x + [enemy[@"walkLeftTo"] intValue])];
+        }
+        if (_wolfe.position.x - xPos > [maintainDistanceFromWolfe intValue]){
+            [self walkRightEnemy:(_wolfe.position.x - [enemy[@"walkRightTo"] intValue])];
+        }
+    }
+    
+    enemyMovedAway = false;
+}
+
+- (int)randomIntBetween:(int)lowerBound and:(int)upperBound {
+    int rndValue = lowerBound + arc4random() % (upperBound - lowerBound);
+    return rndValue;
+}
+
+- (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber {
+    float diff = bigNumber - smallNumber;
+    return (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
+}
+
 - (void) enemyAttackBegan:(NSInteger) moveToVal withDistanceFromWolfe:(NSInteger) distanceFromWolfe{
     self.userInteractionEnabled = FALSE;
     enemy_attack = TRUE;
-    wolfe_hit += 1;
-    playerScore -= 950;
-    healthPointsWolfe -= healthPointsToDeductenemy;
-    [self showScore];
+    if (_wolfe.position.y <= 135) {
+        wolfe_hit += 1;
+        playerScore -= 950;
+        healthPointsWolfe -= healthPointsToDeductenemy;
+        [self showScore];
+    }
     
     if (_fister) {
         if (_fister.flipX == NO) {
@@ -387,7 +456,12 @@ static NSString *selectedLevel = @"Level1";
         }
         [_hencher punch];
     }
-    [_wolfe performSelector:@selector(hit) withObject:nil afterDelay:0.2f];
+    if (![playerCollidedwithPowerUp isEqualToString:@"Shield"]) {
+        [_wolfe performSelector:@selector(hit) withObject:nil afterDelay:0.2f];
+    } else {
+        [_wolfe block];
+    }
+    
     if (healthPointsWolfe == 0) {
         [_wolfe groundhit];
         playerGroundHit = TRUE;
@@ -475,6 +549,7 @@ static NSString *selectedLevel = @"Level1";
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
     self.userInteractionEnabled = TRUE;
+    [self turnoff_enemy_attack];
 //    [_fister idle];
     
     touchMovedLocation = [touch locationInNode:self.parent];
@@ -542,6 +617,8 @@ static NSString *selectedLevel = @"Level1";
             if (_fister) {
                 [_fister performSelector:@selector(getup) withObject:nil afterDelay:2.f];
                 [self performSelector:@selector(resetenemyGroundHit) withObject:nil afterDelay:1.f];
+            } else if (_hencher) {
+                [self performSelector:@selector(resetenemyGroundHit) withObject:nil afterDelay:1.f];
             }
         }
         [self performSelector:@selector(turnoff_wolfe_attack) withObject:nil afterDelay:3.5f];
@@ -597,12 +674,12 @@ static NSString *selectedLevel = @"Level1";
 }
 
 
-- (void)walkRightEnemy {
+- (void)walkRightEnemy:(CGFloat) xPos {
     if (_fister) {
         _fister.flipX=YES;
         NSLog(@"Right");
         [_fister run];
-        id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - [enemy[@"walkRightTo"] intValue], _fister.position.y)];
+        id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _fister.position.y)];
         [_fister runAction:moveRight];
         [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
 
@@ -610,19 +687,19 @@ static NSString *selectedLevel = @"Level1";
         _gaso.flipX=YES;
         NSLog(@"Right");
         [_gaso run];
-        id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - [enemy[@"walkRightTo"] intValue], _gaso.position.y)];
+        id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _gaso.position.y)];
         [_gaso runAction:moveRight];
         [self performSelector:@selector(gaso_idle) withObject:nil afterDelay:0.5f];
     } else if (_hencher) {
         _hencher.flipX=YES;
         NSLog(@"Right");
         [_hencher run];
-        id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - [enemy[@"walkRightTo"] intValue], _hencher.position.y)];
+        id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _hencher.position.y)];
         [_hencher runAction:moveRight];
         [self performSelector:@selector(hencher_idle) withObject:nil afterDelay:0.5f];
     }
     facingeachother = false;
-    
+    [self flip_handle];
     
 }
 
@@ -631,44 +708,44 @@ static NSString *selectedLevel = @"Level1";
     float size;
     if (_fister) {
         xPos = _fister.position.x;
-        size = _fister.contentSizeInPoints.width;
+        size = 90;
     } else if (_gaso) {
         xPos = _gaso.position.x;
-        size = _gaso.contentSizeInPoints.width;
+        size = 25;
     } else {
         xPos = _hencher.position.x;
-        size = _hencher.contentSizeInPoints.width;
+        size = 50;
     }
-    if ((_wolfe.position.x + _wolfe.contentSizeInPoints.width/2 + 20) < (xPos - size/2 + 5) || (_wolfe.position.x > xPos)) {
+    if ((_wolfe.position.x + 60) < (xPos - size) || (_wolfe.position.x > xPos)) {
         _wolfe.flipX=NO;
         [_wolfe walk];
-        id moveRight = [CCActionMoveBy actionWithDuration:0.10 position:ccp(20, 0)];
+        id moveRight = [CCActionMoveBy actionWithDuration:0.10 position:ccp(10, 0)];
         [_wolfe runAction:moveRight];
         facingeachother = FALSE;
         [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
     }
 }
 
-- (void)walkLeftEnemy {
+- (void)walkLeftEnemy:(CGFloat) xPos {
     //NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
     //NSLog([NSString stringWithFormat:@"box origin x: %f", _loadedLevel.boundingBox.origin.x]);
     //NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
     //NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
     if (_fister) {
         [_fister run];
-        id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + [enemy[@"walkLeftTo"] intValue], _fister.position.y)];
+        id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _fister.position.y)];
         [_fister runAction:moveLeft];
         facingeachother = FALSE;
         [self performSelector:@selector(fister_idle) withObject:nil afterDelay:0.5f];
     } else if (_gaso) {
         [_gaso run];
-        id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + [enemy[@"walkLeftTo"] intValue], _gaso.position.y)];
+        id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _gaso.position.y)];
         [_gaso runAction:moveLeft];
         facingeachother = FALSE;
         [self performSelector:@selector(gaso_idle) withObject:nil afterDelay:0.5f];
     } else if (_hencher) {
         [_hencher run];
-        id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + [enemy[@"walkLeftTo"] intValue], _hencher.position.y)];
+        id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _hencher.position.y)];
         [_hencher runAction:moveLeft];
         facingeachother = FALSE;
         [self performSelector:@selector(hencher_idle) withObject:nil afterDelay:0.5f];
@@ -682,18 +759,18 @@ static NSString *selectedLevel = @"Level1";
     float size;
     if (_fister) {
         xPos = _fister.position.x;
-        size = _fister.contentSizeInPoints.width;
+        size = 90;
     } else if (_gaso) {
         xPos = _gaso.position.x;
-        size = _gaso.contentSizeInPoints.width;
+        size = 25;
     } else {
         xPos = _hencher.position.x;
-        size = _hencher.contentSizeInPoints.width;
+        size = 50;
     }
-    if (((_wolfe.position.x - _wolfe.contentSizeInPoints.width/2 - 20) > (xPos + size/2 - 5)) || (_wolfe.position.x < xPos)) {
+    if (((_wolfe.position.x - 70) > (xPos + size)) || (_wolfe.position.x < xPos)) {
     _wolfe.flipX=YES;
     [_wolfe walk];
-    id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-20, 0)];
+    id moveLeft = [CCActionMoveBy actionWithDuration:0.10 position:ccp(-10, 0)];
     [_wolfe runAction:moveLeft];
     facingeachother = FALSE;
     [self performSelector:@selector(wolfe_idle) withObject:nil afterDelay:0.5f];
@@ -767,6 +844,7 @@ static NSString *selectedLevel = @"Level1";
             [_gaso hit:_wolfe.position];
         } else if (_hencher) {
             [_hencher hit];
+            [_hencher performSelector:@selector(groundhit) withObject:nil afterDelay:0.7f];
         }
         enemy_hit += 1;
         playerScore += 2000;
@@ -806,7 +884,7 @@ static NSString *selectedLevel = @"Level1";
         enemyXcoordLeft = _hencher.boundingBox.origin.x;
     }
     
-    if (wolfeXcoordRight < enemyXcoordLeft) {
+    if (wolfeXcoordRight < enemyXcoordRight) {
         rightface = TRUE;
         _wolfe.flipX=NO;
         if (_fister) {
@@ -817,7 +895,7 @@ static NSString *selectedLevel = @"Level1";
             _hencher.flipX=NO;
         }
     }
-    else if (wolfeXcoordLeft > enemyXcoordRight) {
+    else if (wolfeXcoordLeft > enemyXcoordLeft) {
         rightface = FALSE;
         _wolfe.flipX=YES;
         if (_fister) {
@@ -887,24 +965,80 @@ static NSString *selectedLevel = @"Level1";
     if ([playerCollidedwithPowerUp isEqualToString:@"Health"]) {
         healthPointsWolfe += 5;
         playerScore += 1000;
+        CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Health +5\nScore +1000"] fontName:@"Helvetica" fontSize:15.f];
+//        label.position = [_powerUpLabel convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
+        label.fontColor = [CCColor colorWithRed:0. green:1. blue:0.];
+        [_powerUpLabel addChild:label];
+//        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
+        CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:2.f];
+        CCActionCallBlock *remove = [CCActionCallBlock actionWithBlock:^{
+            label.scaleX = 1.3;
+            label.scaleY = 1.3;
+            [label removeFromParent];
+        }];
+        CCActionSequence *seq = [CCActionSequence actionWithArray:@[fadeOut, remove]];
+        [label runAction:seq];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"TwoX"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"TwoXEffect"];
         effect.autoRemoveOnFinish = TRUE;
         effect.position = _wolfe.position;
         [_wolfe.parent addChild:effect];
-        healthPointsToDeducthero = 8;
+        healthPointsToDeducthero = 4;
         playerScore += 2000;
-        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:5.f];
+        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
+        CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Damage to Enemy's health: 2x2\nScore +2000"] fontName:@"Helvetica" fontSize:10.f];
+//        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
+        label.fontColor = [CCColor colorWithRed:1. green:0. blue:0.];
+        [_powerUpLabel addChild:label];
+        _wolfe.scaleX = 1.5;
+        _wolfe.scaleY = 1.5;
+        //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
+        CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:10.f];
+        CCActionCallBlock *remove = [CCActionCallBlock actionWithBlock:^{
+            [label removeFromParent];
+            _wolfe.scaleX = 1;
+            _wolfe.scaleY = 1;
+        }];
+        CCActionSequence *seq = [CCActionSequence actionWithArray:@[fadeOut, remove]];
+        [label runAction:seq];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Star"]) {
         playerScore += 5000;
+        CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score +5000"] fontName:@"Helvetica" fontSize:15.f];
+        //        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
+        label.fontColor = [CCColor colorWithRed:1. green:1. blue:0.];
+        [_powerUpLabel addChild:label];
+        //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
+        CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:2.f];
+        CCActionCallBlock *remove = [CCActionCallBlock actionWithBlock:^{
+            label.scaleX = 1.3;
+            label.scaleY = 1.3;
+            [label removeFromParent];
+        }];
+        CCActionSequence *seq = [CCActionSequence actionWithArray:@[fadeOut, remove]];
+        [label runAction:seq];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Shield"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"ShieldEffect"];
         effect.autoRemoveOnFinish = TRUE;
         effect.position = _wolfe.position;
         [_wolfe.parent addChild:effect];
+        _wolfe.color = [CCColor colorWithRed:0. green:1.0 blue:1.0];
         healthPointsToDeductenemy = 0;
         playerScore += 3000;
-        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
+        [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:20.f];
+        CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Shield Activated"] fontName:@"Helvetica" fontSize:15.f];
+//        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
+        label.fontColor = [CCColor colorWithRed:0. green:0. blue:1.];
+        [_powerUpLabel addChild:label];
+        //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
+        CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:20.f];
+        CCActionCallBlock *remove = [CCActionCallBlock actionWithBlock:^{
+            label.scaleX = 1.3;
+            label.scaleY = 1.3;
+            [label removeFromParent];
+            _wolfe.color = [CCColor colorWithRed:1.0 green:1.0 blue:1.0];
+        }];
+        CCActionSequence *seq = [CCActionSequence actionWithArray:@[fadeOut, remove]];
+        [label runAction:seq];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Lightening"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"LighteningEffect"];
         effect.autoRemoveOnFinish = TRUE;
@@ -920,28 +1054,71 @@ static NSString *selectedLevel = @"Level1";
             [_hencher.parent addChild:effect];
         }
         
-        healthPointsToDeducthero = 10;
+//        healthPointsToDeducthero = 10;
+        healthPointsEnemy -= 10;
         [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
+        CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Enemy health -10\nScore +3000"] fontName:@"Helvetica" fontSize:15.f];
+//        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
+        label.fontColor = [CCColor colorWithRed:0. green:0. blue:1.];
+        [_powerUpLabel addChild:label];
+        //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
+        CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:2.f];
+        CCActionCallBlock *remove = [CCActionCallBlock actionWithBlock:^{
+            label.scaleX = 1.3;
+            label.scaleY = 1.3;
+            [label removeFromParent];
+        }];
+        CCActionSequence *seq = [CCActionSequence actionWithArray:@[fadeOut, remove]];
+        [label runAction:seq];
     } else if ([playerCollidedwithPowerUp isEqualToString:@"Freeze"]) {
         effect = (CCParticleSystem *)[CCBReader load:@"FreezeEffect"];
         effect.autoRemoveOnFinish = TRUE;
+        playerScore += 3000;
         if (_fister) {
             effect.position = _fister.position;
             [_fister.parent addChild:effect];
+            _fister.color = [CCColor colorWithRed:0.2 green:0.5 blue:0.9];
+
         } else if (_gaso) {
             effect.position = _gaso.position;
             [_gaso.parent addChild:effect];
+            _gaso.color = [CCColor colorWithRed:0.2 green:0.5 blue:0.9];
         } else if (_hencher) {
             effect.position = _hencher.position;
             [_hencher.parent addChild:effect];
+            _hencher.color = [CCColor colorWithRed:0.2 green:0.5 blue:0.9];
         }
         [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
+        CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Enemy Frozen\nScore +3000"] fontName:@"Helvetica" fontSize:15.f];
+//        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
+        label.fontColor = [CCColor colorWithRed:1. green:0. blue:1.];
+        [_powerUpLabel addChild:label];
+        //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
+        CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:10.f];
+        CCActionCallBlock *remove = [CCActionCallBlock actionWithBlock:^{
+            label.scaleX = 1.3;
+            label.scaleY = 1.3;
+            [label removeFromParent];
+            if (_fister) {
+                if ([_loadedLevel.nextLevelName isEqualToString:@"Level4"]) {
+                    _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
+                } else {
+                    _fister.color = [CCColor colorWithRed:1.0 green:1.0 blue:1.0];
+                }
+            } else if (_gaso) {
+                _gaso.color = [CCColor colorWithRed:1.0 green:1.0 blue:1.0];
+            } else {
+                _hencher.color = [CCColor colorWithRed:1.0 green:1.0 blue:1.0];
+            }
+        }];
+        CCActionSequence *seq = [CCActionSequence actionWithArray:@[fadeOut, remove]];
+        [label runAction:seq];
     }
 }
 
 - (void) resetplayerCollidedwithPowerUp {
-    healthPointsToDeducthero = 4;
-    healthPointsToDeductenemy = 4;
+    healthPointsToDeducthero = 2;
+    healthPointsToDeductenemy = 2;
     playerCollidedwithPowerUp = @"";
 }
 
