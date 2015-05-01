@@ -899,7 +899,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.21742957830429077</real>
+							<real>0.22200000286102295</real>
 							<real>0.09375</real>
 							<integer>1</integer>
 							<integer>2</integer>
@@ -947,7 +947,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Cochin-BoldItalic</string>
+						<string>AmericanTypewriter-Bold</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -956,7 +956,7 @@
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>20</real>
+							<real>18</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -1119,7 +1119,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.22711268067359924</real>
+							<real>0.2370000034570694</real>
 							<real>0.09375</real>
 							<integer>2</integer>
 							<integer>2</integer>
@@ -1167,7 +1167,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Cochin-BoldItalic</string>
+						<string>AmericanTypewriter-Bold</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -1176,7 +1176,7 @@
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>20</real>
+							<real>18</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -1293,6 +1293,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -1482,7 +1484,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Cochin-BoldItalic</string>
+						<string>AmericanTypewriter-Bold</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -1491,7 +1493,7 @@
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>12</real>
+							<real>10</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -1869,8 +1871,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

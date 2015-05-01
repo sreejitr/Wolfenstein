@@ -237,7 +237,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Cochin-BoldItalic</string>
+						<string>AmericanTypewriter-Condensed</string>
 					</dict>
 					<dict>
 						<key>name</key>

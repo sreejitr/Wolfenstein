@@ -83,6 +83,7 @@ static NSString *thisLevel = @"Level0";
     [_levelNode addChild:_loadedLevel];
     self.userInteractionEnabled = TRUE;
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
+    _wolfe.color = [CCColor colorWithRed:1. green:0.7 blue:0.7];
     _bunny = (DeadBunny*)[CCBReader load:@"DeadBunny"];
     [_physicsNode addChild:_wolfe];
     [_physicsNode addChild:_bunny];

@@ -22,6 +22,10 @@
 
 static NSString * const kFirstLevel = @"Level4";
 static NSString *selectedLevel = @"Level1";
+static float level1_interval = 1.6;
+static float level2_interval = 1.4;
+static float level3_interval = 1.2;
+static float level4_interval = 1.;
 //static NSString *currentLevelStart = @"LevelStart1";
 
 
@@ -105,9 +109,8 @@ static NSString *selectedLevel = @"Level1";
     _gameOver = FALSE;
     powerupavailable = false;
     powerupsactivated = false;
-//    powerupArray = @[@"Health", @"TwoX", @"Star", @"Fire", @"Shield", @"Lightening", @"Freeze"];
-//    powerupArray = @[@"Health", @"TwoX", @"Star", @"Shield", @"Lightening", @"Freeze"];
-    powerupArray = @[@"TwoX"];
+    powerupArray = @[@"Health", @"TwoX", @"Star", @"Shield", @"Lightening", @"Freeze"];
+//    powerupArray = @[@"TwoX"];
     wolfe_jumped = false;
     playerGroundHit = FALSE;
     countSpecialComboUse = 0;
@@ -287,6 +290,7 @@ static NSString *selectedLevel = @"Level1";
 
 -(void)update:(CCTime)delta
 {
+    float timediff;
     [self showScore];
     if (healthPointsEnemy <= 0) {
         [self winScreen];
@@ -321,7 +325,16 @@ static NSString *selectedLevel = @"Level1";
             [_wolfe performSelector:@selector(getup) withObject:nil afterDelay:2.f];
             [self performSelector:@selector(resetplayerGroundHit) withObject:nil afterDelay:2.2f];
         }
-        if (timeelapsed > 1.f) {
+        if ([selectedLevel isEqualToString:@"Level1"]) {
+            timediff = level1_interval;
+        } else if ([selectedLevel isEqualToString:@"Level2"]) {
+            timediff = level2_interval;
+        } else if ([selectedLevel isEqualToString:@"Level3"]) {
+            timediff = level3_interval;
+        } else if ([selectedLevel isEqualToString:@"Level4"]) {
+            timediff = level4_interval;
+        }
+        if (timeelapsed > timediff) {
             NSNumber *maintainDistanceFromWolfe = enemy[@"maintainDistanceFromWolfe"];
             NSNumber *moveToAfterAttack = enemy[@"moveToAfterPunchAttack"];
             if (_fister) {
@@ -538,6 +551,7 @@ static NSString *selectedLevel = @"Level1";
         _enemyHealth.fontColor = [CCColor colorWithRed:1.0 green:0.0 blue:0.0];
     }
     if (_fister) {
+        _enemyHealth.fontSize = 18;
         if ([selectedLevel isEqualToString:@"Level3"]) {
             _enemyHealth.string = [NSString stringWithFormat:@"Fester: %d", healthPointsEnemy];
         } else {
@@ -545,9 +559,10 @@ static NSString *selectedLevel = @"Level1";
         }
     } else if (_gaso) {
         _enemyHealth.string = [NSString stringWithFormat:@"Gaso: %d", healthPointsEnemy];
+        _enemyHealth.fontSize = 18;
     } else {
         _enemyHealth.string = [NSString stringWithFormat:@"Hencher: %d", healthPointsEnemy];
-        _enemyHealth.fontSize = 17;
+        _enemyHealth.fontSize = 15;
     }
     
     _enemyHealth.visible = true;
@@ -833,9 +848,9 @@ static NSString *selectedLevel = @"Level1";
     } else {
         dist = 0.f;
     }
-    id jumpUp = [CCActionJumpBy actionWithDuration:0.4f position:ccp(30, 200)
+    id jumpUp = [CCActionJumpBy actionWithDuration:0.2f position:ccp(30, 200)
                                             height:50 jumps:1];
-    id jumpDown = [CCActionJumpBy actionWithDuration:0.4f position:ccp(dist,-80)
+    id jumpDown = [CCActionJumpBy actionWithDuration:0.2f position:ccp(dist,-150)
                                               height:50 jumps:1];
     
     id seq = [CCActionSequence actions:jumpUp, jumpDown, nil];
@@ -1419,7 +1434,9 @@ static NSString *selectedLevel = @"Level1";
     }
     [self levelInfoDidChange];
     if (popup == nil) {
-        if (playerScore >= 40000) {
+        if ([selectedLevel isEqualToString:@"Level4"]) {
+            popup = (WinPopUp *)[CCBReader load:@"WinPopUpLastLevel" owner:self];
+        } else if (playerScore >= 40000) {
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
         } else if (playerScore >= 28000 && playerScore < 40000) {
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp2star" owner:self];
@@ -1427,7 +1444,7 @@ static NSString *selectedLevel = @"Level1";
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp1star" owner:self];
         }
         
-        popup._scoreLabel.string = [NSString stringWithFormat:@"%d", playerScore];
+        popup._scoreLabel.string = [NSString stringWithFormat:@"Score: %d", playerScore];
         popup.positionType = CCPositionTypeNormalized;
         popup.position = ccp(0.5, 0.5);
         [_wolfe stopAllActions];
