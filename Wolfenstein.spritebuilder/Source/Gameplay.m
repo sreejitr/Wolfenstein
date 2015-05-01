@@ -1229,7 +1229,7 @@ static NSString *selectedLevel = @"Level1";
         if (_fister) {
             _fister.scale = 1.3;
         } else if (_hencher) {
-            _hencher.scale = 1.;
+            _hencher.scale = .6;
         }
         
         //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
