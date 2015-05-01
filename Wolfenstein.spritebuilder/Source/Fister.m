@@ -32,6 +32,10 @@
     [animationManager runAnimationsForSequenceNamed:@"Idle"];
 }
 
+- (void) jump {
+    [animationManager runAnimationsForSequenceNamed:@"Jump"];
+}
+
 - (void) punch {
     if (self.flipX == NO) {
         id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 110, self.position.y)];
