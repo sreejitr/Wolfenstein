@@ -418,7 +418,6 @@ static NSString *thisLevel = @"Level0";
 }
 
 - (void)winScreen {
-//    [GameState sharedGameState].highestUnlockedLevel = @"LevelStart1";
     [self levelInfoDidChange];
     popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
     popup._scoreLabel.string = [NSString stringWithFormat:@"Score: %d", points];
@@ -441,6 +440,9 @@ static NSString *thisLevel = @"Level0";
     NSString *levelnumber = [highestUnlockedLevel substringFromIndex: [highestUnlockedLevel length] - 1];
     int level = levelnumber.intValue;
     int currentLevel = [thisLevel substringFromIndex: [thisLevel length] - 1].intValue;
+    if (currentLevel == 0) {
+        [GameState sharedGameState].scoreLevel0 = points;
+    }
     if (level == currentLevel) {
         [GameState sharedGameState].highestUnlockedLevel = @"LevelStart1";
     }

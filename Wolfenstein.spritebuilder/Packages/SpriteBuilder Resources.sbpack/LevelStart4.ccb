@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>72</integer>
+	<integer>77</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -383,7 +383,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>34</integer>
+						<integer>72</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -391,9 +391,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>Bunny</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_bunnyface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -452,7 +452,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/Bunny.png</string>
+									<string>Progress/bunny_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -607,7 +607,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>39</integer>
+						<integer>73</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -615,9 +615,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>gaso</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_gasoface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -676,7 +676,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/gaso.png</string>
+									<string>Progress/gaso_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -831,7 +831,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>44</integer>
+						<integer>74</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -839,9 +839,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>hencher</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_hencherface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -900,7 +900,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/hencher.png</string>
+									<string>Progress/hencher_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -1055,7 +1055,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>46</integer>
+						<integer>75</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -1063,9 +1063,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>fister3</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_festerface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -1124,7 +1124,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/fister3.png</string>
+									<string>Progress/fester_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -1279,7 +1279,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>48</integer>
+						<integer>76</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -1287,9 +1287,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>Fister4</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_fisterface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -1348,7 +1348,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/Fister4.png</string>
+									<string>Progress/fister_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -1384,6 +1384,8 @@
 								<array/>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>

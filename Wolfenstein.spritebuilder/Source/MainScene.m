@@ -31,6 +31,11 @@ static NSString *currentLevelStart = @"LevelStart0";
     
 //--------------------------This is to ensure that game always starts from Training level-----------------------------
 //    [GameState sharedGameState].highestUnlockedLevel = @"LevelStart0";
+//    [GameState sharedGameState].scoreLevel0 = Nil;
+//    [GameState sharedGameState].scoreLevel1 = nil;
+//    [GameState sharedGameState].scoreLevel2 = nil;
+//    [GameState sharedGameState].scoreLevel3 = nil;
+//    [GameState sharedGameState].scoreLevel4 = nil;
 //--------------------------------------------------------------------------------------------------------------------
     
     currentLevelStart = [GameState sharedGameState].highestUnlockedLevel;
@@ -65,13 +70,13 @@ static NSString *currentLevelStart = @"LevelStart0";
         [_popoverMenuLayer removeFromParent];
         _popoverMenuLayer = nil;
         
-        NSString *highestUnlockedLevel = [GameState sharedGameState].highestUnlockedLevel;
-        NSString *levelnumber = [highestUnlockedLevel substringFromIndex: [highestUnlockedLevel length] - 1];
-        int level = levelnumber.intValue;
-        int currentLevel = [currentLevelStart substringFromIndex: [currentLevelStart length] - 1].intValue;
-        if (level == currentLevel) {
-            [GameState sharedGameState].highestUnlockedLevel = newMenuLayer.nextLevelStart;
-        }
+//        NSString *highestUnlockedLevel = [GameState sharedGameState].highestUnlockedLevel;
+//        NSString *levelnumber = [highestUnlockedLevel substringFromIndex: [highestUnlockedLevel length] - 1];
+//        int level = levelnumber.intValue;
+//        int currentLevel = [currentLevelStart substringFromIndex: [currentLevelStart length] - 1].intValue;
+//        if (level == currentLevel) {
+//            [GameState sharedGameState].highestUnlockedLevel = newMenuLayer.nextLevelStart;
+//        }
      
     }
 }

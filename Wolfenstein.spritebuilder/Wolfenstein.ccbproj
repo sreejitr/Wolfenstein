@@ -80,8 +80,6 @@
 		</dict>
 		<key>FacesForLabel</key>
 		<dict>
-			<key>isDirty</key>
-			<true/>
 			<key>isSmartSpriteSheet</key>
 			<true/>
 		</dict>
@@ -94,6 +92,11 @@
 		<dict>
 			<key>format_ios_sound</key>
 			<integer>1</integer>
+		</dict>
+		<key>Progress</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
 		</dict>
 		<key>Sprites</key>
 		<dict/>

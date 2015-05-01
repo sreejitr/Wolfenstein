@@ -218,6 +218,15 @@ static NSString *selectedLevel = @"Level1";
     NSString *levelnumber = [highestUnlockedLevel substringFromIndex: [highestUnlockedLevel length] - 1];
     int level = levelnumber.intValue;
     int currentLevel = [selectedLevel substringFromIndex: [selectedLevel length] - 1].intValue;
+    if (currentLevel == 1) {
+        [GameState sharedGameState].scoreLevel1 = playerScore;
+    } else if (currentLevel == 2) {
+        [GameState sharedGameState].scoreLevel2 = playerScore;
+    } else if (currentLevel == 3) {
+        [GameState sharedGameState].scoreLevel3 = playerScore;
+    } else if (currentLevel == 4) {
+        [GameState sharedGameState].scoreLevel4 = playerScore;
+    }
     if (level == currentLevel) {
         [GameState sharedGameState].highestUnlockedLevel = newMenuLayer.nextLevelStart;
     }
@@ -1405,15 +1414,19 @@ static NSString *selectedLevel = @"Level1";
 //}
 
 - (void)winScreen {
+    if (playerScore < 0) {
+        playerScore = 0;
+    }
     [self levelInfoDidChange];
     if (popup == nil) {
-        if (playerScore >= 35000) {
+        if (playerScore >= 40000) {
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
-        } else if (playerScore >= 22000 && playerScore < 35000) {
+        } else if (playerScore >= 28000 && playerScore < 40000) {
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp2star" owner:self];
-        } else if (playerScore < 22000) {
+        } else if (playerScore < 28000) {
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp1star" owner:self];
         }
+        
         popup._scoreLabel.string = [NSString stringWithFormat:@"%d", playerScore];
         popup.positionType = CCPositionTypeNormalized;
         popup.position = ccp(0.5, 0.5);

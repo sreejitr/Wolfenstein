@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>58</integer>
+	<integer>63</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -383,7 +383,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>34</integer>
+						<integer>58</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -391,9 +391,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>Bunny</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_bunnyface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -413,7 +413,7 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>0.1291729211807251</real>
+									<real>0.1289999932050705</real>
 									<real>0.5899999737739563</real>
 									<integer>1</integer>
 									<integer>2</integer>
@@ -438,8 +438,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.043932132422924042</real>
-									<real>0.2465822845697403</real>
+									<real>0.043999999761581421</real>
+									<real>0.24699999392032623</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -452,7 +452,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/Bunny.png</string>
+									<string>Progress/bunny_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -607,7 +607,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>39</integer>
+						<integer>59</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -615,9 +615,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>gaso</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_gasoface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -676,7 +676,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/gaso.png</string>
+									<string>Progress/gaso_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -831,7 +831,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>44</integer>
+						<integer>60</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -839,9 +839,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>hencher</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_hencherface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -886,8 +886,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.045531090348958969</real>
-									<real>0.25359126925468445</real>
+									<real>0.043999999761581421</real>
+									<real>0.24699999392032623</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -900,7 +900,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/hencher.png</string>
+									<string>Progress/hencher_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -1055,7 +1055,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>46</integer>
+						<integer>61</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -1063,9 +1063,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>fister3</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_festerface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -1110,8 +1110,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.046000000089406967</real>
-									<real>0.24851058423519135</real>
+									<real>0.043999999761581421</real>
+									<real>0.24699999392032623</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -1124,7 +1124,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/fister3.png</string>
+									<string>Progress/fester_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -1279,7 +1279,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>48</integer>
+						<integer>62</integer>
 						<key>baseClass</key>
 						<string>CCSprite</string>
 						<key>children</key>
@@ -1287,9 +1287,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>Fister4</string>
+						<string>CCSprite</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_fisterface</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -1310,7 +1310,7 @@
 								<key>value</key>
 								<array>
 									<real>0.1289999932050705</real>
-									<real>0.53873533010482788</real>
+									<real>0.5899999737739563</real>
 									<integer>1</integer>
 									<integer>2</integer>
 									<integer>2</integer>
@@ -1334,8 +1334,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.045440178364515305</real>
-									<real>0.27140319347381592</real>
+									<real>0.043999999761581421</real>
+									<real>0.24699999392032623</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -1348,7 +1348,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Progress/Fister4.png</string>
+									<string>Progress/fister_0stars.png</string>
 								</array>
 							</dict>
 							<dict>
