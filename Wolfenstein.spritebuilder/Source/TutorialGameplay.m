@@ -364,15 +364,19 @@ static NSString *thisLevel = @"Level0";
 //        [self performSelector:@selector(loadNextLevel) withObject:nil afterDelay:0.5f];
     if (numOfHits >= 6) {
         if (!swiped_left) {
+            _instructions.fontSize = 15;
             _instructions.string = [NSString stringWithFormat:@"Nicely done! Now swipe left to move away from Dead Bunny"];
             _instructions.visible = true;
         } else if (!swiped_right) {
-            _instructions.string = [NSString stringWithFormat:@"Excellent! Now swipe right to move back towards Dead Bunny"];
+            _instructions.fontSize = 13;
+            _instructions.string = [NSString stringWithFormat:@"Excellent! You have now moved away from the attack zone. Notice how the reddish tinge from Wolfe has disappeared. Now swipe right to move back towards Dead Bunny."];
             _instructions.visible = true;
         } else if (!swiped_down) {
-            _instructions.string = [NSString stringWithFormat:@"Perfect! Now swipe down for Crouch-Combo attack"];
+            _instructions.fontSize = 13;
+            _instructions.string = [NSString stringWithFormat:@"Perfect! You are now back in the attack zone. Notice how Wolfe's reddish tinge has returned. Now swipe down for Crouch-Combo attack"];
             _instructions.visible = true;
         } else if (!jumped_up) {
+            _instructions.fontSize = 18;
             _instructions.string = [NSString stringWithFormat:@"You're doing great! Now swipe up to jump"];
             _instructions.visible = true;
         } else if (!jumped_right) {
