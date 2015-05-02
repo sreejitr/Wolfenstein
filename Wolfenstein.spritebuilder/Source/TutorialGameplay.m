@@ -158,9 +158,9 @@ static NSString *thisLevel = @"Level0";
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
 //    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
-    if (numOfHits < 6 && fabsf(_wolfe.position.x - _bunny.position.x) <= 140 && !wolfe_jumped) {
+    if (numOfHits < 4 && fabs(_wolfe.position.x - _bunny.position.x) <= 140 && !wolfe_jumped) {
         [self wolfeAttackBegan];
-        _instructions.string = [NSString stringWithFormat:@"Thats awesome!! Now hit Dead Bunny 5 times.."];
+        _instructions.string = [NSString stringWithFormat:@"Thats awesome!! Now hit Dead Bunny 3 times.."];
         _instructions.visible = true;
         crouchCombo = FALSE;
     } else {
@@ -170,7 +170,7 @@ static NSString *thisLevel = @"Level0";
 
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-    if (numOfHits >= 6) {
+    if (numOfHits >= 4) {
         touchMovedLocation = [touch locationInNode:self.parent];
         if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchBeganLocation.x - touchMovedLocation.x > 50) && !wolfe_jumped && !jumped_left && swiped_left && swiped_right && jumped_right && swiped_down && jumped_up) {
             [self jumpLeft];
@@ -353,7 +353,7 @@ static NSString *thisLevel = @"Level0";
     if (_wolfe.position.x > _loadedLevel.contentSizeInPoints.width - 60) {
         _wolfe.position = ccp(_loadedLevel.contentSizeInPoints.width - 60, _wolfe.position.y);
     }
-    if (fabsf(_wolfe.position.x - _bunny.position.x) <= 140 && !wolfe_jumped) {
+    if (fabsf(_wolfe.position.x - _bunny.position.x) <= 180 && !wolfe_jumped) {
         _wolfe.color = [CCColor colorWithRed:1. green:0.7 blue:0.7];
     } else {
        _wolfe.color = [CCColor colorWithRed:1. green:1 blue:1];
@@ -362,14 +362,14 @@ static NSString *thisLevel = @"Level0";
     [self showScore];
 //    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"] && numOfHits >= 6) {
 //        [self performSelector:@selector(loadNextLevel) withObject:nil afterDelay:0.5f];
-    if (numOfHits >= 6) {
+    if (numOfHits >= 4) {
         if (!swiped_left) {
             _instructions.fontSize = 15;
             _instructions.string = [NSString stringWithFormat:@"Nicely done! Now swipe left to move away from Dead Bunny"];
             _instructions.visible = true;
         } else if (!swiped_right) {
             _instructions.fontSize = 13;
-            _instructions.string = [NSString stringWithFormat:@"Excellent! You have now moved away from the attack zone. Notice how the reddish tinge from Wolfe has disappeared. Now swipe right to move back towards Dead Bunny."];
+            _instructions.string = [NSString stringWithFormat:@"Excellent! You have now moved away from the attack zone. Now swipe right to move back towards Dead Bunny."];
             _instructions.visible = true;
         } else if (!swiped_down) {
             _instructions.fontSize = 13;

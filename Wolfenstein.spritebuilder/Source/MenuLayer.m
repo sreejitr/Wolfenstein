@@ -23,10 +23,8 @@
 - (void)didLoadFromCCB {
     score = [GameState sharedGameState].scoreLevel0;
     if (score) {
-        if (score >= 9000) {
+        if (score > 0) {
             [_bunnyface setSpriteFrame:[CCSpriteFrame frameWithImageNamed: @"Progress/bunny_3stars.png"]];
-        } else {
-            [_bunnyface setSpriteFrame:[CCSpriteFrame frameWithImageNamed: @"Progress/bunny_2star.png"]];
         }
     } else {
         [_bunnyface setSpriteFrame:[CCSpriteFrame frameWithImageNamed: @"Progress/bunny_0stars.png"]];

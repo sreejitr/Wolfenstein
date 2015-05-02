@@ -25,7 +25,7 @@ static NSString *selectedLevel = @"Level1";
 static float level1_interval = 1.6;
 static float level2_interval = 1.4;
 static float level3_interval = 1.2;
-static float level4_interval = 1.;
+static float level4_interval = 1.7;
 //static NSString *currentLevelStart = @"LevelStart1";
 
 
@@ -104,7 +104,7 @@ static float level4_interval = 1.;
     _enemyHealth.visible = TRUE;
     _gamePoints.visible = TRUE;
     healthPointsWolfe = 100;
-    healthPointsEnemy = 100;
+    healthPointsEnemy = 10;
     [self showScore];
     _gameOver = FALSE;
     powerupavailable = false;
@@ -139,11 +139,11 @@ static float level4_interval = 1.;
     fister_v = @{
                  @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
                  @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
-                 @"maintainDistanceFromWolfe" : @170,
+                 @"maintainDistanceFromWolfe" : @150,
                  @"moveToAfterPunchAttack" : @120,
-                 @"walkRightTo" : @155,
-                 @"walkLeftTo" : @170,
-                 @"wolfeDistBeforeAttack" : @150
+                 @"walkRightTo" : @138,
+                 @"walkLeftTo" : @150,
+                 @"wolfeDistBeforeAttack" : @140
                  };
     offsetFromParentCenter = CGPointMake(290, 120);
     gaso_v = @{
@@ -291,6 +291,7 @@ static float level4_interval = 1.;
 -(void)update:(CCTime)delta
 {
     float timediff;
+    float xpos;
     [self showScore];
     if (healthPointsEnemy <= 0) {
         [self winScreen];
@@ -299,15 +300,26 @@ static float level4_interval = 1.;
         [self loseScreen];
     }
     
+    
+    
 //    _fister.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _fister.contentSize} cornerRadius:0];
     if (!_gameOver && !_levelNode.paused) {
         [_wolfe correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
         if (_fister) {
+            xpos = _fister.position.x;
             [_fister correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
         } else if (_gaso) {
+            xpos = _gaso.position.x;
             [_gaso correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
         } else if (_hencher) {
+            xpos = _hencher.position.x;
             [_hencher correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
+        }
+        NSNumber *maintainDistanceFromWolfe = enemy[@"maintainDistanceFromWolfe"];
+        if ((((fabs(_wolfe.position.x - xpos) <= [maintainDistanceFromWolfe intValue]) && (fabsf(_wolfe.position.x - xpos) < [enemy[@"maintainDistanceFromWolfe"] intValue]) && !wolfe_jumped && !playerGroundHit && !enemyGroundHit) || wolfe_attack || enemy_attack) && ![enemyCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Shield"]) {
+            _wolfe.color = [CCColor colorWithRed:1. green:0.7 blue:0.7];
+        } else if (![enemyCollidedwithPowerUp isEqualToString:@"Freeze"] && ![playerCollidedwithPowerUp isEqualToString:@"Shield"]){
+            _wolfe.color = [CCColor colorWithRed:1. green:1 blue:1];
         }
         
         timeelapsed += delta;
@@ -335,14 +347,14 @@ static float level4_interval = 1.;
             timediff = level4_interval;
         }
         if (timeelapsed > timediff) {
-            NSNumber *maintainDistanceFromWolfe = enemy[@"maintainDistanceFromWolfe"];
-            NSNumber *moveToAfterAttack = enemy[@"moveToAfterPunchAttack"];
+//            NSNumber *maintainDistanceFromWolfe = enemy[@"maintainDistanceFromWolfe"];
+//            NSNumber *moveToAfterAttack = enemy[@"moveToAfterPunchAttack"];
             if (_fister) {
                 id moveBy = [CCActionMoveBy actionWithDuration:0.01 position:ccp(0, 140 - _fister.position.y)];
                 [_fister runAction:moveBy];
                 if (!wolfe_attack) {
                     if (powerupavailable) {
-                        if (_fister.position.x - 70 <= _powerUpPosition.position.x && _fister.position.x + 70 > _powerUpPosition.position.x) {
+                        if (_fister.position.x - 70 <= _powerUpPosition.position.x && _fister.position.x + 70 > _powerUpPosition.position.x ) {
                             [self jumpUpEnemy];
                         }
                     }
@@ -475,19 +487,27 @@ static float level4_interval = 1.;
     
     if (_fister) {
         if (_fister.flipX == NO) {
-            id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_fister.position.x + moveToVal, _fister.position.y)];
+            id moveBy = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_fister.position.x + moveToVal, _fister.position.y)];
             [_fister runAction:moveBy];
+        } else if (_fister.flipX == YES) {
+            if (![enemyCollidedwithPowerUp isEqualToString:@"TwoX"]) {
+                id moveBy = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 120, _fister.position.y)];
+                [_fister runAction:moveBy];
+            } else {
+                id moveBy = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x - 140, _fister.position.y)];
+                [_fister runAction:moveBy];
+            }
         }
         [_fister punch];
     } else if (_gaso) {
         if (_gaso.flipX == NO) {
-            id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_wolfe.position.x + moveToVal, _gaso.position.y)];
+            id moveBy = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + moveToVal, _gaso.position.y)];
             [_gaso runAction:moveBy];
         }
         [_gaso punch:_wolfe.position];
     } else if (_hencher) {
         if (_hencher.flipX == NO) {
-            id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(_hencher.position.x + moveToVal, _hencher.position.y)];
+            id moveBy = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_hencher.position.x + moveToVal, _hencher.position.y)];
             [_hencher runAction:moveBy];
         }
         [_hencher punch];
@@ -753,7 +773,7 @@ static float level4_interval = 1.;
     float size;
     if (_fister) {
         xPos = _fister.position.x;
-        size = 90;
+        size = 80;
     } else if (_gaso) {
         xPos = _gaso.position.x;
         size = 25;
@@ -804,7 +824,7 @@ static float level4_interval = 1.;
     float size;
     if (_fister) {
         xPos = _fister.position.x;
-        size = 90;
+        size = 80;
     } else if (_gaso) {
         xPos = _gaso.position.x;
         size = 25;
@@ -844,7 +864,11 @@ static float level4_interval = 1.;
 //    [_wolfe jumpflip];
     float dist;
     if (_fister) {
-        dist = 30.f;
+        if (_fister.flipX == NO) {
+            dist = 30.f;
+        } else {
+            dist = 0.f;
+        }
     } else {
         dist = 0.f;
     }
@@ -1440,8 +1464,10 @@ static float level4_interval = 1.;
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp3star" owner:self];
         } else if (playerScore >= 28000 && playerScore < 40000) {
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp2star" owner:self];
-        } else if (playerScore < 28000) {
+        } else if (playerScore < 28000 && playerScore > 0) {
             popup = (WinPopUp *)[CCBReader load:@"WinPopUp1star" owner:self];
+        } else if (playerScore == 0) {
+            popup = (WinPopUp *)[CCBReader load:@"WinPopUp0star" owner:self];
         }
         
         popup._scoreLabel.string = [NSString stringWithFormat:@"Score: %d", playerScore];
@@ -1453,6 +1479,22 @@ static float level4_interval = 1.;
         _gameOver = TRUE;
         
     }
+}
+
+- (void) lastWinScreen {
+    if (playerScore < 0) {
+        playerScore = 0;
+    }
+    popup = nil;
+    [self removeChild:popup];
+    popup = (WinPopUp *)[CCBReader load:@"LastScreen" owner:self];
+//    popup._scoreLabel.string = [NSString stringWithFormat:@"Score: %d", playerScore];
+    popup.positionType = CCPositionTypeNormalized;
+    popup.position = ccp(0.5, 0.5);
+//    [_wolfe stopAllActions];
+//    [_fister stopAllActions];
+    [self addChild:popup];
+//    _gameOver = TRUE;
 }
 
 - (void)loseScreen {
