@@ -83,7 +83,6 @@ static NSString *thisLevel = @"Level0";
     [_levelNode addChild:_loadedLevel];
     self.userInteractionEnabled = TRUE;
     _wolfe = (Wolfe*)[CCBReader load:@"Wolfe"];
-    _wolfe.color = [CCColor colorWithRed:1. green:0.7 blue:0.7];
     _bunny = (DeadBunny*)[CCBReader load:@"DeadBunny"];
     [_physicsNode addChild:_wolfe];
     [_physicsNode addChild:_bunny];
@@ -159,7 +158,7 @@ static NSString *thisLevel = @"Level0";
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
 //    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
-    if (numOfHits < 6) {
+    if (numOfHits < 6 && fabsf(_wolfe.position.x - _bunny.position.x) <= 140 && !wolfe_jumped) {
         [self wolfeAttackBegan];
         _instructions.string = [NSString stringWithFormat:@"Thats awesome!! Now hit Dead Bunny 5 times.."];
         _instructions.visible = true;
@@ -203,14 +202,14 @@ static NSString *thisLevel = @"Level0";
 }
 
 -(void) touchEnded:(CCTouch*)touch withEvent:(CCTouchEvent *)event{
-    if (fabsf(_wolfe.position.x - _bunny.position.x) < 100 && !wolfe_jumped) {
-        [self wolfeAttackBegan];
-    }
+//    if () {
+//        [self wolfeAttackBegan];
+//    }
 }
 
 
 - (void)walkRight {
-    if ((_wolfe.position.x + _wolfe.contentSizeInPoints.width/2 + 20) < (_bunny.position.x - _bunny.contentSizeInPoints.width/2 + 5) || (_wolfe.position.x > _bunny.position.x)) {
+    if ((_wolfe.position.x + 70) < (_bunny.position.x - 95) || (_wolfe.position.x > _bunny.position.x)) {
         _wolfe.flipX=NO;
         if (swiped_right == FALSE) {
             swiped_right = TRUE;
@@ -353,6 +352,11 @@ static NSString *thisLevel = @"Level0";
     }
     if (_wolfe.position.x > _loadedLevel.contentSizeInPoints.width - 60) {
         _wolfe.position = ccp(_loadedLevel.contentSizeInPoints.width - 60, _wolfe.position.y);
+    }
+    if (fabsf(_wolfe.position.x - _bunny.position.x) <= 140 && !wolfe_jumped) {
+        _wolfe.color = [CCColor colorWithRed:1. green:0.7 blue:0.7];
+    } else {
+       _wolfe.color = [CCColor colorWithRed:1. green:1 blue:1];
     }
     
     [self showScore];
