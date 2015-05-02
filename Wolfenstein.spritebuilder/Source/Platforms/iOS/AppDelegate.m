@@ -62,32 +62,32 @@
     return [CCBReader loadAsScene:@"MainScene"];
 }
 
--(void) performSelector:(SEL)selector onNode:(CCNode*)node withObject:(id)object recursive:(BOOL)recursive
-{
-    if ([node respondsToSelector:selector])
-    {
-        [node performSelector:selector withObject:object];
-    }
-    if (recursive)
-    {
-        for (CCNode* child in node.children)
-        {
-            [self performSelector:selector
-                           onNode:child
-                       withObject:object
-                        recursive:YES];
-        }
-    }
-}
-
--(void) applicationWillResignActive:(UIApplication *)application
-{
-    CCScene* scene = [CCDirector sharedDirector].runningScene;
-    [self performSelector:_cmd
-                   onNode:scene
-               withObject:application
-                recursive:YES];
-    [super applicationWillResignActive:application];
-}
+//-(void) performSelector:(SEL)selector onNode:(CCNode*)node withObject:(id)object recursive:(BOOL)recursive
+//{
+//    if ([node respondsToSelector:selector])
+//    {
+//        [node performSelector:selector withObject:object];
+//    }
+//    if (recursive)
+//    {
+//        for (CCNode* child in node.children)
+//        {
+//            [self performSelector:selector
+//                           onNode:child
+//                       withObject:object
+//                        recursive:YES];
+//        }
+//    }
+//}
+//
+//-(void) applicationWillResignActive:(UIApplication *)application
+//{
+//    CCScene* scene = [CCDirector sharedDirector].runningScene;
+//    [self performSelector:_cmd
+//                   onNode:scene
+//               withObject:application
+//                recursive:YES];
+//    [super applicationWillResignActive:application];
+//}
 
 @end

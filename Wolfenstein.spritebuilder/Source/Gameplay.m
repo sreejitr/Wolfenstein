@@ -22,10 +22,10 @@
 
 static NSString * const kFirstLevel = @"Level4";
 static NSString *selectedLevel = @"Level1";
-static float level1_interval = 1.6;
+static float level1_interval = 1.5;
 static float level2_interval = 1.4;
 static float level3_interval = 1.2;
-static float level4_interval = 1.7;
+static float level4_interval = 1.;
 //static NSString *currentLevelStart = @"LevelStart1";
 
 
@@ -104,7 +104,7 @@ static float level4_interval = 1.7;
     _enemyHealth.visible = TRUE;
     _gamePoints.visible = TRUE;
     healthPointsWolfe = 100;
-    healthPointsEnemy = 10;
+    healthPointsEnemy = 100;
     [self showScore];
     _gameOver = FALSE;
     powerupavailable = false;
@@ -633,9 +633,14 @@ static float level4_interval = 1.7;
             [self jumpUp];
         }
         
+    
         if (touchBeganLocation.y - touchMovedLocation.y > 50) {
-            wolfeAttackEnable = TRUE;
-            crouchCombo = TRUE;
+            if (![selectedLevel isEqualToString:@"Level1"]) {
+                wolfeAttackEnable = TRUE;
+                crouchCombo = TRUE;
+            } else {
+                wolfeAttackEnable = TRUE;
+            }
         } else {
             wolfeAttackEnable = false;
         }
@@ -1153,7 +1158,7 @@ static float level4_interval = 1.7;
         playerScore += 5000;
         CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score +5000"] fontName:@"Helvetica" fontSize:15.f];
         //        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
-        label.fontColor = [CCColor colorWithRed:1. green:1. blue:0.];
+        label.fontColor = [CCColor colorWithRed:0. green:1. blue:0.];
         [_powerUpLabel addChild:label];
         //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
         CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:2.f];
@@ -1175,7 +1180,7 @@ static float level4_interval = 1.7;
         [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:20.f];
         CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Shield Activated\nScore +3000"] fontName:@"Helvetica" fontSize:15.f];
 //        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
-        label.fontColor = [CCColor colorWithRed:0. green:0. blue:1.];
+        label.fontColor = [CCColor colorWithRed:0. green:1. blue:0.];
         [_powerUpLabel addChild:label];
         //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
         CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:20.f];
@@ -1207,7 +1212,7 @@ static float level4_interval = 1.7;
         [self performSelector:@selector(resetplayerCollidedwithPowerUp) withObject:nil afterDelay:10.f];
         CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Enemy health -10\nScore +3000"] fontName:@"Helvetica" fontSize:15.f];
 //        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
-        label.fontColor = [CCColor colorWithRed:0. green:0. blue:1.];
+        label.fontColor = [CCColor colorWithRed:0. green:1. blue:0.];
         [_powerUpLabel addChild:label];
         //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
         CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:2.f];
@@ -1365,7 +1370,7 @@ static float level4_interval = 1.7;
         [self performSelector:@selector(resetenemyCollidedwithPowerUp) withObject:nil afterDelay:20.f];
         CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Shield Activated\nScore -2000"] fontName:@"Helvetica" fontSize:15.f];
         //        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
-        label.fontColor = [CCColor colorWithRed:0. green:0. blue:1.];
+        label.fontColor = [CCColor colorWithRed:0. green:1. blue:0.];
         [_powerUpLabel addChild:label];
         //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
         CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:20.f];
@@ -1397,7 +1402,7 @@ static float level4_interval = 1.7;
         [self performSelector:@selector(resetenemyCollidedwithPowerUp) withObject:nil afterDelay:10.f];
         CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Wolfe's health -10\nScore -2000"] fontName:@"Helvetica" fontSize:15.f];
         //        label.position = [_powerUp convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
-        label.fontColor = [CCColor colorWithRed:0. green:0. blue:1.];
+        label.fontColor = [CCColor colorWithRed:0. green:1. blue:0.];
         [_powerUpLabel addChild:label];
         //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
         CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:2.f];

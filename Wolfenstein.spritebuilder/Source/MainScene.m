@@ -30,12 +30,12 @@ static NSString *currentLevelStart = @"LevelStart0";
 //    [SceneManager presentGameplayScene];
     
 //--------------------------This is to ensure that game always starts from Training level-----------------------------
-//    [GameState sharedGameState].highestUnlockedLevel = @"LevelStart0";
-//    [GameState sharedGameState].scoreLevel0 = Nil;
-//    [GameState sharedGameState].scoreLevel1 = nil;
-//    [GameState sharedGameState].scoreLevel2 = nil;
-//    [GameState sharedGameState].scoreLevel3 = nil;
-//    [GameState sharedGameState].scoreLevel4 = nil;
+    [GameState sharedGameState].highestUnlockedLevel = @"LevelStart0";
+    [GameState sharedGameState].scoreLevel0 = Nil;
+    [GameState sharedGameState].scoreLevel1 = nil;
+    [GameState sharedGameState].scoreLevel2 = nil;
+    [GameState sharedGameState].scoreLevel3 = nil;
+    [GameState sharedGameState].scoreLevel4 = nil;
 //--------------------------------------------------------------------------------------------------------------------
     
     currentLevelStart = [GameState sharedGameState].highestUnlockedLevel;
