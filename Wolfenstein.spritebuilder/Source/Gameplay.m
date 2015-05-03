@@ -84,6 +84,7 @@ static float level4_interval = 1.;
     CCSprite *_enemyFace;
     BOOL enemyMovedAway;
     CCNode *_powerUpLabel;
+    BOOL collidedOnceAlready;
 }
 
 #pragma mark - Node Lifecycle
@@ -593,10 +594,6 @@ static float level4_interval = 1.;
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-//    NSLog([NSString stringWithFormat:@"Wolfe width: %f", _wolfe.boundingBox.size.width]);
-//    NSLog([NSString stringWithFormat:@"Fister width: %f", _fister.boundingBox.size.width]);
-//    NSLog([NSString stringWithFormat:@"Level width: %f", _loadedLevel.boundingBox.size.width]);
-    
     if (![enemyCollidedwithPowerUp isEqualToString:@"Freeze"]) {
         touchBeganLocation = [touch locationInNode:self.parent];
         wolfeAttackEnable = TRUE;
@@ -612,10 +609,6 @@ static float level4_interval = 1.;
 //    [_fister idle];
     
     touchMovedLocation = [touch locationInNode:self.parent];
-//    NSLog([NSString stringWithFormat:@"touchbegan x: %f", touchBeganLocation.x]);
-//    NSLog([NSString stringWithFormat:@"touchbegan y: %f", touchBeganLocation.y]);
-//    NSLog([NSString stringWithFormat:@"touchMovedLocation x: %f", touchMovedLocation.x]);
-//    NSLog([NSString stringWithFormat:@"touchMovedLocation y: %f", touchMovedLocation.y]);
     if (!_gameOver && ![enemyCollidedwithPowerUp isEqualToString:@"Freeze"]) {
         if ((touchMovedLocation.y - touchBeganLocation.y > 50) && (touchBeganLocation.x - touchMovedLocation.x > 50) && !wolfe_jumped) {
             [self jumpLeft];
@@ -797,10 +790,6 @@ static float level4_interval = 1.;
 }
 
 - (void)walkLeftEnemy:(CGFloat) xPos {
-    //NSLog([NSString stringWithFormat:@"Wolfe x: %f", _wolfe.position.x]);
-    //NSLog([NSString stringWithFormat:@"box origin x: %f", _loadedLevel.boundingBox.origin.x]);
-    //NSLog([NSString stringWithFormat:@"Fister x: %f", _fister.position.x]);
-    //NSLog([NSString stringWithFormat:@"level width: %f", _loadedLevel.boundingBox.size.width]);
     if (_fister) {
         [_fister run];
         id moveLeft = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _fister.position.y)];
@@ -1101,17 +1090,21 @@ static float level4_interval = 1.;
     effect.position = _powerUp.position;
     [_powerUp.parent addChild:effect];
     powerupavailable = TRUE;
+    collidedOnceAlready = NO;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero powerUpcol:(CCNode *)powerUpcol {
-    playerCollidedwithPowerUp = currentPowerUp;
     CCSprite *powerup = [_powerUpPosition getChildByName:@"PowerUp" recursively:NO];
-    [effect removeFromParent];
-    [_powerUpPosition removeChild:powerup];
-    [self handlePowerUp];
-//    points += 5;
-    powerupavailable = false;
-    
+    if (!collidedOnceAlready) {
+        collidedOnceAlready = YES;
+        playerCollidedwithPowerUp = currentPowerUp;
+        [effect removeFromParent];
+        [_powerUpPosition removeChild:powerup];
+        [self handlePowerUp];
+        powerupavailable = false;
+    } else {
+        [_powerUpPosition removeChild:powerup];
+    }
     return TRUE;
 }
 
@@ -1122,7 +1115,7 @@ static float level4_interval = 1.;
         playerScore += 1000;
         CCLabelTTF *label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Health +5\nScore +1000"] fontName:@"Helvetica" fontSize:15.f];
 //        label.position = [_powerUpLabel convertToNodeSpace:[_physicsNode convertToWorldSpace:ccp(_powerUp.position.x, _powerUp.position.y)]];
-        label.fontColor = [CCColor colorWithRed:0. green:1. blue:0.];
+        label.fontColor = [CCColor colorWithRed:0. green:1. blue:1.];
         [_powerUpLabel addChild:label];
 //        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.3 position:ccp(0, _wolfe.contentSizeInPoints.height)];
         CCActionFadeOut *fadeOut = [CCActionFadeOut actionWithDuration:2.f];
@@ -1276,13 +1269,17 @@ static float level4_interval = 1.;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair enemy:(CCNode *)enemy powerUpcol:(CCNode *)powerUpcol {
-    enemyCollidedwithPowerUp = currentPowerUp;
     CCSprite *powerup = [_powerUpPosition getChildByName:@"PowerUp" recursively:NO];
-    [effect removeFromParent];
-    [_powerUpPosition removeChild:powerup];
-    [self handlePowerUpEnemy];
-    powerupavailable = false;
-    
+    if (!collidedOnceAlready) {
+        collidedOnceAlready = YES;
+        enemyCollidedwithPowerUp = currentPowerUp;
+        [effect removeFromParent];
+        [_powerUpPosition removeChild:powerup];
+        [self handlePowerUpEnemy];
+        powerupavailable = false;
+    } else {
+        [_powerUpPosition removeChild:powerup];
+    }
     return TRUE;
 }
 
