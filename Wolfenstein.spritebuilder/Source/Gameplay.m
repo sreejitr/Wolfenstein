@@ -861,7 +861,11 @@ static float level4_interval = 1.;
         if (_fister.flipX == NO) {
             dist = 30.f;
         } else {
-            dist = 0.f;
+            if (_fister.scale == 1.3) {
+                dist = -50.f;
+            } else {
+                dist = -30.f;
+            }
         }
     } else {
         dist = 0.f;
@@ -1050,7 +1054,7 @@ static float level4_interval = 1.;
             _hencher.flipX=YES;
         }
 
-    }
+    } 
 }
 
 - (void)wolfe_idle {
