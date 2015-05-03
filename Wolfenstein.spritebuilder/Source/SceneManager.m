@@ -15,7 +15,7 @@
     id s = [CCBReader loadAsScene:@"MainScene"];
     id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft
                                               duration:0.2];
-    [[CCDirector sharedDirector] presentScene:s withTransition:t];
+    [[CCDirector sharedDirector] replaceScene:s withTransition:t];
 }
 
 
@@ -24,7 +24,7 @@
     id s = [CCBReader loadAsScene:@"Gameplay"];
     id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionRight
                                               duration:0.1];
-    [[CCDirector sharedDirector] presentScene:s withTransition:t];
+    [[CCDirector sharedDirector] replaceScene:s withTransition:t];
 }
 
 +(void) presentGameplaySceneNoTransition
@@ -32,7 +32,7 @@
     id s = [CCBReader loadAsScene:@"Gameplay"];
 //    id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionRight
 //                                              duration:0.0];
-    [[CCDirector sharedDirector] presentScene:s];
+    [[CCDirector sharedDirector] replaceScene:s];
 }
 
 +(void) presentTrainingScene
@@ -40,7 +40,7 @@
     id s = [CCBReader loadAsScene:@"TutorialGameplay"];
     id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft
                                               duration:0.1];
-    [[CCDirector sharedDirector] presentScene:s withTransition:t];
+    [[CCDirector sharedDirector] replaceScene:s withTransition:t];
 }
 
 @end

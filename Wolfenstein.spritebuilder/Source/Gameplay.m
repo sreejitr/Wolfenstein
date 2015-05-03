@@ -237,11 +237,11 @@ static float level4_interval = 1.;
     
 }
 
--(void) shouldClose
-{
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self removeFromParent];
-}
+//-(void) shouldClose
+//{
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [self removeFromParent];
+//}
 
 -(void) showPopoverNamed:(NSString*)name
 {
@@ -279,9 +279,8 @@ static float level4_interval = 1.;
 //        selectedLevel = kFirstLevel;
 //        nextScene = [CCBReader loadAsScene:@"MainScene"];
 //    }
-    [self shouldClose];
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-    [[CCDirector sharedDirector] presentScene:nextScene withTransition:transition];
+    [[CCDirector sharedDirector] replaceScene:nextScene withTransition:transition];
 }
 
 
@@ -1054,7 +1053,7 @@ static float level4_interval = 1.;
             _hencher.flipX=YES;
         }
 
-    } 
+    }
 }
 
 - (void)wolfe_idle {

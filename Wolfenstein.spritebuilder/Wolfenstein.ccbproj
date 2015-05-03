@@ -94,10 +94,7 @@
 			<integer>1</integer>
 		</dict>
 		<key>Progress</key>
-		<dict>
-			<key>isDirty</key>
-			<true/>
-		</dict>
+		<dict/>
 		<key>Sprites</key>
 		<dict/>
 		<key>ccbResources</key>
