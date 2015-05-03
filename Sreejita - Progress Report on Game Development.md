@@ -211,7 +211,7 @@ Added ability to replay levels that have been unlocked
 
 Enabled game to pause when it goes to the background
 
-<b>What I did/am doing this week..
+<b>What I did this week..
 
 Added jump left and jump right movements to Fester and Fister
 
@@ -219,11 +219,9 @@ Enabled enemies to compete for power-ups (collision detection) in levels 3, 4 an
 
 Added animations/effects for all powerups for both Wolfe and enemies
 
-Add stars to level menu based on latest score saved in NSUserDefaults
+Added stars to level menu based on latest score saved in NSUserDefaults
 
-Add a win screen for after defeating Fister
+Added a win screen for after defeating Fister
 
-Add special combo attacks for new levels for both Wolfe and Enemies
-
-Improve the finish
+Improved the finish
 

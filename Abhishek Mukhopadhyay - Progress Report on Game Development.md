@@ -192,9 +192,11 @@ Improved rope mechanics
 
 Added buckets and flares to gameplay at random intervals 
 
-<b>What I did/am doing this week..
+<b>What I did this week..
  
 Swipe gestures instead of tap
 
-Improve the finish of the game
+Added StartScene, LastScene (win screen), High scores
+
+Added lives for monkey - Monkey gets one life for every 3000 bonus points he collects by knocking of the buckets
 
