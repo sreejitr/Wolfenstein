@@ -12,13 +12,10 @@
 
 +(GameState*) sharedGameState;
 
-//@property NSMutableDictionary *levelInfo;
 @property (nonatomic, assign) NSInteger scoreLevel0;
 @property int scoreLevel1;
 @property int scoreLevel2;
 @property int scoreLevel3;
 @property int scoreLevel4;
 @property NSString* highestUnlockedLevel;
-//-(BOOL) unlockNextLevel;
-
 @end

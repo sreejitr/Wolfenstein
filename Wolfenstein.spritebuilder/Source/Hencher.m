@@ -43,10 +43,6 @@
 }
 
 - (void) hit {
-    if (self.flipX == YES) {
-//        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 40, self.position.y)];
-//        [self runAction:moveBy];
-    }
     [animationManager runAnimationsForSequenceNamed:@"Hit"];
     [self performSelector:@selector(idle) withObject:nil afterDelay:1.8f];
 }

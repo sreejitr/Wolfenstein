@@ -30,8 +30,6 @@
 +(void) presentGameplaySceneNoTransition
 {
     id s = [CCBReader loadAsScene:@"Gameplay"];
-//    id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionRight
-//                                              duration:0.0];
     [[CCDirector sharedDirector] replaceScene:s];
 }
 

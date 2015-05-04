@@ -31,17 +31,8 @@ static NSString *currentLevelStart = @"LevelStart0";
     
 }
 
-//- (void)play {
-//    CCScene *gameplayScene = [CCBReader loadAsScene:@"Gameplay"];
-//    [[CCDirector sharedDirector] replaceScene:gameplayScene];
-//}
-
 - (void)play {
-//    CCScene *firstLevel = [CCBReader loadAsScene:@"Gameplay"];
-//    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-//    [[CCDirector sharedDirector] presentScene:firstLevel withTransition:transition];
-//    [SceneManager presentGameplayScene];
-    
+  
 //--------------------------This is to ensure that game always starts from Training level-----------------------------
 //    [GameState sharedGameState].highestUnlockedLevel = @"LevelStart0";
 //    [GameState sharedGameState].scoreLevel0 = Nil;
@@ -58,7 +49,6 @@ static NSString *currentLevelStart = @"LevelStart0";
        [SceneManager presentGameplayScene];
     }
     
-//     [SceneManager presentTrainingScene];
 }
 
 -(void) showPopoverNamed:(NSString*)name
@@ -69,10 +59,6 @@ static NSString *currentLevelStart = @"LevelStart0";
         [self addChild:newMenuLayer];
         _popoverMenuLayer = newMenuLayer;
         _popoverMenuLayer.mainscene = self;
-//        _levelNode.paused = YES;
-//        if ([name containsString:@"LevelStart"]) {
-//            currentLevelStart = newMenuLayer.nextLevelStart;
-//        }
     }
 }
 
@@ -82,22 +68,8 @@ static NSString *currentLevelStart = @"LevelStart0";
     {
         [_popoverMenuLayer removeFromParent];
         _popoverMenuLayer = nil;
-        
-//        NSString *highestUnlockedLevel = [GameState sharedGameState].highestUnlockedLevel;
-//        NSString *levelnumber = [highestUnlockedLevel substringFromIndex: [highestUnlockedLevel length] - 1];
-//        int level = levelnumber.intValue;
-//        int currentLevel = [currentLevelStart substringFromIndex: [currentLevelStart length] - 1].intValue;
-//        if (level == currentLevel) {
-//            [GameState sharedGameState].highestUnlockedLevel = newMenuLayer.nextLevelStart;
-//        }
      
     }
 }
 
-//- (void)train {
-////    CCScene *firstLevel = [CCBReader loadAsScene:@"TutorialGameplay"];
-////    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-////    [[CCDirector sharedDirector] presentScene:firstLevel withTransition:transition];
-//    [SceneManager presentTrainingScene];
-//}
 @end

@@ -110,7 +110,6 @@
 }
 
 - (void)pauseGame {
-//    Gameplay* _gameplay = (Gameplay*)self.scene.children.firstObject;
     [_gamePlay showPopoverNamed:@"PauseMenuLayer"];
 }
 

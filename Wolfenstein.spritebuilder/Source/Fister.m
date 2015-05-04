@@ -61,7 +61,6 @@
         }
     }
     [animationManager runAnimationsForSequenceNamed:@"Hit"];
-//    [self performSelector:@selector(idle) withObject:nil afterDelay:1.8f];
 }
 
 - (void) groundhit {

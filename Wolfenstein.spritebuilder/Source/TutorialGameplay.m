@@ -18,8 +18,6 @@
 
 
 static NSString *thisLevel = @"Level0";
-//static NSString * const kFirstLevel = @"Level0";
-//static NSString *thisLevelStart = @"LevelStart0";
 
 @implementation TutorialGameplay {
     CCNode *_levelNode;
@@ -45,20 +43,11 @@ static NSString *thisLevel = @"Level0";
     BOOL jumped_up;
     BOOL jumped_left;
     BOOL jumped_right;
-//    MenuLayer *_popoverMenuLayer;
 }
 
 - (void)didLoadFromCCB {
     _physicsNode.collisionDelegate = self;
-//    [self showPopoverNamed:thisLevelStart];
-
-//    _bunny.position = ccp(370, 140);
-//    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
-        _instructions.string = [NSString stringWithFormat:@"Tap anywhere on the screen to hit Dead Bunny"];
-//    } else if (!_loadedLevel.nextLevelName) {
-//        _instructions.string = [NSString stringWithFormat:@"Swipe left to move away from Dead Bunny"];
-//    }
-    
+    _instructions.string = [NSString stringWithFormat:@"Tap anywhere on the screen to hit Dead Bunny"];
     _instructions.visible = true;
     [self showScore];
     points = 0;
@@ -73,12 +62,6 @@ static NSString *thisLevel = @"Level0";
     jumped_left = FALSE;
     jumped_right = FALSE;
     swiped_down = FALSE;
-    
-    
-//}
-
-//-(void) loadLevel: (NSString*) levelName
-//{
     _loadedLevel = (Level *) [CCBReader load:thisLevel owner:self];
     [_levelNode addChild:_loadedLevel];
     self.userInteractionEnabled = TRUE;
@@ -86,78 +69,28 @@ static NSString *thisLevel = @"Level0";
     _bunny = (DeadBunny*)[CCBReader load:@"DeadBunny"];
     [_physicsNode addChild:_wolfe];
     [_physicsNode addChild:_bunny];
-    //    _wolfe.position = ccp(230, 130);
     CGPoint offsetFromParentCenter = CGPointMake(200, 130);
     _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
                                   self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
     offsetFromParentCenter = CGPointMake(340, 140);
     _bunny.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
                                   self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
-//    if (_popoverMenuLayer)
-//    {
-//        [_popoverMenuLayer removeFromParent];
-//        _popoverMenuLayer = nil;
-//        _levelNode.paused = NO;
-//    }
     CCActionFollow *followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
     _physicsNode.position = [followWolfe currentOffset];
     [_physicsNode runAction:followWolfe];
 }
 
-//-(void) showPopoverNamed:(NSString*)name
-//{
-//    if (_popoverMenuLayer == nil)
-//    {
-//        MenuLayer* newMenuLayer = (MenuLayer*)[CCBReader load:name];
-//        [self addChild:newMenuLayer];
-//        _popoverMenuLayer = newMenuLayer;
-//        _popoverMenuLayer.tutorialGamePlay = self;
-//        _levelNode.paused = YES;
-//        if ([name containsString:@"LevelStart"]) {
-//            thisLevelStart = newMenuLayer.nextLevelStart;
-//        }
-//    }
-//}
-//
-//-(void) removePopover
-//{
-//    if (_popoverMenuLayer)
-//    {
-//        [_popoverMenuLayer removeFromParent];
-//        _popoverMenuLayer = nil;
-//        _levelNode.paused = NO;
-//    }
-//}
-
-
 - (void)onEnter {
     [super onEnter];
-    
-//    CCActionFollow *followWolfe = [CCActionFollow actionWithTarget:_wolfe worldBoundary:[_loadedLevel boundingBox]];
-//    _physicsNode.position = [followWolfe currentOffset];
-//    [_physicsNode runAction:followWolfe];
+
 }
 
 - (void)loadNextLevel {
-//    thisLevel = _loadedLevel.nextLevelName;
-    
-//    CCScene *nextScene = nil;
-    
-//    if (thisLevel) {
-//        nextScene = [CCBReader loadAsScene:@"TutorialGameplay"];
-//    } else {
-//        thisLevel = kFirstLevel;
-//        nextScene = [CCBReader loadAsScene:@"Gameplay"];
-//    }
-    
-//    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-//    [[CCDirector sharedDirector] presentScene:nextScene withTransition:transition];
     [SceneManager presentGameplayScene];
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
-//    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"]) {
     if (numOfHits < 4 && fabs(_wolfe.position.x - _bunny.position.x) <= 140 && !wolfe_jumped) {
         [self wolfeAttackBegan];
         _instructions.string = [NSString stringWithFormat:@"Thats awesome!! Now hit Dead Bunny 3 times.."];
@@ -202,9 +135,7 @@ static NSString *thisLevel = @"Level0";
 }
 
 -(void) touchEnded:(CCTouch*)touch withEvent:(CCTouchEvent *)event{
-//    if () {
-//        [self wolfeAttackBegan];
-//    }
+
 }
 
 
@@ -335,15 +266,6 @@ static NSString *thisLevel = @"Level0";
     facingeachother = TRUE;
 }
 
-//- (void) crouchComboAttack {
-//    [_wolfe crouchcombo];
-//    [_bunny hit];
-//    points += 1000;
-//    [self showScore];
-//    
-//    
-//}
-
 
 -(void)update:(CCTime)delta
 {
@@ -360,8 +282,6 @@ static NSString *thisLevel = @"Level0";
     }
     
     [self showScore];
-//    if ([_loadedLevel.nextLevelName isEqualToString:@"Level0-1"] && numOfHits >= 6) {
-//        [self performSelector:@selector(loadNextLevel) withObject:nil afterDelay:0.5f];
     if (numOfHits >= 4) {
         if (!swiped_left) {
             _instructions.fontSize = 15;
