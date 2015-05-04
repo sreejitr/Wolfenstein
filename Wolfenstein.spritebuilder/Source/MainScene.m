@@ -1,5 +1,8 @@
 #import "MainScene.h"
 #import "SceneManager.h"
+#import "Wolfe.h"
+#import "Gaso.h"
+#import "Hencher.h"
 #import "Fister.h"
 #import "MenuLayer.h"
 #import "GameState.h"
@@ -8,14 +11,24 @@
 static NSString *currentLevelStart = @"LevelStart0";
 
 @implementation MainScene {
-   __weak Fister *_fister;
+    __weak Wolfe *_wolfe;
+    __weak Gaso *_gaso;
+    __weak Hencher *_hencher;
+    __weak Fister *_fister;
+    __weak Fister *_fisterBoss;
     MenuLayer *_popoverMenuLayer;
     MenuLayer* newMenuLayer;
 }
 
 - (void)didLoadFromCCB {
+    _wolfe.physicsBody.affectedByGravity = FALSE;
+    _gaso.physicsBody.affectedByGravity = FALSE;
+    _hencher.physicsBody.affectedByGravity = FALSE;
+    _fister.physicsBody.affectedByGravity = FALSE;
+    _fisterBoss.physicsBody.affectedByGravity = FALSE;
     _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
     [_fister performSelector:@selector(idle) withObject:nil afterDelay:1.f];
+    
 }
 
 //- (void)play {
