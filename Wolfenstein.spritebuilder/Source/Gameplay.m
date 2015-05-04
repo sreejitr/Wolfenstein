@@ -22,10 +22,10 @@
 
 static NSString * const kFirstLevel = @"Level4";
 static NSString *selectedLevel = @"Level1";
-static float level1_interval = 1.5;
-static float level2_interval = 1.4;
-static float level3_interval = 1.2;
-static float level4_interval = 1.;
+static float level1_interval = 1.4;
+static float level2_interval = 1.2;
+static float level3_interval = 1.;
+static float level4_interval = 0.8;
 //static NSString *currentLevelStart = @"LevelStart1";
 
 
