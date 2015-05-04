@@ -301,7 +301,7 @@ static float level4_interval = 0.8;
         } else if (_gaso) {
             xpos = _gaso.position.x;
             [_gaso correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
-        } else if (_hencher) {
+        } else {
             xpos = _hencher.position.x;
             [_hencher correctPositionOnScreenAtPosition:_loadedLevel.positionInPoints withWidth:_loadedLevel.contentSizeInPoints];
         }
