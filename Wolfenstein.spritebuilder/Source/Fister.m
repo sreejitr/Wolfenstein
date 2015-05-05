@@ -59,6 +59,11 @@
             id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(position.x - 160, self.position.y)];
             [self runAction:moveBy];
         }
+    } else {
+        if (self.position.x <= position.x + 100) {
+            id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(position.x + 100, self.position.y)];
+            [self runAction:moveBy];
+        }
     }
     [animationManager runAnimationsForSequenceNamed:@"Hit"];
 }

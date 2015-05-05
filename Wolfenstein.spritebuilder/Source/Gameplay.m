@@ -317,6 +317,7 @@ static float level4_interval = 0.8;
         if (totaltimeelapsed >= 20.f && !powerupsactivated) {
             [self loadpowerups];
             powerupsactivated = TRUE;
+            totaltimeelapsed = 0.0f;
         }
         else if ((totaltimeelapsed > 15.f && powerupsactivated && ![playerCollidedwithPowerUp isEqualToString:@"Shield"] && ![enemyCollidedwithPowerUp isEqualToString:@"Shield"]) || (totaltimeelapsed > 20.f && powerupsactivated && ([playerCollidedwithPowerUp isEqualToString:@"Shield"] || [enemyCollidedwithPowerUp isEqualToString:@"Shield"]))) {
             [self loadpowerups];
@@ -1070,6 +1071,7 @@ static float level4_interval = 0.8;
     CCSprite *powerup = [_powerUpPosition getChildByName:@"PowerUp" recursively:NO];
     if (!collidedOnceAlready) {
         collidedOnceAlready = YES;
+        totaltimeelapsed = 0.0f;
         playerCollidedwithPowerUp = currentPowerUp;
         [effect removeFromParent];
         [_powerUpPosition removeChild:powerup];
@@ -1232,6 +1234,7 @@ static float level4_interval = 0.8;
     CCSprite *powerup = [_powerUpPosition getChildByName:@"PowerUp" recursively:NO];
     if (!collidedOnceAlready) {
         collidedOnceAlready = YES;
+        totaltimeelapsed = 0.0f;
         enemyCollidedwithPowerUp = currentPowerUp;
         [effect removeFromParent];
         [_powerUpPosition removeChild:powerup];
@@ -1309,7 +1312,12 @@ static float level4_interval = 0.8;
         if (_fister) {
             effect.position = _fister.position;
             [_fister.parent addChild:effect];
-            _fister.color = [CCColor colorWithRed:0. green:1.0 blue:1.0];
+            if ([selectedLevel isEqualToString:@"Level3"]) {
+                _fister.color = [CCColor colorWithRed:0. green:1.0 blue:.6];
+            } else {
+                _fister.color = [CCColor colorWithRed:0. green:.9 blue:.8];
+            }
+            
         } else if (_hencher) {
             effect.position = _hencher.position;
             [_hencher.parent addChild:effect];
