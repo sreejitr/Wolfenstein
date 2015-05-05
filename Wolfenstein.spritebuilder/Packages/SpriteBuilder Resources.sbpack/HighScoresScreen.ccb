@@ -643,7 +643,7 @@
 								<key>value</key>
 								<array>
 									<real>0.20000000298023224</real>
-									<real>1</real>
+									<real>1.2999999523162842</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -1183,7 +1183,7 @@
 								<key>value</key>
 								<array>
 									<real>0.20000000298023224</real>
-									<real>1</real>
+									<real>1.2999999523162842</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -1723,7 +1723,7 @@
 								<key>value</key>
 								<array>
 									<real>0.20000000298023224</real>
-									<real>1</real>
+									<real>1.2999999523162842</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -2263,7 +2263,7 @@
 								<key>value</key>
 								<array>
 									<real>0.20000000298023224</real>
-									<real>1</real>
+									<real>1.2999999523162842</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -2803,7 +2803,7 @@
 								<key>value</key>
 								<array>
 									<real>0.20000000298023224</real>
-									<real>1</real>
+									<real>1.2999999523162842</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -2951,6 +2951,8 @@
 								</array>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>
@@ -3093,9 +3095,9 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.97360050678253174</real>
-							<real>0.96921271085739136</real>
-							<integer>0</integer>
+							<real>0.02500000037252903</real>
+							<real>0.045000001788139343</real>
+							<integer>2</integer>
 							<integer>2</integer>
 							<integer>2</integer>
 						</array>
@@ -3118,8 +3120,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.76149433851242065</real>
-							<real>0.78815525770187378</real>
+							<real>0.53625959157943726</real>
+							<real>0.81947112083435059</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -3268,7 +3270,7 @@
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>17</real>
+							<real>13</real>
 							<integer>0</integer>
 						</array>
 					</dict>
