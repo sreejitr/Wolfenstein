@@ -492,7 +492,12 @@ static float level4_interval = 0.8;
                 [_fister runAction:moveBy];
             }
         }
-        [_fister punch];
+        if ([selectedLevel isEqualToString:@"Level3"]) {
+            [_fister jabcombo];
+        } else {
+            [_fister punch];
+        }
+        
     } else if (_gaso) {
         if (_gaso.flipX == NO) {
             id moveBy = [CCActionMoveTo actionWithDuration:0.10 position:ccp(_wolfe.position.x + moveToVal, _gaso.position.y)];

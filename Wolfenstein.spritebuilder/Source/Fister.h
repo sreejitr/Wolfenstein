@@ -18,4 +18,5 @@
 - (void) correctPositionOnScreenAtPosition:(CGPoint)loadedLevelPosition withWidth:(CGSize)width;
 - (void) jabtaunt;
 - (void) jump;
+- (void) jabcombo;
 @end

@@ -46,6 +46,10 @@
 }
 
 - (void) jabcombo {
+    if (self.flipX == NO) {
+        id moveBy = [CCActionMoveTo actionWithDuration:0.30 position:ccp(self.position.x - 150, self.position.y)];
+        [self runAction:moveBy];
+    }
     [animationManager runAnimationsForSequenceNamed:@"Jabcombo"];
 }
 
