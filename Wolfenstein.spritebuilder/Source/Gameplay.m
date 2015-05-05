@@ -729,7 +729,6 @@ static float level4_interval = 0.8;
 - (void)walkRightEnemy:(CGFloat) xPos {
     if (_fister) {
         _fister.flipX=YES;
-        NSLog(@"Right");
         [_fister run];
         id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _fister.position.y)];
         [_fister runAction:moveRight];
@@ -737,14 +736,12 @@ static float level4_interval = 0.8;
 
     } else if (_gaso) {
         _gaso.flipX=YES;
-        NSLog(@"Right");
         [_gaso run];
         id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _gaso.position.y)];
         [_gaso runAction:moveRight];
         [self performSelector:@selector(gaso_idle) withObject:nil afterDelay:0.5f];
     } else if (_hencher) {
         _hencher.flipX=YES;
-        NSLog(@"Right");
         [_hencher run];
         id moveRight = [CCActionMoveTo actionWithDuration:0.10 position:ccp(xPos, _hencher.position.y)];
         [_hencher runAction:moveRight];
