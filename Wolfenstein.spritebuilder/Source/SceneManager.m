@@ -18,6 +18,14 @@
     [[CCDirector sharedDirector] replaceScene:s withTransition:t];
 }
 
++(void) presentHighScoresScreen
+{
+    id s = [CCBReader loadAsScene:@"HighScoresScreen"];
+    id t = [CCTransition transitionMoveInWithDirection:CCTransitionDirectionLeft
+                                              duration:0.2];
+    [[CCDirector sharedDirector] replaceScene:s withTransition:t];
+}
+
 
 +(void) presentGameplayScene
 {

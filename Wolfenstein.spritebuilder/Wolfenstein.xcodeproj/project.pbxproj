@@ -22,6 +22,7 @@
 		172864AC1ADF599900529925 /* DeadBunny.m in Sources */ = {isa = PBXBuildFile; fileRef = 172864AB1ADF599900529925 /* DeadBunny.m */; };
 		17289D8A1AD8A54100BF4485 /* Health.m in Sources */ = {isa = PBXBuildFile; fileRef = 17289D891AD8A54100BF4485 /* Health.m */; };
 		172A2AD31ADC6F1B00831D40 /* barHorizontal_green_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = 172A2AD21ADC6F1A00831D40 /* barHorizontal_green_mid.png */; };
+		173096091AF935A900E6E290 /* HighScoresScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 173096081AF935A900E6E290 /* HighScoresScreen.m */; };
 		173DCE111AC9F988003161AE /* CCActionFollow+CurrentOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = 173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */; };
 		17E6944C1AE0845A0087BE08 /* Gaso.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E6944B1AE0845A0087BE08 /* Gaso.m */; };
 		17E6945D1AE0BA670087BE08 /* Hencher.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E6945C1AE0BA670087BE08 /* Hencher.m */; };
@@ -199,6 +200,8 @@
 		17289D881AD8A54100BF4485 /* Health.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Health.h; path = Source/Health.h; sourceTree = "<group>"; };
 		17289D891AD8A54100BF4485 /* Health.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Health.m; path = Source/Health.m; sourceTree = "<group>"; };
 		172A2AD21ADC6F1A00831D40 /* barHorizontal_green_mid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barHorizontal_green_mid.png; sourceTree = "<group>"; };
+		173096071AF935A900E6E290 /* HighScoresScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighScoresScreen.h; path = Source/HighScoresScreen.h; sourceTree = "<group>"; };
+		173096081AF935A900E6E290 /* HighScoresScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HighScoresScreen.m; path = Source/HighScoresScreen.m; sourceTree = "<group>"; };
 		173DCE0F1AC9F988003161AE /* CCActionFollow+CurrentOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCActionFollow+CurrentOffset.h"; path = "Source/CCActionFollow+CurrentOffset.h"; sourceTree = "<group>"; };
 		173DCE101AC9F988003161AE /* CCActionFollow+CurrentOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CCActionFollow+CurrentOffset.m"; path = "Source/CCActionFollow+CurrentOffset.m"; sourceTree = "<group>"; };
 		17E6944A1AE0845A0087BE08 /* Gaso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gaso.h; path = Source/Gaso.h; sourceTree = "<group>"; };
@@ -501,6 +504,8 @@
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
+				173096071AF935A900E6E290 /* HighScoresScreen.h */,
+				173096081AF935A900E6E290 /* HighScoresScreen.m */,
 				17F8DC761AE8B84900E5DAB2 /* GameState.h */,
 				17F8DC771AE8B84900E5DAB2 /* GameState.m */,
 				170604701ABB779500B3EB52 /* Gameplay.h */,
@@ -924,6 +929,7 @@
 				17E6944C1AE0845A0087BE08 /* Gaso.m in Sources */,
 				173DCE111AC9F988003161AE /* CCActionFollow+CurrentOffset.m in Sources */,
 				17F8DC781AE8B84900E5DAB2 /* GameState.m in Sources */,
+				173096091AF935A900E6E290 /* HighScoresScreen.m in Sources */,
 				1706047B1ABB807900B3EB52 /* Level.m in Sources */,
 				17F8DC561AE8385700E5DAB2 /* MenuLayer.m in Sources */,
 				1728649B1ADF319F00529925 /* TutorialGameplay.m in Sources */,

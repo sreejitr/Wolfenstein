@@ -51,6 +51,10 @@ static NSString *currentLevelStart = @"LevelStart0";
     
 }
 
+- (void) highScores {
+    [SceneManager presentHighScoresScreen];
+}
+
 -(void) showPopoverNamed:(NSString*)name
 {
     if (_popoverMenuLayer == nil)

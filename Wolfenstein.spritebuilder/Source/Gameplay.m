@@ -219,16 +219,28 @@ static float level4_interval = 0.8;
     int level = levelnumber.intValue;
     int currentLevel = [selectedLevel substringFromIndex: [selectedLevel length] - 1].intValue;
     if (currentLevel == 1) {
-        [GameState sharedGameState].scoreLevel1 = playerScore;
+        gameState.scoreLevel1 = playerScore;
+        if (gameState.highestScoreLevel1 < playerScore) {
+            gameState.highestScoreLevel1 = playerScore;
+        }
     } else if (currentLevel == 2) {
-        [GameState sharedGameState].scoreLevel2 = playerScore;
+        gameState.scoreLevel2 = playerScore;
+        if (gameState.highestScoreLevel2 < playerScore) {
+            gameState.highestScoreLevel2 = playerScore;
+        }
     } else if (currentLevel == 3) {
-        [GameState sharedGameState].scoreLevel3 = playerScore;
+        gameState.scoreLevel3 = playerScore;
+        if (gameState.highestScoreLevel3 < playerScore) {
+            gameState.highestScoreLevel3 = playerScore;
+        }
     } else if (currentLevel == 4) {
-        [GameState sharedGameState].scoreLevel4 = playerScore;
+        gameState.scoreLevel4 = playerScore;
+        if (gameState.highestScoreLevel4 < playerScore) {
+            gameState.highestScoreLevel4 = playerScore;
+        }
     }
     if (level == currentLevel) {
-        [GameState sharedGameState].highestUnlockedLevel = newMenuLayer.nextLevelStart;
+        gameState.highestUnlockedLevel = newMenuLayer.nextLevelStart;
     }
     
 }

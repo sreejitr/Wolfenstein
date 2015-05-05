@@ -371,6 +371,9 @@ static NSString *thisLevel = @"Level0";
     int currentLevel = [thisLevel substringFromIndex: [thisLevel length] - 1].intValue;
     if (currentLevel == 0) {
         [GameState sharedGameState].scoreLevel0 = points;
+        if ([GameState sharedGameState].highestScoreLevel0 < points) {
+            [GameState sharedGameState].highestScoreLevel0 = points;
+        }
     }
     if (level == currentLevel) {
         [GameState sharedGameState].highestUnlockedLevel = @"LevelStart1";

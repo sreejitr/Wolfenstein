@@ -13,4 +13,5 @@
 +(void) presentGameplayScene;
 +(void) presentGameplaySceneNoTransition;
 +(void) presentTrainingScene;
++(void) presentHighScoresScreen;
 @end

@@ -12,10 +12,15 @@
 
 +(GameState*) sharedGameState;
 
-@property (nonatomic, assign) NSInteger scoreLevel0;
+@property int scoreLevel0;
 @property int scoreLevel1;
 @property int scoreLevel2;
 @property int scoreLevel3;
 @property int scoreLevel4;
+@property int highestScoreLevel0;
+@property int highestScoreLevel1;
+@property int highestScoreLevel2;
+@property int highestScoreLevel3;
+@property int highestScoreLevel4;
 @property NSString* highestUnlockedLevel;
 @end

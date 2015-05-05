@@ -105,5 +105,73 @@ static NSString* KeyForScoreLevel4 = @"scoreLevel4";
     return (score > 0 ? score : 0);
 }
 
+static NSString* KeyForHighestScoreLevel0 = @"highestScoreLevel0";
+-(void) setHighestScoreLevel0:(NSInteger)score
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:score forKey:KeyForHighestScoreLevel0];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
+-(NSInteger) highestScoreLevel0
+{
+    NSInteger score = [[NSUserDefaults standardUserDefaults]
+                       integerForKey:KeyForHighestScoreLevel0];
+    return (score > 0 ? score : 0);
+}
+
+static NSString* KeyForHighestScoreLevel1 = @"highestScoreLevel1";
+-(void) setHighestScoreLevel1:(NSInteger)score
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:score forKey:KeyForHighestScoreLevel1];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSInteger) highestScoreLevel1
+{
+    NSInteger score = [[NSUserDefaults standardUserDefaults]
+                       integerForKey:KeyForHighestScoreLevel1];
+    return (score > 0 ? score : 0);
+}
+
+static NSString* KeyForHighestScoreLevel2 = @"highestScoreLevel2";
+-(void) setHighestScoreLevel2:(NSInteger)score
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:score forKey:KeyForHighestScoreLevel2];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSInteger) highestScoreLevel2
+{
+    NSInteger score = [[NSUserDefaults standardUserDefaults]
+                       integerForKey:KeyForHighestScoreLevel2];
+    return (score > 0 ? score : 0);
+}
+
+static NSString* KeyForHighestScoreLevel3 = @"highestScoreLevel3";
+-(void) setHighestScoreLevel3:(NSInteger)score
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:score forKey:KeyForHighestScoreLevel3];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSInteger) highestScoreLevel3
+{
+    NSInteger score = [[NSUserDefaults standardUserDefaults]
+                       integerForKey:KeyForHighestScoreLevel3];
+    return (score > 0 ? score : 0);
+}
+
+static NSString* KeyForHighestScoreLevel4 = @"highestScoreLevel4";
+-(void) setHighestScoreLevel4:(NSInteger)score
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:score forKey:KeyForHighestScoreLevel4];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSInteger) highestScoreLevel4
+{
+    NSInteger score = [[NSUserDefaults standardUserDefaults]
+                       integerForKey:KeyForHighestScoreLevel4];
+    return (score > 0 ? score : 0);
+}
 @end
