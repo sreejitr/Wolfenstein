@@ -223,5 +223,30 @@ Added stars to level menu based on latest score saved in NSUserDefaults
 
 Added a win screen for after defeating Fister
 
-Improved the finish
+
+
+#Date: May 5th 2015
+
+<b>What was the goal for this week..
+
+Improve the finish
+
+<b>What I did this week..
+
+Added High scores for all levels
+
+Recalibrated the difficulty of the levels based on feedback from friends who played the game
+
+Transfered default values for enemies to NSUserdefaults
+
+Reset the timer for power-ups when player collides so that there's only one powerup active at a time
+
+Changed Fester's attack animation and shield color
+
+Cleaned up the code, removed dead code, extra images, NSLogs
+
+Updated wiki
+
+
+
 
