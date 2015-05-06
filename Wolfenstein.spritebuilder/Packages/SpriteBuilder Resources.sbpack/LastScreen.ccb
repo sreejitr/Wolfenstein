@@ -188,7 +188,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.49999997019767761</real>
+							<real>0.5</real>
 							<real>0.14099723100662231</real>
 							<integer>0</integer>
 							<integer>2</integer>
@@ -213,8 +213,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>1.0664653778076172</real>
+							<real>1.1555447578430176</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -237,8 +237,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>30</real>
-							<real>30</real>
+							<real>40</real>
+							<real>40</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -283,7 +283,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>interface_buttons-2-1/buttons-35.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -294,7 +294,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>interface_buttons-2-1/buttons-35.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -318,7 +318,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>interface_buttons-2-1/buttons-35.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -337,7 +337,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>interface_buttons-2-1/buttons-36.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -354,7 +354,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Helvetica</string>
+						<string>AmericanTypewriter-Bold</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -562,7 +562,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Helvetica</string>
+						<string>AmericanTypewriter-Bold</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -774,7 +774,7 @@ Background images by MindChamber works
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Helvetica</string>
+						<string>AmericanTypewriter-Bold</string>
 					</dict>
 					<dict>
 						<key>name</key>
