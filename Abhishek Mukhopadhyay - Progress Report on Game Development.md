@@ -174,7 +174,7 @@ Improve the finish of the game
 
 
 
-#Date: April 28st 2015
+#Date: April 28th 2015
 
 <b>What was the goal for last week..
 
