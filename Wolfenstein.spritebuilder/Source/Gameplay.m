@@ -72,9 +72,6 @@ static float level4_interval = 0.8;
     NSString *playerCollidedwithPowerUp;
     NSString *enemyCollidedwithPowerUp;
     NSDictionary *enemy;
-    NSDictionary *fister_v;
-    NSDictionary *gaso_v;
-    NSDictionary *hencher_v;
     MenuLayer *_menuLayer;
     MenuLayer *newMenuLayer;
     MenuLayer *_popoverMenuLayer;
@@ -132,37 +129,9 @@ static float level4_interval = 0.8;
     _wolfe.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + offsetFromParentCenter.x,
                                   self.contentSize.height * self.anchorPoint.y + offsetFromParentCenter.y);
     rightface = TRUE;
-    offsetFromParentCenter = CGPointMake(330, 140);
-    fister_v = @{
-                 @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
-                 @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
-                 @"maintainDistanceFromWolfe" : @150,
-                 @"moveToAfterPunchAttack" : @120,
-                 @"walkRightTo" : @138,
-                 @"walkLeftTo" : @150,
-                 @"wolfeDistBeforeAttack" : @140
-                 };
-    offsetFromParentCenter = CGPointMake(290, 120);
-    gaso_v = @{
-               @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
-               @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
-               @"maintainDistanceFromWolfe" : @150,
-               @"moveToAfterPunchAttack" : @105,
-               @"walkRightTo" : @155,
-               @"walkLeftTo" : @110,
-               @"wolfeDistBeforeAttack" : @120
-               };
-    hencher_v = @{
-                  @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
-                  @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
-                  @"maintainDistanceFromWolfe" : @160,
-                  @"moveToAfterPunchAttack" : @120,
-                  @"walkRightTo" : @145,
-                  @"walkLeftTo" : @160,
-                  @"wolfeDistBeforeAttack" : @150
-                  };
+    
     if ([_loadedLevel.nextLevelName isEqualToString:@"Level2"]) {
-        enemy = gaso_v;
+        enemy = gameState.gasoDefaults;
         _gaso = (Gaso*)[CCBReader load:@"Gaso"];
         [_physicsNode addChild:_gaso];
         _gaso.position = CGPointMake(self.contentSize.width * self.anchorPoint.x + [enemy[@"offsetFromParentCenterX"] floatValue],
@@ -171,7 +140,7 @@ static float level4_interval = 0.8;
 
     }
     else if ([_loadedLevel.nextLevelName isEqualToString:@"Level3"]) {
-        enemy = hencher_v;
+        enemy = gameState.hencherDefaults;
         _hencher = (Hencher*)[CCBReader load:@"Hencher"];
         _hencher.scale = 0.5f;
         [_physicsNode addChild:_hencher];
@@ -183,7 +152,7 @@ static float level4_interval = 0.8;
     }
     else {
         _fister = (Fister*)[CCBReader load:@"Fister"];
-        enemy = fister_v;
+        enemy = gameState.fisterDefaults;
         if ([_loadedLevel.nextLevelName isEqualToString:@"Level4"]) {
             _fister.color = [CCColor colorWithRed:0.3 green:1.0 blue:1.0];
         }

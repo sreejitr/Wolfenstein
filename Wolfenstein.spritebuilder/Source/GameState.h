@@ -23,4 +23,7 @@
 @property int highestScoreLevel3;
 @property int highestScoreLevel4;
 @property NSString* highestUnlockedLevel;
+@property NSDictionary *fisterDefaults;
+@property NSDictionary *gasoDefaults;
+@property NSDictionary *hencherDefaults;
 @end

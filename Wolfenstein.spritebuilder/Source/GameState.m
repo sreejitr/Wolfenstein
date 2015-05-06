@@ -17,6 +17,9 @@ static dispatch_once_t onceToken;
 {
     dispatch_once(&onceToken, ^{
         sharedInstance = [[GameState alloc] init];
+        [sharedInstance setFisterDefaults];
+        [sharedInstance setGasoDefaults];
+        [sharedInstance setHencherDefaults];
     });
     return sharedInstance;
 }
@@ -174,4 +177,86 @@ static NSString* KeyForHighestScoreLevel4 = @"highestScoreLevel4";
                        integerForKey:KeyForHighestScoreLevel4];
     return (score > 0 ? score : 0);
 }
+
+static NSString* KeyForFisterDefaults = @"fisterDefaults";
+-(void) setFisterDefaults
+{
+    NSDictionary *fister_v;
+   
+    CGPoint offsetFromParentCenter = CGPointMake(330, 140);
+    fister_v = @{
+                 @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
+                 @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
+                 @"maintainDistanceFromWolfe" : @150,
+                 @"moveToAfterPunchAttack" : @120,
+                 @"walkRightTo" : @138,
+                 @"walkLeftTo" : @150,
+                 @"wolfeDistBeforeAttack" : @140
+                 };
+    [[NSUserDefaults standardUserDefaults] setObject:fister_v forKey:KeyForFisterDefaults];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSDictionary*) fisterDefaults
+{
+    NSDictionary *fister_v = [[NSUserDefaults standardUserDefaults]
+                       dictionaryForKey:KeyForFisterDefaults];
+    return fister_v;
+}
+
+static NSString* KeyForGasoDefaults = @"gasoDefaults";
+-(void) setGasoDefaults
+{
+    NSDictionary *gaso_v;
+    
+    CGPoint offsetFromParentCenter = CGPointMake(290, 120);
+    gaso_v = @{
+               @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
+               @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
+               @"maintainDistanceFromWolfe" : @150,
+               @"moveToAfterPunchAttack" : @105,
+               @"walkRightTo" : @155,
+               @"walkLeftTo" : @110,
+               @"wolfeDistBeforeAttack" : @120
+               };
+
+    [[NSUserDefaults standardUserDefaults] setObject:gaso_v forKey:KeyForGasoDefaults];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSDictionary*) gasoDefaults
+{
+    NSDictionary *gaso_v = [[NSUserDefaults standardUserDefaults]
+                              dictionaryForKey:KeyForGasoDefaults];
+    return gaso_v;
+}
+
+
+static NSString* KeyForHencherDefaults = @"hencherDefaults";
+-(void) setHencherDefaults
+{
+    NSDictionary *hencher_v;
+    
+    CGPoint offsetFromParentCenter = CGPointMake(290, 120);
+    hencher_v = @{
+              @"offsetFromParentCenterX": [NSNumber numberWithFloat:offsetFromParentCenter.x],
+              @"offsetFromParentCenterY": [NSNumber numberWithFloat:offsetFromParentCenter.y],
+              @"maintainDistanceFromWolfe" : @160,
+              @"moveToAfterPunchAttack" : @120,
+              @"walkRightTo" : @145,
+              @"walkLeftTo" : @160,
+              @"wolfeDistBeforeAttack" : @150
+              };
+    [[NSUserDefaults standardUserDefaults] setObject:hencher_v forKey:KeyForHencherDefaults];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSDictionary*) hencherDefaults
+{
+    NSDictionary *hencher_v = [[NSUserDefaults standardUserDefaults]
+                            dictionaryForKey:KeyForHencherDefaults];
+    return hencher_v;
+}
+
+
 @end
