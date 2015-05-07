@@ -153,8 +153,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -189,7 +187,7 @@
 						<key>value</key>
 						<array>
 							<real>0.5</real>
-							<real>0.14099723100662231</real>
+							<real>0.1719496101140976</real>
 							<integer>0</integer>
 							<integer>2</integer>
 							<integer>2</integer>
@@ -515,7 +513,7 @@
 						<key>value</key>
 						<array>
 							<real>0.49999997019767761</real>
-							<real>0.26782321929931641</real>
+							<real>0.30115655064582825</real>
 							<integer>1</integer>
 							<integer>2</integer>
 							<integer>2</integer>
@@ -688,6 +686,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -722,7 +722,7 @@
 						<key>value</key>
 						<array>
 							<real>0.5</real>
-							<real>0.43467298150062561</real>
+							<real>0.44895869493484497</real>
 							<integer>0</integer>
 							<integer>2</integer>
 							<integer>2</integer>
@@ -783,7 +783,7 @@ Background images by MindChamber works
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>18</real>
+							<real>20</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -803,8 +803,8 @@ Background images by MindChamber works
 						<key>value</key>
 						<array>
 							<real>1</real>
-							<real>0.50196081399917603</real>
-							<real>0.0</real>
+							<real>0.40000000596046448</real>
+							<real>0.40000000596046448</real>
 							<real>1</real>
 						</array>
 					</dict>
